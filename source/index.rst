@@ -13,6 +13,7 @@ Content
    1.rst
    2.rst
    3.rst
+   4.rst
 
 Indices and tables
 ==================
