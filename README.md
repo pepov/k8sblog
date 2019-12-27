@@ -1,2 +1,1 @@
-# blog
-# blog
+# Blogs as Code
