@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    job-name: blogcronjob
+  name: blogcronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            fsGroup: 1000
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+          - image: eumel8/python-none-root
+            imagePullPolicy: Always
+            name: testjob
+            command: ["sh","-c"]
+            args: ["git clone https://github.com/eumel8/blog.git /tmp/repo && cd /tmp/repo && tox -edocs && cp -r  html/* /tmp/blog"]
+            volumeMounts:
+            - mountPath: /tmp/blog
+              name: repo-volume
+          restartPolicy: Never
+          volumes:
+            - name: repo-volume
+              persistentVolumeClaim:
+                claimName: repo-volume

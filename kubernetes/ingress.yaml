@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: blog-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    external-dns.alpha.kubernetes.io/target: minikube.otc.eumel.de
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: blog.otc.eumel.de
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: blog-service
+          servicePort: 80
+  tls:
+  - hosts:
+    -  blog.otc.eumel.de
+    secretName: blog-tls-secret
+

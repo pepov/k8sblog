@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    job-name: blogjob
+  name: blogjob
+spec:
+  backoffLimit: 6
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      restartPolicy: Never
+      containers:
+      - image: eumel8/python-none-root
+        imagePullPolicy: Always
+        name: blogjob
+        command: ["sh","-c"]
+        args: ["git clone https://github.com/eumel8/blog.git /tmp/repo && cd /tmp/repo && tox -edocs && cp -r  html/* /tmp/blog"]
+        volumeMounts:
+        - mountPath: /tmp/blog
+          name: repo-volume
+      volumes:
+        - name: repo-volume
+          persistentVolumeClaim:
+            claimName: repo-volume
