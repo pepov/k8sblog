@@ -1,5 +1,5 @@
-Welcome to Blogs as Code
-========================
+Welcome to Blogs as Code - a K8S show case
+==========================================
 
 A simple blog designed as code and published with Sphinx.
 
