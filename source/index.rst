@@ -14,6 +14,7 @@ Content
    2.rst
    3.rst
    4.rst
+   joomla-installation-mit-kubernetes-und-helm.md
 
 Indices and tables
 ==================
