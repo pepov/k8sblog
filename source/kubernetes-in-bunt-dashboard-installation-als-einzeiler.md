@@ -2,9 +2,13 @@ Kubernetes in bunt - Dashboard Installation als Einzeiler
 =========================================================
 
 Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher grafischer Benutzeroberflaechen. Andere fuehlen sich dann etwas verloren, wenn es sowas nicht gibt. Aber auch da gibt es bei Kubernetes eine Loesung: Das Kubernetes Dashboard:
-[teaserbreak]
+
+<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+
+---
 
 Installation:
+-------------
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
@@ -52,6 +56,7 @@ status:
 ```
 
 Erlaeuterungen:
+---------------
 
 Annotations:
 
@@ -68,6 +73,7 @@ Der Dashboard-Service wird schon mit HTTPS und selbstsignierten Zertifikaten aus
 </pre>
 
 Zertifikat-Aussteller fuer alle TLS Hostnamen ist wieder LetsEncrypt (vgl <a href="https://blog.eumelnet.de/blogs/blog8.php/letsencrypt-gesicherte-webseiten-in-kubernetes-mit-cert-manager">hier</a>)
+
 <pre>
     certmanager.k8s.io/issuer: letsencrypt-production
 </pre>

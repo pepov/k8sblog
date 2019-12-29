@@ -21,6 +21,7 @@ Kubernetes
 .. toctree::
    :maxdepth: 2
 
+   source/backup-mein-kubernetes-aber-sicher.md
    kubernetes-in-bunt-dashboard-installation-als-einzeiler.md
    kubernetes-und-openstack-external-dns-mit-designate-in-minikube.md
    letsencrypt-gesicherte-webseiten-in-kubernetes-mit-dem-cert-manager.md

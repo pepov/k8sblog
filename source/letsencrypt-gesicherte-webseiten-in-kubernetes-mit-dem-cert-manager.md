@@ -3,6 +3,8 @@ LetsEncrypt gesicherte Webseiten in Kubernetes mit dem Cert-Manager
 
 Nie war es so einfach, eine mit SSL-Zertifikat geschüWebseite zu erstellen wie heute.<a href="https://letsencrypt.org/de/"> LetsEncrypt</a> ist eine freie, automatisierte und offene Zertifizierungsstelle. Keine Formulare ausfuellen, kein Geld einwerfen (ausser zum Spenden), keine lange Wartezeiten bei der Zertifikatsausstellung. LetsEncrypt stellt sofort eine sichere Verbindung her.
 
+<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+
 ---
 
 Folgende Vorausetzungen seien gegeben: Wir haben unsere <a href="https://blog.eumelnet.de/blogs/blog8.php/joomla-installation-mit-kubernetes-und-helm-1">Joomla-Webseite mit Minikube und Helm</a> aufgesetzt. Die Seite hat einen <a href="https://blog.eumelnet.de/blogs/blog8.php/kubernetes-openstack-teil-1-external-dns-mit-designate">ordentlichen Namen</a> und ist aus dem Internet erreichbar.
