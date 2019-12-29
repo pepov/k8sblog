@@ -14,6 +14,13 @@ Content
    2.rst
    3.rst
    4.rst
+
+Kubernetes
+==========
+
+.. toctree::
+   :maxdepth: 2
+   kubernetes-und-openstack-external-dns-mit-designate-in-minikube.md
    joomla-installation-mit-kubernetes-und-helm.md
 
 Indices and tables
