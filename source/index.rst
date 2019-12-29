@@ -2,6 +2,7 @@ Welcome to Blogs as Code - a K8S show case
 ==========================================
 
 A simple blog designed as code and published with Sphinx.
+Also available in <a href="/epub/BlogasCode.epub">epub</a>
 
 
 Content
