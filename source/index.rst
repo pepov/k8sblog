@@ -5,7 +5,7 @@ A simple blog designed as code and published with Sphinx.
 
 
 Content
-============
+=======
 
 .. toctree::
    :maxdepth: 2
@@ -20,6 +20,7 @@ Kubernetes
 
 .. toctree::
    :maxdepth: 2
+
    kubernetes-und-openstack-external-dns-mit-designate-in-minikube.md
    joomla-installation-mit-kubernetes-und-helm.md
 
