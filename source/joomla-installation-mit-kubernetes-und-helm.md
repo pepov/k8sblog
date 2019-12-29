@@ -24,14 +24,14 @@ Minikube herunterladen
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   &amp;&amp; chmod +x minikube
-[/codeblock]
 ```
 
 Minikube starten. Mit dem Node-Port-Parameter erlauben wir spaeter das Herausfuehren von Diensten:
 
-[codeblock lang=shell line=1]
+```shell
 ./minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range=80-35000
-[/codeblock]
+```
+```
 
 <strong>Kubectl</strong>
 Kubectl ist das Kommandozeilenwerkzeug fuer Kubernetes. wir installieren es mit curl:
@@ -65,11 +65,11 @@ curl -L https://git.io/get_helm.sh | bash
 
 Tiller ermoeglicht die Bereitstellung von Kubenetes-Resourcen mit Helm, verbindet also beides:
 
-[codeblock lang=shell line=1]
+```shell
 kubectl --namespace kube-system create serviceaccount tiller
 kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 helm init --service-account tiller
-[/codeblock]
+```
 
 <strong>
 Helm Charts
@@ -98,9 +98,9 @@ cd ..
 
 Nun wollen wir endlich Joomla mit Helm installieren - im eigenen Namespace und dem Applikationsnamen joomla:
 
-[codeblock lang=shell line=1]
+```shell
 helm install --namespace joomla -n joomla joomla
-[/codeblock]
+```
 
 Die Ausgabe sieht etwa so aus:
 
@@ -167,17 +167,17 @@ NOTES:
 
 Man kann den Status von Joomla auch jederzeit neu abrufen:
 
-[codeblock lang= line=1]
+```shell
 helm status joomla
-[/codeblock]
+```
 
 Das generierte Adminpasswort laesst sich wie beschrieben abrufen.
 
 Schauen wir uns die Resourcen fuer Joomla in Kubernetes an:
 
-[codeblock lang=shell line=1]
+```shell
 kubectl  get all -n joomla
-[/codeblock]
+```
 
 Die Ausgabe sieht etwa so aus:
 
@@ -204,8 +204,9 @@ statefulset.apps/joomla-mariadb   1/1     72s
 
 Wie man sieht, haben wir 2 PODs und 2 Services. Die EXTERNAL_IP steht fuer den Joomla-Service auf Pending, weil Minikube keinen Ingress-Service zur Bereitstellung externer Dienste anbietet. Hier koennen wir die Floating-IP unserer VM eintragen:
 
-[codeblock lang=shell line=1]kubectl edit service joomla -n joomla
-[/codeblock]
+```shell
+kubectl edit service joomla -n joomla
+```
 
 Wir ergaenzen nach dem Loadbalancer Eintrag die IP-Adresse:
 
@@ -228,9 +229,9 @@ joomla   LoadBalancer   10.98.249.206   80.158.36.239   80:14305/TCP,443:8733/TC
 
 Unser Joomla ist jetzt im Internet verfuegbar, jedoch auf dem ungewoehnlichen Port 14305. Um diesen auf Port 80 verfuegbar zu machen, editieren wir erneut den Service:
 
-[codeblock lang=shell line=1]
+```shell
 kubectl edit services joomla -n joomla
-[/codeblock]
+```
 
 Den `nodePort` aendern wir auf `80`. 
 Joomla sollte unter http://80.158.36.239/ verfuegbar sein. Login-Credentials haben wir weiter oben bekommen. HIer nochmal zur Wiederholung:
