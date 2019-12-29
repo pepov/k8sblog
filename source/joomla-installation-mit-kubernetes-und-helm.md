@@ -3,7 +3,7 @@ Joomla Installation mit Kubernetes und Helm
 
 Kubernetes ist in aller Munde. Genau wie OpenStack ist es ein Oekosystem zur Verwaltung von Resourcen fuer die Cloud. Es hat den Anspruch, der Standard zur Verwaltung von Infrastruktur schlechthin zu werden.  Vor einiger Zeit hatte ich mich <a href="https://blog.eumelnet.de/blogs/blog8.php/zauberei-mit-juju-serverless-computing">mit Juju beschaeftigt</a> - gewisse Parallelen ergeben sich in Kubernetes. Wir werden sehen.
 
-[logo]: https://kubernetes.io/images/favicon.png "Logo Kubernetes"
+![logo](https://kubernetes.io/images/favicon.png "Logo Kubernetes")
 
 ---
 
