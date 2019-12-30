@@ -22,6 +22,10 @@ Kubernetes
 .. toctree::
    :maxdepth: 1
 
+   kubernetes-pod-job-blog.md
+   kubernetes-install-quickies.md
+   cloud-nativer-dns-mit-coredns-in-kubernetes.md
+   kubernetes-mit-cloud-provider-openstack.md
    backup-mein-kubernetes-aber-sicher.md
    kubernetes-in-bunt-dashboard-installation-als-einzeiler.md
    kubernetes-und-openstack-external-dns-mit-designate-in-minikube.md
