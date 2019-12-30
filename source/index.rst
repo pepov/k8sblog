@@ -22,6 +22,7 @@ Kubernetes
 .. toctree::
    :maxdepth: 1
 
+   kubernetes-bibliothek.md
    kubernetes-pod-job-blog.md
    kubernetes-install-quickies.md
    cloud-nativer-dns-mit-coredns-in-kubernetes.md
