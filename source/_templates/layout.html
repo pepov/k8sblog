@@ -1,5 +1,16 @@
 {% extends "!layout.html" %}
 {% block extrahead %}
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5e0851ef88092b001215bbc8&product=inline-share-buttons' async='async'></script>
+{{ super() }}
+{% endblock %}
+{% block sidebar1 %}
+<div class="sharethis-inline-share-buttons"></div>
+{{ super() }}
+{% endblock %}
+{% block relbar2 %}
+<div width="480px"></div>
+{% endblock %}
+{% block document %}
 <script type="text/javascript">
 //<![CDATA[
 var owa_baseUrl = 'https://www.eumelnet.de/owa/';
@@ -16,13 +27,4 @@ owa_cmds.push(['trackClicks']);
 }());
 //]]>
 </script>
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5e0851ef88092b001215bbc8&product=inline-share-buttons' async='async'></script>
-{{ super() }}
-{% endblock %}
-{% block sidebar1 %}
-<div class="sharethis-inline-share-buttons"></div>
-{{ super() }}
-{% endblock %}
-{% block relbar2 %}
-<div width="480px"></div>
 {% endblock %}
