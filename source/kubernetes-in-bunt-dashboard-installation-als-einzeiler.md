@@ -12,11 +12,8 @@ Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher
 Installation:
 -------------
 
-```
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
-
-```
+:    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
 
 Fertig!
 Natuerlich sollte man vorher mal in die Datei reinschauen, die man so arglos uebers Netz installiert. Was ist drin: Es wird ein Namespace <ins>kubernetes-dashboard</ins> erstellt, User und Rechte fuer <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">RBAC </a> installiert, und zum Schluss natuerlich die Applikation.
