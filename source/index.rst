@@ -16,12 +16,13 @@ Content
    3.rst
    4.rst
 
-Kubernetes
-==========
+Kubernetes in Deutsch
+=====================
 
 .. toctree::
    :maxdepth: 1
 
+   kubernetes-an-rancher-k3s-und-rke2-auf-otc-mit-erraform.md
    kubernetes-bibliothek.md
    kubernetes-pod-job-blog.md
    kubernetes-install-quickies.md
@@ -33,8 +34,28 @@ Kubernetes
    letsencrypt-gesicherte-webseiten-in-kubernetes-mit-dem-cert-manager.md
    joomla-installation-mit-kubernetes-und-helm.md
 
+Kubernetes in English
+=====================
+
+.. toctree::
+   :maxdepth: 1
+
+   kubernetes-an-rancher-k3s-und-rke2-auf-otc-mit-terraform-en.md
+
 .. index::
    single: context
+
+
+.. glossary::
+
+   Kubernetes 
+
+      Cloud Native SDK
+
+   OpenStack
+
+      Cloud Operating System
+
 
 Indices and tables
 ==================
