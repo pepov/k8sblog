@@ -148,7 +148,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiw
 
 Startbildschirm nach dem Login:
 
-<src="_images/2019-10-02_8_.png" width="900" height="450" />
+<src="/_images/2019-10-02_8_.png" width="900" height="450" />
 
 Einige Informationen zu unserer Joomla-Installation:
 
