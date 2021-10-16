@@ -1,7 +1,2 @@
-*.pot
-*.mo
-.doctree
-.tox/
-.eggs/
-html/
-blog.egg-info/
+_plugins
+_site
