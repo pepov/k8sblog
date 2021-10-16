@@ -1,5 +1,6 @@
 ---
 layout: post
+tag: de
 title: "Kubernetes in bunt - Dashboard Installation als Einzeiler"
 date: 2019-10-02
 ---

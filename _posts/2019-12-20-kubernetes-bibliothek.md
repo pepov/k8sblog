@@ -1,5 +1,6 @@
 ---
 layout: post
+tag: de
 title: "Kubernetes Bibliothek"
 date: 2019-12-20
 ---
