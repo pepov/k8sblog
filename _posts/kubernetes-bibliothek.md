@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Kubernetes in bunt - Dashboard Installation als Einzeiler"
+date: 2019-12-20
+---
+
 Kubernetes Bibliothek
 =====================
 
