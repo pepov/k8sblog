@@ -6,20 +6,17 @@ title: Kubernetes Blog
 <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
 	<ul class="posts">
 
-	  {% for post in site.posts %}
-	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-	  {% endfor %}
-	</ul>
-
 	{% for tag in site.tags %}
+	  <p>DE</p>
 	  <ul>
 	    {% for post in tag[0] %}
-	      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	    {% endfor %}
 	  </ul>
+          <p>EN</p>
 	  <ul>
 	    {% for post in tag[1] %}
-	      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	    {% endfor %}
 	  </ul>
 	{% endfor %}
