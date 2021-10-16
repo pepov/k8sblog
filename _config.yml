@@ -1,3 +1,4 @@
 name: Kubernetes Blog
 markdown: kramdown
 permalink: /:year/:month/:day/:title
+theme: jekyll-theme-dinky
