@@ -561,9 +561,10 @@ section {
  padding-bottom:50px
 }
 aside {
- width:770px;
+ width:120px;
  float:right;
- padding-bottom:50px
+ padding-bottom:50px;
+ padding-left:770px
 }
 footer {
  width:170px;
