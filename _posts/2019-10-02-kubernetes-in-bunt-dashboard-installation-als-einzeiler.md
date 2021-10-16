@@ -7,7 +7,7 @@ date: 2019-10-02
 Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher grafischer Benutzeroberflaechen. Andere fuehlen sich dann etwas verloren, wenn es sowas nicht gibt. Aber auch da gibt es bei Kubernetes eine Loesung: Das Kubernetes Dashboard:
 
 
-![Kubernetes](_images/kubernetes.png)
+![Kubernetes](images/kubernetes.png)
 
 ---
 
