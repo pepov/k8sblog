@@ -7,7 +7,7 @@ date: 2019-10-02
 Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher grafischer Benutzeroberflaechen. Andere fuehlen sich dann etwas verloren, wenn es sowas nicht gibt. Aber auch da gibt es bei Kubernetes eine Loesung: Das Kubernetes Dashboard:
 
 
-![Kubernetes](images/kubernetes.png)
+![Kubernetes](/blog/images/kubernetes.png)
 
 ---
 
@@ -140,7 +140,7 @@ Verwirrt? Hier ist ein interessanter Blogbeitrag zu <a href="https://medium.com/
 
 Wenn unser Dashboard-Service dann per Ingress oder Node-Port das Licht der Welt erblickt hat, sollten wir den Startbildschirm sehen:
 
-<img src="/2019-10-02_9_.png" width="900" height="450" />
+<img src="/blog/images/2019-10-02_9_.png" width="900" height="450" />
 
 
 Zum Login brauchen wir eine Kube-Config, was aber bei fern installierten Rechnern und dort laufenden Minikube kompliziert sein kann, wenn nicht alle Informationen in einer Datei vorhanden sind.
@@ -153,14 +153,14 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiw
 
 Startbildschirm nach dem Login:
 
-<img src="/2019-10-02_8_.png" width="900" height="450" />
+<img src="/blog/images/2019-10-02_8_.png" width="900" height="450" />
 
 Einige Informationen zu unserer Joomla-Installation:
 
-<img src="/2019-10-02_2_.png" width="900" height="450" />
+<img src="/blog/images/2019-10-02_2_.png" width="900" height="450" />
 
 Editieren von Resourcen im Browser:
 
-<img src="/2019-10-02_7_.png" width="900" height="450" />
+<img src="/blog/images/2019-10-02_7_.png" width="900" height="450" />
 
 Mit <code>minikube dashboard</code> gaebe es zwar einen weiteren Einzeiler zur Dashboard Installation. Jedoch setzt diese die Installation auf dem eigenen Rechner mit X-Windows o.ae. voraus.
