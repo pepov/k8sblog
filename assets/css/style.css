@@ -560,7 +560,7 @@ section {
  float:right;
  padding-bottom:50px
 }
-diigo {
+aside {
  width:870px;
  float:right;
  padding-bottom:50px
@@ -579,7 +579,7 @@ footer {
  }
  header,
  section,
- diigo,
+ aside,
  footer {
   float:none;
   position:static;
