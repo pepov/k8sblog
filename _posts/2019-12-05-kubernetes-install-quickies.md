@@ -1,21 +1,23 @@
-Kubernetes Install Quickies
-===========================
+---
+layout: post
+tag: de
+title: "Kubernetes Install Quickies"
+date: 2019-12-05
+---
+
 
 :term:`Kubernetes` erweckt den Eindruck, hochkompliziert zu sein. Und meistens ist es das auch. Aber es gibt einige sehr leichgewichtige Tools bzw. Methoden, um Kubernetes schnell zu installieren. Es sind nur ein Kommandozeilen und hier sind einige Methoden:
 
 <a href="https://blog.eumelnet.de/blogs/media/blogs/eumel/quick-uploads/joomla-installation-mit-kubernetes-und-helm-1/kubernetes.png?mtime=1568479260">
 
-<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+<img src="/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
----
 
 Vorbedingungen
---------------
 
 Virtuelle Maschine Ubuntu 18.04
 
 Minikube
---------
 
 
 <a href="https://kubernetes.io/de/docs/setup/minikube/">Minikube</a> haben wir in <a href="https://blog.eumelnet.de/blogs/blog8.php/joomla-installation-mit-kubernetes-und-helm-1">diesem Posting</a> schon behandelt.
