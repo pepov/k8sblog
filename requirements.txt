@@ -1,5 +1,0 @@
-tox
-sphinx
-pbr
-recommonmark
-hieroglyph
