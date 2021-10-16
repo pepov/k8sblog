@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Bahn Brieselang Webseite ist online"
-date: 2020-01-30
+title: "Kubernetes in bunt - Dashboard Installation als Einzeiler"
+date: 2019-10-02
 ---
 
 Kubernetes in bunt - Dashboard Installation als Einzeiler

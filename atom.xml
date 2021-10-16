@@ -4,14 +4,14 @@ layout: feed
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="https://www.w3.org/2005/Atom">
 
-	<title>Bahn Brieselang Blog</title>
-	<link href="http://bahn-brieselang.github.io/blog/atom.xml" rel="self"/>
-	<link href="http://bahn-brieselang.github.io/blog"/>
+	<title>Kubernetes Blog</title>
+	<link href="http://eumel8.github.io/blog/atom.xml" rel="self"/>
+	<link href="http://eumel8.github.io/blog"/>
 	<updated>{{ site.time | date_to_xmlschema }}</updated>
-	<id>https://bahn-brieselang.github.io/blog</id>
+	<id>https://eumel8.github.io/blog</id>
 	<author>
-		<name>Arbeitskreis Bahn Brieselang</name>
-		<email>bahn-brieselang@gmx.de</email>
+		<name>Kubernetes Blog</name>
+		<email>eumel@eumel.de</email>
 	</author>
 
 	{% for post in site.posts %}
