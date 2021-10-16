@@ -1,4 +1,4 @@
 name: Kubernetes Blog
 markdown: kramdown
-permalink: /blog/:year/:month/:day/:title
+permalink: /blog/blog/:year/:month/:day/:title
 theme: jekyll-theme-dinky
