@@ -16,7 +16,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">{{ site.title | default: site.github.repository_name }}</h1>
+        <h1 class="header">k8s {{ site.title | default: site.github.repository_name }}</h1>
         <p class="header">{{ site.description | default: site.github.project_tagline }}</p>
 <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
 
@@ -44,11 +44,14 @@
       </section>
 
       <footer>
-	    		<ul>
-        		<li><a href="mailto:eumel@eumel.de">email</a></li>
-        		<li><a href="https://github.com/eumel8/blog">github.com/eumel8</a></li>
-			</ul>
+  	<ul>
+       		<li><a href="/blog">Home</a></li>
+       		<li><a href="mailto:eumel@eumel.de">email</a></li>
+       		<li><a href="https://github.com/eumel8/blog">github.com/eumel8</a></li>
+	</ul>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+	<p></p>
+	<div id="diigo_linkroll" ><script type="text/javascript" src="https://www.diigo.com/roll2/linkrolls?v=4&username=eumel_8&icon=true&l_type=1&count=10&desc=0&style=standard&title=Weblinks&tags=kubernetes" ></script></div>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
