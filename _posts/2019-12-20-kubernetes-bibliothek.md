@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Kubernetes in bunt - Dashboard Installation als Einzeiler"
+title: "Kubernetes Bibliothek"
 date: 2019-12-20
 ---
 
