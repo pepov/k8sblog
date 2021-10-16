@@ -14,7 +14,6 @@ title: Kubernetes Blog
 	  </ul>
 	  <ul>
 	    {% for post in tag[1] %}
-            tag: {{ tag }}
 	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	    {% endfor %}
 	  </ul>
