@@ -560,10 +560,10 @@ section {
  float:right;
  padding-bottom:50px
 }
-aside {
+nav {
  width:120px;
  float:right;
- padding-bottom:50px;
+ padding-top:50px;
  padding-left:810px
 }
 footer {
@@ -580,7 +580,6 @@ footer {
  }
  header,
  section,
- aside,
  footer {
   float:none;
   position:static;
