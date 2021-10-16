@@ -7,13 +7,11 @@ title: Kubernetes Blog
 
 	{% for tag in site.tags %}
 	  <ul>
-            {{ tag[0] }}
 	    {% for post in tag[0] %}
 	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	    {% endfor %}
 	  </ul>
 	  <ul>
-            {{ tag[1] }}
 	    {% for post in tag[1] %}
 	    <li><span>{{ post.date | date_to_string }}</span> » <a href="/blog/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	    {% endfor %}
