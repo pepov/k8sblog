@@ -1,11 +1,16 @@
-Backup mein Kubernetes - aber sicher!
-=====================================
+---
+layout: post
+tag: de
+title: "Backup mein Kubernetes - aber sicher!"
+date: 2019-10-04
+---
 
 Mit einiger Zeit sammelt sich so einiges im Kubernetes Cluster an. Sachen, die man nicht sauber mit Helm installiert hat. Oder die man irgendwie mal zwischendurch zum Ausprobieren geaendert und dann doch so belassen hat. Uns graust es schon vorm Datenverlust. Wie kann man sowas alles backupen?
 
-<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
 ---
+<!--more-->
 
 Wie wir vielleicht schon mitgekriegt haben, liegen die meisten Resourcen in Kubernetes in <a href="https://de.wikipedia.org/wiki/YAML">YAML-Files</a> vor, Damit wurden zumindest die meisten Sachen erzeugt - sei es als HELM Chart oder einfaches Deployment-File - local oder uebers Netz, einerlei. 
 Schmutzig, klein, genial ist <a href="https://github.com/pieterlange/kube-backup">Kube-Backup</a>, ein handliches Backup-Tool fuer Kubernetes.

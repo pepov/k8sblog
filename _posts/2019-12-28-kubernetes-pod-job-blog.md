@@ -1,11 +1,16 @@
-Kubernetes Pod, Job, Blog
-=========================
+---
+layout: post
+tag: de
+title: "Kubernetes Pod, Job, Blog"
+date: 2019-12-28
+---
 
 Heute wollen wir mit Kubernetes eine Anwendung erstellen. Wie waere es mit einem Blog? Der Blog sollte den Inhalt als kompatiblen Source-Code zur Verfuegung haben. Ausserdem soll der Blog schnell aufgebaut werden und skalieren. Vorher schauen wir uns ein paar Kubernetes Resourcen an Pod, Job, Blog
 
-<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
 ---
+<!--more-->
 
 Voraussetzung
 -------------
@@ -302,7 +307,7 @@ spec:
 Zu beachten ist die <pre>livenessProbe</pre> in den Container Specs aus der Reihe der <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes">Probes</a>. Nur wenn vom Webserver mit dem gemountetem Volume ein HTTP Status 200 zurueckkommt, ist der POD am Leben und wird so zum Beispiel in einen Service aufgenommen. Achja, den brauchen wir natuerlich zum Ausliefern unseres BLOGs, zusammen mit einem Ingress Dienst. Die vollstaendige Liste von Dateien findet man auf https://github.com/eumel8/blog/tree/master/kubernetes
 
 
-<img src="/2019-12-28_2_.png" width="900" height="450" />
+<img src="/blog/images/2019-12-28_2_.png" width="900" height="450" />
 
 Skalieren kann ich den Blog mit Erhoehen des Replicaset
 

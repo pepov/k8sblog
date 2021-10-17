@@ -1,11 +1,16 @@
-Joomla Installation mit Kubernetes und Helm
-===========================================
+---
+layout: post
+tag: de
+title: "Joomla Installation mit Kubernetes und Helm"
+date: 2019-09-14
+---
 
 Kubernetes ist in aller Munde. Genau wie OpenStack ist es ein Oekosystem zur Verwaltung von Resourcen fuer die Cloud. Es hat den Anspruch, der Standard zur Verwaltung von Infrastruktur schlechthin zu werden.  Vor einiger Zeit hatte ich mich <a href="https://blog.eumelnet.de/blogs/blog8.php/zauberei-mit-juju-serverless-computing">mit Juju beschaeftigt</a> - gewisse Parallelen ergeben sich in Kubernetes. Wir werden sehen.
 
-<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
 ---
+<!--more-->
 
 <strong>Vorbedingungen:</strong>
 Fuer dieses Beispiel nutzen wir eine Virtuelle Maschine, bereitgestellt etwas mit <a href="https://blog.eumelnet.de/blogs/blog8.php/terraform-open-telekom-cloud-quick-start">Terraform auf der OTC</a>. Dies erstellt uns eine VM mit Ubuntu 18.04 und 30 GB Festplatte, mit Netzwerk und Floating-IP

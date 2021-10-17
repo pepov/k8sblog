@@ -1,11 +1,16 @@
-Cloud Nativer DNS mit CoreDNS in Kubernetes
-===========================================
+---
+layout: post
+tag: de
+title: "Cloud Nativer DNS mit CoreDNS in Kubernetes"
+date: 2019-10-21
+---
 
 Wir haben uns bei <a href="https://blog.eumelnet.de/blogs/blog8.php/kubernetes-openstack-teil-1-external-dns-mit-designate">Kubernetes OpenStack External DNS mit Designate</a> schon mit dem Thema DNS beschaeftigt, indem wir OpenStack Designate API angesprochen haben, um im Kubernetes unsere Dienste zu verwalten.
 Dabei gibt es einfachere Moeglichkeiten unsere /etc/hosts Datei cloud native auszubauen.
 
+<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 ---
-
+<!--more-->
 
 <a href="https://coredns.io/">CoreDNS</a> ist ein ein weiteres Projekt der <a href="https://cncf.io/">Cloud Native Foundation</a> und stellt, wer haette das gedacht, einen DNS zur Verfuegung. Nun ist es ja so, dass /etc/hosts immer noch ein legitimes Mittel der DNS-Verwaltung ist. Verbinden wir doch beides.
 

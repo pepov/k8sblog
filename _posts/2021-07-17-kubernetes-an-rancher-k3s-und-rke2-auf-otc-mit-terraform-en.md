@@ -9,6 +9,9 @@ With <a href="https://blog.eumelnet.de/blogs/blog8.php/kubernetes-install-quicki
 
 <img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
+<!--more-->
+---
+
 The answer Terraform. With Terraform we make conditions for resources in an infrastructure provided with modules and provider. To use resource in Open Telekom Cloud there is a <a href="https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs">Terraform Provider Opentelekomcloud </a>. Provide resource definition like VPC:
 
 ```

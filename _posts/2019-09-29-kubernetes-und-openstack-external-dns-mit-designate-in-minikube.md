@@ -1,11 +1,16 @@
-Kubernetes & OpenStack Teil 1: External-DNS mit Designate in Minikube
-=====================================================================
+---
+layout: post
+tag: de
+title: "Kubernetes & OpenStack Teil 1: External-DNS mit Designate in Minikube"
+date: 2019-09-29
+---
 
 Sowie Kubernetes eine Weiterentwicklung von OpenStack Infrastruktur ist, waere es doch gut, bisher Entwickeltes und Bewaehrtes weiter zu nutzen. Designate ist der DNS-Dienst von OpenStack und ueber eine Erweiterung in Kubernetes zu benutzen.
 
-<img src="/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
+<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
 
 ---
+<!--more-->
 
 Nehmen wir mal an, wir wollen unsere <a href="https://blog.eumelnet.de/blogs/blog8.php/joomla-installation-mit-kubernetes-und-helm-1">Joomla-Instalation mit Minikube</a> dahingehend erweitern, dass wir den Hostnamen unserer Seite in einen DNS-Server eintragen wollen. Dazu wollen wir als Erstes auch unseren Minikube mit dem Addon "Ingress" erweitern. Ingress stellt nichts weiter als die "Aussenkante" vom Kubernetes-Cluster dar. Dazu starten wir Minikube mit der speziellen Option:
 
