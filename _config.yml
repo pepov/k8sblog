@@ -1,7 +1,7 @@
 name: Kubernetes Blog
 markdown: kramdown
 permalink: /:year/:month/:day/:title
-theme: jekyll-theme-dinky
-remote_theme: pages-themes/dinky@v0.2.0
-plugins:
-- jekyll-remote-theme
+#theme: jekyll-theme-dinky
+#remote_theme: pages-themes/dinky@v0.2.0
+#plugins:
+#- jekyll-remote-theme
