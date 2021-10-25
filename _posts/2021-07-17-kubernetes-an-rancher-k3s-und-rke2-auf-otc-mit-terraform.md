@@ -2,13 +2,8 @@
 layout: post
 tag: de
 title: "Kubernetes an Rancher K3s und RKE2 auf OTC mit Terraform"
+subtitle: Mit Kubernetes Install Quickies haben wir uns vor einiger Zeit schon mal beschäftigt. Sehr guten Eindruck machte damals schon K3S, ein einzelnes Binary, entwickelt von Rancher, zur Benutzung in schmalen Umgebungen für Kubernetes. Wie kriegen wir aber schnell eine arbeitsfähige Umgebung zum Laufen?
 date: 2021-07-17
----
-
-Mit <a href="/kubernetes-install-quickies.html">Kubernetes Install Quickies</a> haben wir uns vor einiger Zeit schon mal beschäftigt. Sehr guten Eindruck machte damals schon K3S, ein einzelnes Binary, entwickelt von Rancher, zur Benutzung in schmalen Umgebungen für Kubernetes. Wie kriegen wir aber schnell eine arbeitsfähige Umgebung zum Laufen?
-
-<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
-<!--more-->
 ---
 
 Die Antwort lautet wieder Terraform. Mit Terraform können wir Zustände von Resourcen in der Infrastruktur beschreiben, die dann wieder durch Module oder Provider bereitgestellt werden. Um etwa Resourcen in der Open Telekom Cloud zu nutzen, gibt es den <a href="https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs">Terraform Provider Opentelekomcloud </a>. Dieser stellt Resourcedefinitionen bereit wie etwa ein VPC:
@@ -75,4 +70,4 @@ Nachteile:
 Der Vorteil bei beiden Methoden ist das "One-Binary"-Konzept.  Es bedarf also nicht allzugrosser Vorbereitungen auf dem Betriebssystemlevel. Genausoleicht wie die Installation verlaeuft auch das Loeschen, es wird auch ein Binary zum Loeschen der Umgebung mitgeliefert. Der Gesamteindruck bei beiden ist auch die unkomplizierte Handhabung.
 Als Nachteil kann man das Vendor-Lock-In sehen. Beide Projekte sind zwar OpenSource, aber die Entwicklung wird von Rancher gefuehrt, die nun zu SUSE gehoeren. Der neue Produktname ist <strong>SUSE Rancher</strong>
 
-<img src="/blog/images/2021-07-21-1.png" width="900" height="450" />
+<img src="/images/2021-07-21-1.png" width="900" height="450" />

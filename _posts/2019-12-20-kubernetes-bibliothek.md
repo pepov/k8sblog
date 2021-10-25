@@ -2,15 +2,9 @@
 layout: post
 tag: de
 title: "Kubernetes Bibliothek"
+subtitle: In unserer Blog Serie zu Kubernetes haben wir schon einiges gelernt - wie Kubernetes aufgebaut ist und vor allem, was man damit machen kann. Jetzt moechte man vielleicht wieder mal etwas nachschlagen oder nachlesen. Wie geht? Kubernetes Bibliothek.
 date: 2019-12-20
 ---
-
-In unserer Blog Serie zu Kubernetes haben wir schon einiges gelernt - wie Kubernetes aufgebaut ist und vor allem, was man damit machen kann. Jetzt moechte man vielleicht wieder mal etwas nachschlagen oder nachlesen. Wie geht? Kubernetes Bibliothek.
-
-<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
-
----
-<!--more-->
 
 Die Dokumentation zu Kubernetes befindet sich auf https://kubernetes.io/docs/home/. Die gute Nachricht als erstes: Die Dokumentation gibts auch auf Deutsch! Oben rechts auf der Webseite befindet sich ein Auswahl-Menue der Sprachen. Das Source-Repo befindet sich auf https://github.com/kubernetes/website Die Dokumente sind im Markdown-Format verfasst. Damit ist das Uebersetzen nicht so einfach wie mit RST etwa im OpenStack Projekt. Weitere Hinweise befinden sich im erwaehnten Repo.
 

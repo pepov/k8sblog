@@ -6,8 +6,6 @@ subtitle: "Heute wollen wir mit Kubernetes eine Anwendung erstellen. Wie waere e
 date: 2019-12-28
 ---
 
-<!--more-->
-
 Voraussetzung
 -------------
 
