@@ -4,6 +4,7 @@ tag: de
 title: "Cloud Nativer DNS mit CoreDNS in Kubernetes"
 subtitle: Wir haben uns bei Kubernetes OpenStack External DNS mit Designate schon mit dem Thema DNS beschaeftigt, indem wir OpenStack Designate API angesprochen haben, um im Kubernetes unsere Dienste zu verwalten.
 date: 2019-10-21
+background: '/images/k8s-cosmos.png'
 ---
 
 Dabei gibt es einfachere Moeglichkeiten unsere /etc/hosts Datei cloud native auszubauen.

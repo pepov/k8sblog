@@ -4,6 +4,7 @@ tag: de
 title: "Joomla Installation mit Kubernetes und Helm"
 subtitle: Kubernetes ist in aller Munde. Genau wie OpenStack ist es ein Oekosystem zur Verwaltung von Resourcen fuer die Cloud. Es hat den Anspruch, der Standard zur Verwaltung von Infrastruktur schlechthin zu werden.  Vor einiger Zeit hatte ich mich mit Juju beschaeftigt - gewisse Parallelen ergeben sich in Kubernetes. Wir werden sehen.
 date: 2019-09-14
+background: '/images/k8s-cosmos.png'
 ---
 
 <strong>Vorbedingungen:</strong>

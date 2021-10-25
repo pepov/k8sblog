@@ -4,6 +4,7 @@ tag: de
 title: "Kubernetes mit Cloud-Provider OpenStack"
 subtitle: Mit Kubernetes koennen wir wunderbare Applikationen erstellen und APIs verwalten. Alles nuetzt aber nichts, wenn wir im Hintergrund keine Resourcen wie Netzwerk, Speicher oder Rechenleistung haben. Was liegt naeher, als mit unserem Kubernetes OpenStack Resourcen zu verwalten?
 date: 2019-10-15
+background: '/images/k8s-cosmos.png'
 ---
 
 Kubernetes verwaltet Cloud Resourcen im sogenannten <a href="https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/">Cloud-Controller-Manager</a>. Fuer OpenStack gibt es den Cloud Provider OpenStack, beschrieben etwa <a href="https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-controller-manager-with-kubeadm.md">hier</a>. Das Beispiel bezieht sich auf <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">Kubeadm</a>, ein weiteres Leichtgewicht zur Kubernetesinstallation aehnlich wie Minikube.

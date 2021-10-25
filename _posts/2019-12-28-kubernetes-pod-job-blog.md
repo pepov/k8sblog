@@ -4,6 +4,7 @@ tag: de
 title: "Kubernetes Pod, Job, Blog"
 subtitle: "Heute wollen wir mit Kubernetes eine Anwendung erstellen. Wie waere es mit einem Blog? Der Blog sollte den Inhalt als kompatiblen Source-Code zur Verfuegung haben. Ausserdem soll der Blog schnell aufgebaut werden und skalieren. Vorher schauen wir uns ein paar Kubernetes Resourcen an Pod, Job, Blog"
 date: 2019-12-28
+background: '/images/k8s-cosmos.png'
 ---
 
 Voraussetzung
