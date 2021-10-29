@@ -17,11 +17,11 @@ POD
 
 Der POD ist die kleinste logische EInheit im Kubernetes. Er behinhaltet einen oder mehrere Container, in denen zum Beispiel ein Webserver laeuft. PODs sind hinter Services zusammengefasst und werden durch Deployments erstellt. Kubernetes bietet dazu sogar eine Autofunktion an.
 
-```
+```shell
 # kubectl create deployment blog --image eumel8/nginx-none-root
 ```
 
-<pre>
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,7 +85,7 @@ status:
   readyReplicas: 1
   replicas: 1
   updatedReplicas: 1
-</pre>
+```
 
 Dieses Kommando erstellt von dem Docker Image<a href="https://hub.docker.com/r/eumel8/nginx-none-root"> nginx-none-root</a> ein Deployment, welches wiederum einen POD startet. In diesem POD laeuft ein Container mit dem Nginx-Webserver auf Port 8080. Das spezielle none-root-Image wurde gewaehlt, da es grundsaetzlich keine gute Idee ist, Container als root laufen zu lassen. Es gibt sogar Kubernetes Cluster, die dies mit einer Pod Security Policy (PSP) verbieten.
 
@@ -94,28 +94,30 @@ JOB
 
 Mit einem Kubernetes JOB koennen wir im Kubernetes Cluster einen Task ausfuehren lassen.
 
-```
+```shell
 # kubectl create job blogjob --image  eumel8/python-none-root
 ```
 
 
 Auch hier wird ein <a href="https://hub.docker.com/r/eumel8/python-none-root">none-root-Image</a> verwendet, diesmal mit Python als Base-Image. Aber das Erstellen des PODs fuer diesen Job wird nicht klappen:
 
-<pre>
+```
 NAME                             READY   STATUS                       RESTARTS   AGE
 blogjob-9j7f5                    0/1     CreateContainerConfigError   0          5s
-</pre>
+```
 
 Die Fehlermeldung heisst in etwa: <pre> Error: container has runAsNonRoot and image has non-numeric user (appuser), cannot verify user is non-root</pre>. Das ist richtig. Das Image laeuft als appuser und der POD kennt diesen User nicht und brauch eine UserID, damit er diese zuordnen kann. Dazu brauchen wir eine Spec im securityContext
-<pre>
+
+```yaml
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
         runAsGroup: 1000
-</pre>
+```
+
 Ausserdem sollte der Job auch irgendwas tun. Dazu brauchen wir eine command Definition und ggf. Argumente dazu. Hier der Inhalt einer minimalen job.yaml Datei:
 
-<pre>
+```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -139,15 +141,15 @@ spec:
         name: blogjob
         command: ["sh","-c"]
         args: ["python --version"]
-</pre>
-
 ```
+
+```shell
 # kubectl create -f job.yaml
 ```
 
 Der Job erstellt einen Pod, der dann das Kommando ausfuehrt. Das geht ziemlich schnell.
 
-```
+```shell
 # kubectl logs -l job-name=blogjob
 Python 3.7.3
 ```
@@ -159,13 +161,13 @@ BLOG
 
 Okay, wie koennen wir daraus einen Blog bauen? Nehmen wir also an, wir haben ein <a href="https://github.com/eumel8/blog/tree/master/source">Github-Repo</a> mit RST Dateien, oder MD geht auch. Dazu gibt es einige Konfigurationsdateien fuer <a href="http://www.sphinx-doc.org">Sphinx</a>, die aus den einzelnen Dateien zum Beispiel eine Webseite bauen. Das passiert ueber das Automatisierungstool <a href="https://pypi.org/project/tox/">tox</a>.  Das sieht so aus, als dass wir das mit einem JOB machen koennten. Im python-none-root-Image sind schon alle erforderlichen Programme installiert. Wir muessen nur das git-repo mit den RST files clonen und koennen unsere HTML-Seite bauen.
 
-```
-git clone https://github.com/eumel8/blog.git /tmp/repo &amp;&amp; cd /tmp/repo &amp;&amp; tox -edocs
+```shell
+git clone https://github.com/eumel8/blog.git /tmp/repo && cd /tmp/repo && tox -edocs
 ```
 
 Das Ergebnis muessen wir nur irgendwie ausserhalb des PODs abspeichern. Dazu erstellen wir einen PersistentVolumeClaim (PVC) und mounten diesen im JOB. Zusammen sieht das so aus:
 
-<pre>
+```yaml
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -211,11 +213,11 @@ spec:
         - name: repo-volume
           persistentVolumeClaim:
             claimName: repo-volume
-</pre>
+```
 
 Damit wird einmalig das Blog-Content gebaut und auf das Volume kopiert. Leider gibt es keine JOB-Editier- oder Neustartfunktion. Um Aenderungen im Blog zu verarbeiten, muesste man den JOB also immer wieder loeschen und neu anlegen, damit er neu gestartet wird. Dazu bietet Kubernetes auch den CRONJOB an. Ein passender Crronjob fuer den Bau unseres Blogs saehe etwa so aus:
 
-<pre>
+```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -246,13 +248,13 @@ spec:
             - name: repo-volume
               persistentVolumeClaim:
                 claimName: repo-volume
-</pre>
+```
 
 Jede Minute wird also ein POD gestartet, der das BLOG neu baut und auf das Volume kopiert. Zugegeben, das ist nicht sehr elegant. Man wuerde lieber einen Webhook bauen, der von Github angesteuert wird, sobald wir Aenderungen in das Repo pushen. Aber das wuerde an dieser Stelle zu weit fuehren und ich wollte eigentlich bloss Job- und Cronjob-Funktionen in Kubernetes erklaeren.
 
 Und wie erblickt unser BLOG nun das Licht der Welt? Mit einem POD, erstellt durch ein Deployment, welches das Volume von oben gemountet hat und den HTML-Content im Nginx ausliefert.
 
-<pre>
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -297,7 +299,7 @@ spec:
           name: repo-volume
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-</pre>
+```
 
 Zu beachten ist die <pre>livenessProbe</pre> in den Container Specs aus der Reihe der <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes">Probes</a>. Nur wenn vom Webserver mit dem gemountetem Volume ein HTTP Status 200 zurueckkommt, ist der POD am Leben und wird so zum Beispiel in einen Service aufgenommen. Achja, den brauchen wir natuerlich zum Ausliefern unseres BLOGs, zusammen mit einem Ingress Dienst. Die vollstaendige Liste von Dateien findet man auf https://github.com/eumel8/blog/tree/master/kubernetes
 
@@ -306,7 +308,7 @@ Zu beachten ist die <pre>livenessProbe</pre> in den Container Specs aus der Reih
 
 Skalieren kann ich den Blog mit Erhoehen des Replicaset
 
-```
+```shell
 # kubectl scale --replicas=3 deployment.apps/testdeployment
 deployment.apps/testdeployment scaled
 
