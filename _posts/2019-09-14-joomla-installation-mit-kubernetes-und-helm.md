@@ -104,7 +104,7 @@ helm install --namespace joomla -n joomla joomla
 
 Die Ausgabe sieht etwa so aus:
 
-```
+```shell
 NAME:   joomla
 LAST DEPLOYED: Sat Sep 14 19:17:19 2019
 NAMESPACE: joomla
@@ -147,7 +147,6 @@ joomla-mariadb  0/1    0s
 
 NOTES:
 
-
 ** Please be patient while the chart is being deployed **
 
 1. Get the Joomla! URL by running:
@@ -155,13 +154,13 @@ NOTES:
   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
         Watch the status with: 'kubectl get svc --namespace joomla -w joomla'
 
-  export SERVICE_IP=$(kubectl get svc --namespace joomla joomla --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-  echo "Joomla! URL: http://$SERVICE_IP/"
+  `export SERVICE_IP=$(kubectl get svc --namespace joomla joomla --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")`
+ `echo "Joomla! URL: http://$SERVICE_IP/"`
 
 2. Get your Joomla! login credentials by running:
 
-    echo Username: user
-    echo Password: $(kubectl get secret --namespace joomla joomla -o jsonpath="{.data.joomla-password}" | base64 --decode)
+   `echo Username: user`
+   `echo Password: $(kubectl get secret --namespace joomla joomla -o jsonpath="{.data.joomla-password}" | base64 --decode)`
 
 ```
 
