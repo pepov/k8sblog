@@ -304,7 +304,7 @@ spec:
 Zu beachten ist die <pre>livenessProbe</pre> in den Container Specs aus der Reihe der <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes">Probes</a>. Nur wenn vom Webserver mit dem gemountetem Volume ein HTTP Status 200 zurueckkommt, ist der POD am Leben und wird so zum Beispiel in einen Service aufgenommen. Achja, den brauchen wir natuerlich zum Ausliefern unseres BLOGs, zusammen mit einem Ingress Dienst. Die vollstaendige Liste von Dateien findet man auf https://github.com/eumel8/blog/tree/master/kubernetes
 
 
-<img src="/images/2019-12-28_2_.png" width="900" height="450" />
+<img src="/blog/images/2019-12-28_2_.png" width="900" height="450" />
 
 Skalieren kann ich den Blog mit Erhoehen des Replicaset
 

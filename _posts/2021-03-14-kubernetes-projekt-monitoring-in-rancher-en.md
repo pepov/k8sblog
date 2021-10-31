@@ -17,11 +17,11 @@ The Prometheus instance can also <a href="https://github.com/prometheus-operator
 
 If the connection is successful, you should find the instance of the app in the Prometheus UI under "Service Discovery" or "Targets". Otherwise you should check whether the Prometheus is really running and whether all labels are set correctly.
 
-<img src="/images/2021-03-14-1.png" width="900" height="450" />
+<img src="/blog/images/2021-03-14-1.png" width="900" height="450" />
 
 What comes with the Prometheus operator is the alert manager. This has two main functions. One is the receiver, it can be a Slack channel or it can be sent by e-mail. The other is the router. There it is decided which alarms are sent to which receiver. The main router/receiver is the alert manager itself. All alarms can be seen on their website.
 
-<img src="/images/2021-03-14-2.png" width="900" height="450" />
+<img src="/blog/images/2021-03-14-2.png" width="900" height="450" />
 
 And what's not included in the Prometheus operator is Grafana. If there is a need, an instance must be deployed independently, again with the proxy functionality used by Rancher.
 
@@ -37,7 +37,7 @@ Here we just change the names of the namespace and Prometheus instance in the UR
 
 Other services such as Prometheus or Alertmanager can also be reached in this way.
 
-<img src="/images/2021-03-14-3.png" width="900" height="450" />
+<img src="/blog/images/2021-03-14-3.png" width="900" height="450" />
 
 Happy Monitoring
 

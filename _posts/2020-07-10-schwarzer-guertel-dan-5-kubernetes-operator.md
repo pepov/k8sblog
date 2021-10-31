@@ -19,7 +19,7 @@ Level 4 haelt Metriken bereit fuer Monitoring und Alarming. Logfileauswertung si
 
 Es endet dann im Level 5 mit der Auswertung der Daten vom Level zuvor, um die Applikation skalieren zu koennen oder sie im Ausfall zu reparieren. Also die Applikation soll das selber machen. Es gibt gerade mal eine Handvoll davon auf dem<a href="https://operatorhub.io"> Marktplatz operatorhub.io</a>, aber Vorsicht: die Liste ist nicht vollstaendig dort. Auf Github ist auch eine <a href="https://github.com/operator-framework/awesome-operators">umfangreiche Sammlung</a> gelistet. Die Qualitaet kann man immer nach den Kriterien des <a href="https://sdk.operatorframework.io/operator-capability-level.png">Operator Capability Levels</a> ueberpruefen. 
 
-<img src="/images/2020-07-10-1.png" width="900" height="450" />
+<img src="/blog/images/2020-07-10-1.png" width="900" height="450" />
 
 Einen etwas tieferen Einstieg mit praktischer Anleitung findet man in <a href="https://github.com/eumel8/ansible-otc-operator">ansible-otc-operator</a>. <a href="https://github.com/eumel8/ansible-otc/releases">ansible-otc</a> ist ein frueheres Toolset von mir, um mit Ansible-Playbooks Resourcen in der Open Telekom Cloud zu erstellen. Der Ansatz war event-basiert und ist sicherlich heute ueberholt. Ich habe ihn dennoch dazu benutzt, um einen Kubernetes Operator dafuer zu verwenden. Wer sich mit Ansible etwas auskennt, wird sich mit dem dazugehoerigen Operator schnell hereinfinden, zumal das <a href="https://sdk.operatorframework.io/">operator-sdk</a> automatisch den Code generieren kann. Mehr dazu auch in meinem Beispiel zu ansible-otc-operator. Viel Spass bei der <a href="https://github.com/eumel8/ansible-otc-operator/blob/master/README.md">Lektuere</a> und beim Ausprobieren.
 
