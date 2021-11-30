@@ -109,7 +109,7 @@ helm install --namespace joomla -n joomla joomla
 
 Die Ausgabe sieht etwa so aus:
 
-<pre>
+```
 NAME:   joomla
 LAST DEPLOYED: Sat Sep 14 19:17:19 2019
 NAMESPACE: joomla
@@ -168,7 +168,7 @@ NOTES:
     echo Username: user
     echo Password: $(kubectl get secret --namespace joomla joomla -o jsonpath="{.data.joomla-password}" | base64 --decode)
 
-</none></pending></pre>
+```
 
 Man kann den Status von Joomla auch jederzeit neu abrufen:
 
@@ -186,7 +186,7 @@ kubectl  get all -n joomla
 
 Die Ausgabe sieht etwa so aus:
 
-<pre>
+```
 NAME                          READY   STATUS    RESTARTS   AGE
 pod/joomla-56f6f9d644-6b8jf   1/1     Running   0          72s
 pod/joomla-mariadb-0          1/1     Running   0          72s
@@ -205,7 +205,7 @@ replicaset.apps/joomla-56f6f9d644   1         1         1       72s
 
 NAME                              READY   AGE
 statefulset.apps/joomla-mariadb   1/1     72s
-</none></pending></pre>
+```
 
 Wie man sieht, haben wir 2 PODs und 2 Services. Die EXTERNAL_IP steht fuer den Joomla-Service auf Pending, weil Minikube keinen Ingress-Service zur Bereitstellung externer Dienste anbietet. Hier koennen wir die Floating-IP unserer VM eintragen:
 
