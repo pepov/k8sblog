@@ -1,0 +1,16 @@
+---
+layout: page
+title: Tags
+background: '/images/k8s-cosmos.png'
+---
+
+ <span class="meta">
+             Tags:
+             {% for tag in site.tags %}
+	     <a href="/{{ tag[0] }}"> {{ tag[0] }} </a>
+             {% endfor %}
+ </span>
+	    <hr>
+    {% if page.url == '/tags/' %}
+    {% endif %}
+

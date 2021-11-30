@@ -2,14 +2,9 @@
 layout: post
 tag: en
 title: "Kubernetes on Rancher K3s and RKE2 in OTC with Terraform"
+subtitle: With Kubernetes Install Quickies we have worked in the past. K3S made a very good experience, a single binary, developed by Rancher, to use in smaller environments for Kubernetes. But how can we install a complete working space?
 date: 2021-07-17
----
-
-With <a href="https://blog.eumelnet.de/blogs/blog8.php/kubernetes-install-quickies">Kubernetes Install Quickies</a> we have worked in the past. K3S made a very good experience, a single binary, developed by Rancher, to use in smaller environments for Kubernetes. But how can we install a complete working space?
-
-<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
-
-<!--more-->
+background: '/images/k8s-cosmos.png'
 ---
 
 The answer Terraform. With Terraform we make conditions for resources in an infrastructure provided with modules and provider. To use resource in Open Telekom Cloud there is a <a href="https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs">Terraform Provider Opentelekomcloud </a>. Provide resource definition like VPC:

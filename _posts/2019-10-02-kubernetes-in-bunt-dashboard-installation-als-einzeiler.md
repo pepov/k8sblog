@@ -2,15 +2,10 @@
 layout: post
 tag: de
 title: "Kubernetes in bunt - Dashboard Installation als Einzeiler"
+subtitle: "Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher grafischer Benutzeroberflaechen. Andere fuehlen sich dann etwas verloren, wenn es sowas nicht gibt. Aber auch da gibt es bei Kubernetes eine Loesung: Das Kubernetes Dashboard"
 date: 2019-10-02
+background: '/images/k8s-cosmos.png'
 ---
-
-Manche fuehlen sich erst richtig wohl, wenn sie befreit sind vom Zwang jeglicher grafischer Benutzeroberflaechen. Andere fuehlen sich dann etwas verloren, wenn es sowas nicht gibt. Aber auch da gibt es bei Kubernetes eine Loesung: Das Kubernetes Dashboard:
-
-<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
-
----
-<!--more-->
 
 Installation:
 -------------

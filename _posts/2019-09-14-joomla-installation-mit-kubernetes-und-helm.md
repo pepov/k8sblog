@@ -2,15 +2,10 @@
 layout: post
 tag: de
 title: "Joomla Installation mit Kubernetes und Helm"
+subtitle: Kubernetes ist in aller Munde. Genau wie OpenStack ist es ein Oekosystem zur Verwaltung von Resourcen fuer die Cloud. Es hat den Anspruch, der Standard zur Verwaltung von Infrastruktur schlechthin zu werden.  Vor einiger Zeit hatte ich mich mit Juju beschaeftigt - gewisse Parallelen ergeben sich in Kubernetes. Wir werden sehen.
 date: 2019-09-14
+background: '/images/k8s-cosmos.png'
 ---
-
-Kubernetes ist in aller Munde. Genau wie OpenStack ist es ein Oekosystem zur Verwaltung von Resourcen fuer die Cloud. Es hat den Anspruch, der Standard zur Verwaltung von Infrastruktur schlechthin zu werden.  Vor einiger Zeit hatte ich mich <a href="https://blog.eumelnet.de/blogs/blog8.php/zauberei-mit-juju-serverless-computing">mit Juju beschaeftigt</a> - gewisse Parallelen ergeben sich in Kubernetes. Wir werden sehen.
-
-<img src="/blog/images/kubernetes.png" alt="Kubernetes" title="Kubernetes Logo" align="middle" width="420" height="420" />
-
----
-<!--more-->
 
 <strong>Vorbedingungen:</strong>
 Fuer dieses Beispiel nutzen wir eine Virtuelle Maschine, bereitgestellt etwas mit <a href="https://blog.eumelnet.de/blogs/blog8.php/terraform-open-telekom-cloud-quick-start">Terraform auf der OTC</a>. Dies erstellt uns eine VM mit Ubuntu 18.04 und 30 GB Festplatte, mit Netzwerk und Floating-IP
@@ -109,7 +104,7 @@ helm install --namespace joomla -n joomla joomla
 
 Die Ausgabe sieht etwa so aus:
 
-```
+```shell
 NAME:   joomla
 LAST DEPLOYED: Sat Sep 14 19:17:19 2019
 NAMESPACE: joomla
@@ -152,7 +147,6 @@ joomla-mariadb  0/1    0s
 
 NOTES:
 
-
 ** Please be patient while the chart is being deployed **
 
 1. Get the Joomla! URL by running:
@@ -160,13 +154,13 @@ NOTES:
   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
         Watch the status with: 'kubectl get svc --namespace joomla -w joomla'
 
-  export SERVICE_IP=$(kubectl get svc --namespace joomla joomla --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-  echo "Joomla! URL: http://$SERVICE_IP/"
+  `export SERVICE_IP=$(kubectl get svc --namespace joomla joomla --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")`
+ `echo "Joomla! URL: http://$SERVICE_IP/"`
 
 2. Get your Joomla! login credentials by running:
 
-    echo Username: user
-    echo Password: $(kubectl get secret --namespace joomla joomla -o jsonpath="{.data.joomla-password}" | base64 --decode)
+   `echo Username: user`
+   `echo Password: $(kubectl get secret --namespace joomla joomla -o jsonpath="{.data.joomla-password}" | base64 --decode)`
 
 ```
 
