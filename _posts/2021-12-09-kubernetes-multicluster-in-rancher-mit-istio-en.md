@@ -17,14 +17,14 @@ locations. Istio is one of the Service Mesh which we want to discover and to sol
 problems like
 
 * cluster-redundancy (each Kubernetes cluster works independent from each other and
-serve cloud-native, business-critical applications
+serve cloud-native, business-critical applications)
 * geo-redundancy (don't spread one cluster in different locations, each one location
 per cluster)
 * traffic shifting (serve one version of an application to one specific part of your
 customer, based on a region or your test team)
 
 Hint: There are already technical solutions to solve the problems with Kubernetes tools
-and withou a Service Mesh, because you load a lots of technical dependencies.
+and without a Service Mesh, because you load a lots of technical dependencies.
 
 Let's start!
 
@@ -45,13 +45,13 @@ The cluster fullfil the [CIS Benchmark Check](https://rancher.com/docs/rancher/v
 * Istio images are mirrored to MTR. Check available versions on https://mtr.external.otc.telekomcloud.com/repository/istio/
 * Download kubectl (if required) and get kube-config from Rancher
 
-```
+```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 ```
 
 * Download and install istioctl:
 
-```
+```bash
 $ curl -L https://istio.io/downloadIstio | sh -
 ```
 
@@ -77,10 +77,10 @@ on both cluster and make a traffic shifting. Target picture looks like that:
 
 Assumption:
 
-| No | Name             | ID       | Network       | Mesh       |
-|----|------------------|----------|---------------|------------|
-| 1  |mcsps-test-k8s-01 |  c-f7r9g | mcsps-test-01 | mcsps-test |
-| 2  |mcsps-test-k8s-02 |  c-pzk8b | mcsps-test-02 | mcsps-test |
+| No | Name                | ID         | Network         | Mesh       |
+|----|---------------------|------------|-----------------|------------|
+| 1  | mcsps-test-k8s-01   | c-f7r9g    | mcsps-test-01   | mcsps-test |
+| 2  | mcsps-test-k8s-02   | c-pzk8b    | mcsps-test-02   | mcsps-test |
 
 
 Create a project `istio` for both cluster in Rancher context:
@@ -114,7 +114,7 @@ EOF
 
 Create a namespace `istio-system` on both cluster in Cluster context:
 
-```yaml
+```bash
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Namespace
@@ -136,7 +136,7 @@ remove this annotation.
 
 Create LimitRange in `istio-system` namespace for container default quota:
 
-```yaml
+```bash
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: LimitRange
@@ -160,7 +160,7 @@ Create a namespace `sample` on both cluster in Cluster context:
 
 ## Istio Operator installation
 
-```
+```bash
 $ istioctl operator init --tag 1.12.0 --hub mtr.external.otc.telekomcloud.com/istio
 ```
 
@@ -171,7 +171,8 @@ This will install the Istio Operator in namespace `istio-operator`
 There are some tasks mentioned in [Istio Documentation](https://istio.io/latest/docs/setup/install/multicluster/before-you-begin/) like `Configure Trust`. This step has also an [example](https://github.com/istio/istio/tree/master/samples/certs)
 
 In sample/certs folder:
-```
+
+```bash
 make -f ../tools/certs/Makefile.selfsigned.mk root-ca
 make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-01-cacerts
 make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-02-cacerts
@@ -179,13 +180,13 @@ make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-02-cacerts
 
 Apply to the cluster (with context cluster 01):
 
-```
+```bash
 ./mcsps-test-k8s-01.sh
 ```
 
 Apply to the cluster (with context cluster 02):
 
-```
+```bash
 ./mcsps-test-k8s-02.sh
 ```
 
@@ -199,7 +200,7 @@ cacerts                                            Opaque                       
 Create a Rancher Token with scope on cluster1 and cluster2, create a kube-config
 file like this example and encode this with `base64`
 
-```yaml
+```bash
 cat <<EOF | base64 -w0
 apiVersion: v1
 clusters:
@@ -224,7 +225,7 @@ EOF
 Create a remote secret with the base64 content with the credentials and the name of other cluster.
 For example apply this secret on cluster2:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: v1
 data:
@@ -260,7 +261,7 @@ istioctl x create-remote-secret \
 
 Now we will install Istio Controllplane on each cluster:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
@@ -285,7 +286,7 @@ EOF
 
 Install Easwestgateway on each cluster:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
@@ -335,7 +336,7 @@ EOF
 
 Expose mTLS service on each cluster:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -561,7 +562,7 @@ EOF
 At the end we allow in our app also traffic to Istio service, kube-dns, and of course the service port,
 where Helloworld is served:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -650,7 +651,8 @@ spec:
 ```
 
 Now we can say, 90% of traffic served by one services, and 10% by the other:
-```yaml
+
+```bash
 cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -729,14 +731,14 @@ in the user namespace where the application lives (`sample`).
 
 "The Certificate should be created in the same namespace as the istio-ingressgateway"
 
-Ref: https://istio.io/latest/docs/ops/integrations/certmanager/
+Ref: [https://istio.io/latest/docs/ops/integrations/certmanager/](https://istio.io/latest/docs/ops/integrations/certmanager/)
 
 This might be the decision that the Cluster Admin is responsible for this
 task and not the user without permissions to the Istio project in Rancher.
 
 Create a Gateway for SSL termination
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -766,7 +768,7 @@ NetworkPolicy Egress tcp/80 rule.
 Create the VirtualService for traffic routing to the helloworld app
 in the sample namespace:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -800,7 +802,7 @@ spec:
 
 Create a certificate for helloworld:
 
-```yaml
+```bash
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -859,7 +861,7 @@ helloistio   True    helloistio-mcsps-telekomcloud-com   56m
 check connectivity:
 
 ```bash
-$ for i in {1..12}; do curl http://helloistio.mcsps.telekomcloud.com/hello;sleep 1;done
+$ for i in {1..12}; do curl https://helloistio.mcsps.telekomcloud.com/hello;sleep 1;done
 Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
 Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
 Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
