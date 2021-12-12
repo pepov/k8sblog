@@ -85,7 +85,7 @@ Assumption:
 
 Create a project `istio` for both cluster in Rancher context:
 
-```json
+```bash
 cat <<EOF | kubectl -n c-f7r9g apply -f -
 apiVersion: management.cattle.io/v3
 kind: Project
@@ -114,7 +114,7 @@ EOF
 
 Create a namespace `istio-system` on both cluster in Cluster context:
 
-```json
+```yaml
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Namespace
@@ -136,7 +136,7 @@ remove this annotation.
 
 Create LimitRange in `istio-system` namespace for container default quota:
 
-```json
+```yaml
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: LimitRange
@@ -199,7 +199,7 @@ cacerts                                            Opaque                       
 Create a Rancher Token with scope on cluster1 and cluster2, create a kube-config
 file like this example and encode this with `base64`
 
-```json
+```yaml
 cat <<EOF | base64 -w0
 apiVersion: v1
 clusters:
@@ -224,7 +224,7 @@ EOF
 Create a remote secret with the base64 content with the credentials and the name of other cluster.
 For example apply this secret on cluster2:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: v1
 data:
@@ -260,7 +260,7 @@ istioctl x create-remote-secret \
 
 Now we will install Istio Controllplane on each cluster:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
@@ -285,7 +285,7 @@ EOF
 
 Install Easwestgateway on each cluster:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
@@ -335,7 +335,7 @@ EOF
 
 Expose mTLS service on each cluster:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -470,7 +470,7 @@ For our Helloworld app we have to define allowed communication on both cluster:
 
 This rule should allow all traffic from and to namespaces where `istio-injection` is set:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -495,7 +495,7 @@ EOF
 ```
 With this rule we allow explicit traffic from and to Istio service ports, Kube-API and kube-dns:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -561,7 +561,7 @@ EOF
 At the end we allow in our app also traffic to Istio service, kube-dns, and of course the service port,
 where Helloworld is served:
 
-```json
+```yaml
 cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -632,7 +632,7 @@ The Istio project collected information in a [Troubleshooting Guide](https://ist
 To get some order in the Helloworld traffic management we decide
 which version is running on which endpoint:
 
-```json
+```yaml
 cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -650,7 +650,7 @@ spec:
 ```
 
 Now we can say, 90% of traffic served by one services, and 10% by the other:
-```json
+```yaml
 cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -736,7 +736,7 @@ task and not the user without permissions to the Istio project in Rancher.
 
 Create a Gateway for SSL termination
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -766,7 +766,7 @@ NetworkPolicy Egress tcp/80 rule.
 Create the VirtualService for traffic routing to the helloworld app
 in the sample namespace:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -800,7 +800,7 @@ spec:
 
 Create a certificate for helloworld:
 
-```json
+```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -820,7 +820,7 @@ spec:
 There are the assumption we have a ClusterIssuer `letsencrypt-wild` with
 dns01-challenge and a Designate-managed domain because we use external-dns.
 
-```json
+```yaml
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:

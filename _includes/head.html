@@ -17,13 +17,21 @@
   <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5e0851ef88092b001215bbc8&product=inline-share-buttons' async='async'></script>
 
   <link rel="stylesheet" href="{{"/assets/main.css" | relative_url }}">
+  <!-- https://github.com/iwootten/jekyll-syntax/ (native style) -->
+  <link rel="stylesheet" href="{{"/assets/styles.css" | relative_url }}">
+
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
 
   <!-- adapt bootstrap css for eumel blog -->
+<!--    pre 
+  {
+  background-color: lightgray;
+  }
+-->
   <style>
     body {text-align: justify;!important}
-    pre {background-color: lightgray;}
+
     header.masthead .post-heading .subheading { font-size: 20px;!important}
   </style>
 
