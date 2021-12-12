@@ -274,11 +274,11 @@ spec:
   hub: mtr.external.otc.telekomcloud.com/istio
   values:
     global:
-      meshID: frank-test
+      meshID: mcsps-test
       multiCluster:
-        clusterName: frank-test-k8s-01
+        clusterName: mcsps-test-k8s-01
         enabled: true
-      network: frank-test-01
+      network: mcsps-test-01
 EOF
 ```
 
@@ -303,12 +303,12 @@ spec:
         label:
           istio: eastwestgateway
           app: istio-eastwestgateway
-          topology.istio.io/network: frank-test-01
+          topology.istio.io/network: mcsps-test-01
         enabled: true
         k8s:
           env:
             - name: ISTIO_META_REQUESTED_NETWORK_VIEW
-              value: frank-test-01
+              value: mcsps-test-01
           service:
             ports:
               - name: status-port
@@ -328,7 +328,7 @@ spec:
       istio-ingressgateway:
         injectionTemplate: gateway
     global:
-      network: frank-test-01
+      network: mcsps-test-01
 EOF
 ```
 
