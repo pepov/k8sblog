@@ -1,7 +1,5 @@
 title: K8S Eumel Blog
 email: eumel@eumel.de
-description: >- All about Kubernetes proof of concepts, use cases, workloads.
-  From technical view and operations.
 
 baseurl: "/blog"
 url: ""
