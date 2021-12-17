@@ -261,15 +261,19 @@ Kiali verified your Istio installation, shows problems and errors. At the end tr
 are shown in graphs, requests are listed in details.
 
 <img src="/blog/images/2021-12-15-1.png" width="1024" height="459" />
+
 <img src="/blog/images/2021-12-15-2.png" width="1024" height="459" />
+
 <img src="/blog/images/2021-12-15-3.png" width="1024" height="459" />
 
 Data are provided by Jaeger which logs requests and network traffic in detail,
 based on the source interface and the commands.
 
+<img src="/blog/images/2021-12-15-4.png" width="1024" height="459" />
+
 <img src="/blog/images/2021-12-15-5.png" width="1024" height="459" />
+
 <img src="/blog/images/2021-12-15-6.png" width="1024" height="459" />
-<img src="/blog/images/2021-12-15-7.png" width="1024" height="459" />
 
 # Prometheus
 
