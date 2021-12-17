@@ -205,7 +205,7 @@ cat <<EOF | base64 -w0
 apiVersion: v1
 clusters:
 - cluster:
-    server: https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-f7r9g
+    server: https://raseed-test.external.otc.telekomcloud.com:443/k8s/clusters/c-f7r9g
   name: mcsps-test-k8s-01
 contexts:
 - context:
