@@ -17,6 +17,9 @@ layout: default
             {% if page.description %}
             <span class="subheading">{{ page.description }}</span>
             {% endif %}
+            {% if page.teaser %}
+            <img src={{ page.teaser }} width="559" height="468" align="middle" />
+            {% endif %}
           </div>
         </div>
       </div>

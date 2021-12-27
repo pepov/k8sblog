@@ -5,14 +5,13 @@ title: Kubernetes Multicluster in Rancher with Istio
 subtitle: "My last words in 2020 were: The Kubernetes cluster is not the end of the flagpole. If you think about high-availability or geo-reduncancy you need at least two Kubernetes cluster"
 date: 2021-12-09
 background: '/images/k8s-cosmos.png'
+teaser: '/images/k8s-post-istio.png'
 ---
 
 Once upon a time we had problems with one of our Kubernetes cluster. It took some
 days to solve the problem and cluster user experienced a service restriction for
 an uncommon long time. That was the starting point to think about cluster-redundancy
 and Service Mesh.
-
-<img src="/blog/images/k8s-post-istio.png" width="559" height="468" align="middle" />
 
 A Service Mesh describes a functionality to mixup services in different versions or
 locations. Istio is one of the Service Mesh which we want to discover and to solve

@@ -18,6 +18,9 @@ background: '/images/k8s-cosmos.png'
             {% if page.subtitle %}
             <h2 class="subheading">{{ page.subtitle }}</h2>
             {% endif %}
+            {% if page.teaser %}
+            <img src={{ page.teaser }} width="559" height="468" align="middle" />
+            {% endif %}
             <span class="meta">Posted by
               <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
               on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
