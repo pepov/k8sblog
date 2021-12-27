@@ -19,7 +19,7 @@ background: '/images/k8s-cosmos.png'
             <h2 class="subheading">{{ page.subtitle }}</h2>
             {% endif %}
             {% if page.teaser %}
-            <img src={{ page.teaser }} width="559" height="468" align="middle" />
+            <img src={{ page.teaser | prepend: site.baseurl | replace: '//','/' }} width="559" height="468" align="middle" />
             {% endif %}
             <span class="meta">Posted by
               <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
