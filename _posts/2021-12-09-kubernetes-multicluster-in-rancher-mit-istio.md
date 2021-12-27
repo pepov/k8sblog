@@ -86,7 +86,7 @@ Annahmen:
 Erstelle ein Projekt `istio` fuer beide Cluster im Rancher Kontext:
 
 ```bash
-cat <<EOF | kubectl -n c-f7r9g apply -f -
+$ cat <<EOF | kubectl -n c-f7r9g apply -f -
 apiVersion: management.cattle.io/v3
 kind: Project
 metadata:
@@ -115,7 +115,7 @@ EOF
 Erstelle einen Namespace `istio-system` fuer beide Cluster im Cluster Kontext:
 
 ```bash
-cat <<EOF | kubectl apply -f -
+$ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -138,7 +138,7 @@ Ansonsten kann man die Annotation loeschen.
 Erstelle LimitRange in `istio-system` Namespace fuer Container Default Quota:
 
 ```bash
-cat <<EOF | kubectl apply -f -
+$ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -180,27 +180,27 @@ In der [Istio Documentation](https://istio.io/latest/docs/setup/install/multiclu
 Im sample/certs Verzeichnis:
 
 ```bash
-make -f ../tools/certs/Makefile.selfsigned.mk root-ca
-make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-01-cacerts
-make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-02-cacerts
+$ make -f ../tools/certs/Makefile.selfsigned.mk root-ca
+$ make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-01-cacerts
+$ make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-02-cacerts
 ```
 
 Auf dem Cluster anwenden (mit Kontext cluster 01):
 
 ```bash
-./mcsps-test-k8s-01.sh
+$ ./mcsps-test-k8s-01.sh
 ```
 
 Auf dem Cluster anwenden (mit Kontext cluster 02):
 
 ```bash
-./mcsps-test-k8s-02.sh
+$ ./mcsps-test-k8s-02.sh
 ```
 
 Erstellte Secrets überprüfen
 
 ```bash
-kubectl -n istio-system get secrets cacerts
+$ kubectl -n istio-system get secrets cacerts
 cacerts                                            Opaque                                4      57d
 ```
 
@@ -208,7 +208,7 @@ Erstellen eines Rancher Token mit Skope auf cluster1 und cluster2, erstellen ein
 Datei wie in diesem Beispiel und kodieren mit `base64`
 
 ```bash
-cat <<EOF | base64 -w0
+$ cat <<EOF | base64 -w0
 apiVersion: v1
 clusters:
 - cluster:
@@ -233,7 +233,7 @@ Erstellen eines Remote Secret mit bas64 mit diesen Credentials und dem Namen des
 anderen Clusters,
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: v1
 data:
   mcsps-test-k8s-01: YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gY2x1c3RlcjoKICAgIHNlcnZlcjogaHR0cHM6Ly9yYXNlZWQtdGVzdC5leHRlcm5hbC5vdGMudGVsZWtvbWNsb3VkLmNvbS9rOHMvY2x1c3RlcnMvYy1mN3I5ZwogIG5hbWU6IG1jc3BzLXRlc3QtazhzLTAxCmNvbnRleHRzOgotIGNvbnRleHQ6CiAgICBjbHVzdGVyOiBtY3Nwcy10ZXN0LWs4cy0wMQogICAgdXNlcjogbWNzcHMtdGVzdC1rOHMtMDEKICBuYW1lOiBtY3Nwcy10ZXN0LWs4cy0wMQpjdXJyZW50LWNvbnRleHQ6IG1jc3BzLXRlc3QtazhzLTAxCmtpbmQ6IENvbmZpZwpwcmVmZXJlbmNlczoge30KdXNlcnM6Ci0gbmFtZTogbWNzcHMtdGVzdC1rOHMtMDEKICB1c2VyOgogICAgdG9rZW46IHRva2VuLWhmanZnOnRzam4yazV2bHZqanpxaHdwYnB6d2ZrYjU0OXE1NHBkeHJrc2ZuNmh3ODJzdmJxNXZjZ3JtbAo=
@@ -252,7 +252,7 @@ EOF
 Überprüfen des Remote Secret in jedem Cluster:
 
 ```bash
-kubectl -n istio-system get secrets | grep remote-secret
+$ kubectl -n istio-system get secrets | grep remote-secret
 istio-remote-secret-mcsps-test-k8s-01              Opaque                                1      57d
 ```
 
@@ -260,7 +260,7 @@ Hinweis: Es gibt noch einen anderen Weg, um die Remote Secret mit
 Zertifikaten zu erstellen, aber es wird hier nur erwähnt:
 
 ```bash
-istioctl x create-remote-secret \
+$ istioctl x create-remote-secret \
     --name=mcsps-test-k8s-01 --context=mcsps-test-k8s-01
 ```
 
@@ -269,7 +269,7 @@ istioctl x create-remote-secret \
 Jetzt werden wir den Istio Controllplane in jedem Cluster installieren:
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
@@ -294,7 +294,7 @@ EOF
 Installation Easwestgateway in jedem Cluster:
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
@@ -344,7 +344,7 @@ EOF
 Exponieren mTLS Service in jedem Cluster:
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -439,9 +439,9 @@ cluster1:
 deploy v1
 
 ```bash
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l version=v1
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l service=helloworld
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld-gateway.yaml
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l version=v1
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l service=helloworld
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld-gateway.yaml
 ```
 
 cluster2:
@@ -449,9 +449,9 @@ cluster2:
 deploy v2
 
 ```bash
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l version=v2
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l service=helloworld
-kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld-gateway.yaml
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l version=v2
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld.yaml -l service=helloworld
+$ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld-gateway.yaml
 ```
 
 ## Anpassen NetworkPolicy
@@ -479,7 +479,7 @@ Für die Helloworld App haben wir die erlaubte Kommunikation in beiden Clustern 
 Diese Regel sollte alle Traffic von und zu Namespaces erlauben, bei denen `istio-injection` gesetzt ist:
 
 ```yaml
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -505,7 +505,7 @@ EOF
 Mit dieser Regel erlauben wir explizit Traffic von und zu Istio Service Ports, Kube-API und Kube-DNS:
 
 ```yaml
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -570,7 +570,7 @@ EOF
 Am Ende erlauben wir in unserer App auch Traffic zu Istio Service, Kube-DNS und natürlich dem Service Port, auf dem Helloworld ausgeliefert wird:
 
 ```bash
-cat <<EOF | kubectl -n sample apply -f -
+$ cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -642,7 +642,7 @@ Um etwas Ordnung im Trafficmanagement der Helloworld zu bekommen, entscheiden wi
 welche Version auf welchem Endpunkt läuft:
 
 ```yaml
-cat <<EOF | kubectl -n sample apply -f -
+$ cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
@@ -662,7 +662,7 @@ Jetzt können wir sagen, 90% der Traffic wird von einem Service ausgeliefert
 und 10% vom anderen:
 
 ```bash
-cat <<EOF | kubectl -n sample apply -f -
+$ cat <<EOF | kubectl -n sample apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -689,6 +689,7 @@ spec:
           number: 5000
         subset: v2
       weight: 90
+EOF
 ```
 
 Nicht zu vergessen ist, dies auf beide Cluster anzuwenden, um beide
@@ -750,7 +751,7 @@ diese Aufgabe und nicht der User ohne Berechtigung im Istio Projekt in Rancher.
 Erstellen eines Gateway für SSL Terminierung
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -770,6 +771,7 @@ spec:
       credentialName: helloistio-mcsps-telekomcloud-com
     hosts:
     - helloistio.mcsps.telekomcloud.com
+EOF
 ```
 
 Das DNS Ziel ist die IP-Adresse des IngressGateway
@@ -780,7 +782,7 @@ Erstellen des VirtualService für Traffic Routing zur Helloworld App im
 sample Namespace:
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -808,13 +810,13 @@ spec:
           number: 5000
         subset: v2
       weight: 10
-
+EOF
 ```
 
 Erstellen eines Zertifikats für Helloworld:
 
 ```bash
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -828,6 +830,7 @@ spec:
   commonName: helloistio.mcsps.telekomcloud.com
   dnsNames:
   - helloistio.mcsps.telekomcloud.com
+EOF
 ```
 
 Da ist die Annahme, wir haben einen ClusterIssuer `letsencrypt-wild` mit
