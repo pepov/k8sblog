@@ -23,7 +23,7 @@ Kiali is in heavy developement and with Rancher provided versions have
 Helm chart but latest version for installation on bothe clusters:
 
 ```yaml
-cat << EOF > values-kiali.yaml
+$ cat << EOF > values-kiali.yaml
 global:
   # Specify rancher clusterId of external tracing config
   # https://github.com/istio/istio.io/issues/4146#issuecomment-493543032
@@ -79,13 +79,13 @@ EOF
 * the internal monitoring endpoints will be used from rancher-monitoring
 
 ```bash
-helm upgrade -i \
+$ helm upgrade -i \
   --namespace istio-system \
   --repo https://charts.rancher.io \
   rancher-kiali-server-crd \
   rancher-kiali-server-crd
 
-helm upgrade -i \
+$ helm upgrade -i \
   --namespace istio-system \
   --repo https://charts.rancher.io \
   -f values-kiali.yaml \
@@ -104,7 +104,7 @@ and Prometheus. Beware that ServiceEndpoints sometimes are on different port
 as Service ports!
 
 ```yaml
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -148,7 +148,7 @@ install Jaeger with such kind of sizing. There is also a "all-in-one" installati
 which will we use here.
 
 ```yaml
-cat << EOF > values-jaeger.yaml
+$ cat << EOF > values-jaeger.yaml
 provider: jaeger
 
 global:
@@ -194,7 +194,7 @@ We use a small PersistentVolumeClaim from StorageClass "sata". Adjust on your
 own if you have other storage solutions. PVC can also disabled.
 
 ```bash
-helm upgrade -i \
+$ helm upgrade -i \
   --namespace istio-system \
   --repo https://charts.rancher.io \
   -f values-jaeger.yaml \
@@ -249,7 +249,7 @@ Not very common. Rancher 2.6 provides NavLinks resources to extend the
 dashboard menu in the UI
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/navlinks.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/navlinks.yaml
 ```
 
 <img src="/blog/images/2021-12-15-7.png" width="1024" height="459" />
@@ -285,7 +285,7 @@ installed from rancher-monitoring)
 ## Service Monitor
 
 ```yaml
-cat <<EOF | kubectl -n istio-system apply -f -
+$ cat <<EOF | kubectl -n istio-system apply -f -
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -333,6 +333,7 @@ spec:
   endpoints:
   - port: http-monitoring
     interval: 15s
+EOF
 ```
 
 ```bash
