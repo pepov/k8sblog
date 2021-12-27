@@ -12,6 +12,8 @@ days to solve the problem and cluster user experienced a service restriction for
 an uncommon long time. That was the starting point to think about cluster-redundancy
 and Service Mesh.
 
+<img src="/blog/images/k8s-post-istio.png" width="559" height="468" />
+
 A Service Mesh describes a functionality to mixup services in different versions or
 locations. Istio is one of the Service Mesh which we want to discover and to solve
 problems like
