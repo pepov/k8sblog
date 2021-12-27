@@ -1,81 +1,83 @@
 ---
 layout: post
-tag: en
-title: Kubernetes Multicluster in Rancher with Istio
-subtitle: "My last words in 2020 were: The Kubernetes cluster is not the end of the flagpole. If you think about high-availability or geo-reduncancy you need at least two Kubernetes cluster"
+tag: de
+title: Kubernetes Multicluster in Rancher mit Istio
+subtitle: "Meine letzten Worte 2020 waren: Der Kubernetes Cluster ist nicht das Ende der Fahnenstange. Wenn man an Hohverfügbarkeit oder Standortredundanz, brauch man am wenigsten 2 Kubernetes Cluster"
 date: 2021-12-09
 background: '/images/k8s-cosmos.png'
 ---
 
-Once upon a time we had problems with one of our Kubernetes cluster. It took some
-days to solve the problem and cluster user experienced a service restriction for
-an uncommon long time. That was the starting point to think about cluster-redundancy
-and Service Mesh.
+Es war einmal, da hatten wir ein Problem mit einem Kubernetes Cluster. Es dauerte
+einige Tage, das Problem zu lösen und die Benutzer erfuhren eine Diensteeinschränkung
+für eine ungewöhnlich lange Zeit. Das war der Startpunkt, um über Cluster-Redundanz und
+Service Mesh nachzudenken.
 
-A Service Mesh describes a functionality to mixup services in different versions or
-locations. Istio is one of the Service Mesh which we want to discover and to solve
-problems like
+<img src="/blog/images/k8s-post-istio.png"/>
 
-* cluster-redundancy (each Kubernetes cluster works independent from each other and
-serve cloud-native, business-critical applications)
-* geo-redundancy (don't spread one cluster in different locations, each one location
-per cluster)
-* traffic shifting (serve one version of an application to one specific part of your
-customer, based on a region or your test team)
+Ein Service Mesh beschreibt eine Funktionalität, um Dienste in verschiedenen Versionen oder
+Lokationen zu mischen. Istio ist ein solcher Service Mesh, welchen wir untersuchen möchten,
+um folgende Probleme zu lösen:
 
-Hint: There are already technical solutions to solve the problems with Kubernetes tools
-and without a Service Mesh, because you load a lots of technical dependencies.
+* Cluster-Redundanz (jeder Kubernetes Cluster arbeitet unabhängig voneinander und liefert
+cloud-native, businesskritische Applikationen)
+* Standort-Redundanz (verteile nicht ein Cluster auf mehrere Standorte, jeder Standort hat
+seinen eigenen Cluster)
+* Trafik-Verteilung (liefere eine Version der Applikation zu einem bestimmten Teil der Kunden,
+basierend auf eine Region oder dem Test-Team)
 
-Let's start!
+Hinweis: Es gibt bislang schon technische Lösungen, um diese Probleme mit Kubernetes Werkzeugen
+und ohne Service Mesh zu lösen, da man sich eine Menge technische Abhängigkeiten einlädt.
 
-## Prerequisites
+Los gehts!
 
-* 2 Kubernetes Downstream Cluster (1.20.12-rancher1-1) managed by Rancher
-* Cluster Admin access to Rancher
-* Possibility to deploy External Loadbalancer, i.e. OTC ELB with [OpenStack Cloud Controller Manager](github.com/kubernetes/cloud-provider-openstack)
+## Vorbedingungen
 
-The cluster fullfil the [CIS Benchmark Check](https://rancher.com/docs/rancher/v2.6/en/cis-scans/)
+* 2 Kubernetes Downstream Cluster (1.20.12-rancher1-1) verwaltet von Rancher
+* Cluster Admin Zugriff auf Rancher
+* Die Möglichkeit zur Erstellung von Externen Loadbalancern, z.B. OTC ELB mit [OpenStack Cloud Controller Manager](github.com/kubernetes/cloud-provider-openstack)
 
-* `restricted` PodSecurityPolicy is enforced
-* ProjectNetworkIsolation is enabled
+Die Cluster erfüllen voll den [CIS Benchmark Check](https://rancher.com/docs/rancher/v2.6/en/cis-scans/)
+
+* `restricted` PodSecurityPolicy ist erzwungen
+* ProjectNetworkIsolation ist aktiviert
 
 
-## More Prerequisites
+## Mehr Vorbedingungen
 
-* Istio images are mirrored to MTR. Check available versions on [https://mtr.external.otc.telekomcloud.com/repository/istio/](https://mtr.external.otc.telekomcloud.com/repository/istio/)
-* Download kubectl (if required) and get kube-config from Rancher
+* Istio Images sind zur MTR gespiegelt. Verfügbare Versionen auf [https://mtr.external.otc.telekomcloud.com/repository/istio/](https://mtr.external.otc.telekomcloud.com/repository/istio)
+* Download kubectl (wenn erforderlich) und kube-config von Rancher
 
 ```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 ```
 
-* Download and install istioctl:
+* Download und installieren von istioctl:
 
 ```bash
 $ curl -L https://istio.io/downloadIstio | sh -
 ```
 
-## Istio install methods & project goal
+## Istio Installationsmethoden & Projektziele
 
-* Install by Rancher App Catalog (Rancher Helm Chart)
-* Install by origin Istio Helm Chart
-* Install by Istio Operator
+* Installation durch Rancher App Katalog (Rancher Helm Chart)
+* Installation durch Istio Helm Chart
+* Installation durch Istio Operator
 
-We will use Istio Operator to verify each step to install Istio version
-1.12.0 (lower versions might have problems with the multi-cluster connect)
+Wir werden den Istio Operator benutzen, um jeden Schritt der Installation von Istio Version
+1.12.0 (ältere Versionen haben Probleme bei der Verbindung von Multi-Clustern)
 
-Project goal is to install [Istio Helloworld Example](https://github.com/istio/istio/tree/master/samples/helloworld)
-on both cluster and make a traffic shifting. Target picture looks like that:
+Projektziel ist die Installation des [Istio Helloworld Beispiels](https://github.com/istio/istio/tree/master/samples/helloworld)
+in beiden Clustern und verteilen der Traffic. Das Zielbild sieht so aus:
 
 <img src="/blog/images/2021-12-09-1.svg" width="900" height="450" />
 
-* The HelloWorld service in both cluster
-* Exposed Ingress service
-* Eastwest Gateway for interconnect traffic
+* Der HelloWorld Service in beiden Clustern
+* Exposed Ingress Service
+* Eastwest Gateway fuer interconnect Traffic
 
-## Cluster preparation
+## Cluster Vorbereitungen
 
-Assumption:
+Annahmen:
 
 | No | Name                | ID         | Network         | Mesh       |
 |----|---------------------|------------|-----------------|------------|
@@ -83,7 +85,7 @@ Assumption:
 | 2  | mcsps-test-k8s-02   | c-pzk8b    | mcsps-test-02   | mcsps-test |
 
 
-Create a project `istio` for both cluster in Rancher context:
+Erstelle ein Projekt `istio` fuer beide Cluster im Rancher Kontext:
 
 ```bash
 cat <<EOF | kubectl -n c-f7r9g apply -f -
@@ -112,7 +114,7 @@ spec:
 EOF
 ```
 
-Create a namespace `istio-system` on both cluster in Cluster context:
+Erstelle einen Namespace `istio-system` fuer beide Cluster im Cluster Kontext:
 
 ```bash
 cat <<EOF | kubectl apply -f -
@@ -130,11 +132,12 @@ metadata:
   name: istio-system
 EOF
 ```
-* There is the assumption that we have worker nodes for Ingress with role `ingress`. Otherwise
-remove this annotation.
-* Ensure the right cluster-id and network-id
 
-Create LimitRange in `istio-system` namespace for container default quota:
+* Es gibt weiter die Annahme, dass wir Worker Nodes fuer Ingress mit Rolle  `ingress` haben.
+Ansonsten kann man die Annotation loeschen.
+* Die richtige cluster-id und network-id muss jederzeit sichergestellt werden.
+
+Erstelle LimitRange in `istio-system` Namespace fuer Container Default Quota:
 
 ```bash
 cat <<EOF | kubectl apply -f -
@@ -157,26 +160,26 @@ spec:
 EOF
 ```
 
-Create a namespace `sample` on both cluster in Cluster context:
+Erstelle einen Namespace `sample` in beiden Clustern in Cluster Kontext:
 
 ```bash
 $ kubectl create namespace sample
 $ kubectl label namespace sample  istio-injection=enabled --overwrite
 ```
 
-## Istio Operator installation
+## Istio Operator Installation
 
 ```bash
 $ istioctl operator init --tag 1.12.0 --hub mtr.external.otc.telekomcloud.com/istio
 ```
 
-This will install the Istio Operator in namespace `istio-operator`
+Dadurch wird der Istio Operator im Namespace `istio-operator` erstellt
 
-## Multi-Cluster preparation
+## Multi-Cluster Vorbereitungen
 
-There are some tasks mentioned in [Istio Documentation](https://istio.io/latest/docs/setup/install/multicluster/before-you-begin/) like `Configure Trust`. This step has also an [example](https://github.com/istio/istio/tree/master/samples/certs)
+In der [Istio Documentation](https://istio.io/latest/docs/setup/install/multicluster/before-you-begin/) sind einige Aufgaben erwaehnt wie  `Configure Trust`. Dafuer gibt es auch ein [Beispiel](https://github.com/istio/istio/tree/master/samples/certs)
 
-In sample/certs folder:
+Im sample/certs Verzeichnis:
 
 ```bash
 make -f ../tools/certs/Makefile.selfsigned.mk root-ca
@@ -184,27 +187,27 @@ make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-01-cacerts
 make -f ../tools/certs/Makefile.selfsigned.mk mcsps-test-k8s-02-cacerts
 ```
 
-Apply to the cluster (with context cluster 01):
+Auf dem Cluster anwenden (mit Kontext cluster 01):
 
 ```bash
 ./mcsps-test-k8s-01.sh
 ```
 
-Apply to the cluster (with context cluster 02):
+Auf dem Cluster anwenden (mit Kontext cluster 02):
 
 ```bash
 ./mcsps-test-k8s-02.sh
 ```
 
-Check generated secrets
+Erstellte Secrets überprüfen
 
 ```bash
 kubectl -n istio-system get secrets cacerts
 cacerts                                            Opaque                                4      57d
 ```
 
-Create a Rancher Token with scope on cluster1 and cluster2, create a kube-config
-file like this example and encode this with `base64`
+Erstellen eines Rancher Token mit Skope auf cluster1 und cluster2, erstellen einer kube-config
+Datei wie in diesem Beispiel und kodieren mit `base64`
 
 ```bash
 cat <<EOF | base64 -w0
@@ -228,8 +231,8 @@ users:
 EOF
 ```
 
-Create a remote secret with the base64 content with the credentials and the name of other cluster.
-For example apply this secret on cluster2:
+Erstellen eines Remote Secret mit bas64 mit diesen Credentials und dem Namen des
+anderen Clusters,
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -248,24 +251,24 @@ type: Opaque
 EOF
 ```
 
-Verify remote secret on each cluster:
+Überprüfen des Remote Secret in jedem Cluster:
 
 ```bash
 kubectl -n istio-system get secrets | grep remote-secret
 istio-remote-secret-mcsps-test-k8s-01              Opaque                                1      57d
 ```
 
-hint: there is another option to generate remote secret with
-certificates, but it's only named here:
+Hinweis: Es gibt noch einen anderen Weg, um die Remote Secret mit
+Zertifikaten zu erstellen, aber es wird hier nur erwähnt:
 
 ```bash
 istioctl x create-remote-secret \
     --name=mcsps-test-k8s-01 --context=mcsps-test-k8s-01
 ```
 
-## Install Istio Controlplane and Istio Ingressgateway
+## Installation Istio Controlplane und Istio Ingressgateway
 
-Now we will install Istio Controllplane on each cluster:
+Jetzt werden wir den Istio Controllplane in jedem Cluster installieren:
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -288,9 +291,9 @@ spec:
 EOF
 ```
 
-## Install Istio Eastwestgateway
+## Installation Istio Eastwestgateway
 
-Install Easwestgateway on each cluster:
+Installation Easwestgateway in jedem Cluster:
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -338,9 +341,9 @@ spec:
 EOF
 ```
 
-## Expose Istio Service
+## Exponierte Istio Dienste
 
-Expose mTLS service on each cluster:
+Exponieren mTLS Service in jedem Cluster:
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -363,7 +366,7 @@ spec:
 EOF
 ```
 
-## Verify Istio Controllplane and Gateways
+## Überprüfen Istio Controllplane und Gateways
 
 ```bash
 $ kubectl -n istio-system get all
@@ -399,9 +402,9 @@ NAME                                                        REFERENCE           
 horizontalpodautoscaler.autoscaling/istio-eastwestgateway   Deployment/istio-eastwestgateway   18%/80%   1         5         1          22h
 ```
 
-If istiod won't start due the cluster permissions adjust the clusterrole:
+Wenn istiod nicht startet wegen Cluster Zugriffsproblemen muss die CluserRole angepasst werden:
 
-Fix ClusterRole in Istio 1.12.0
+Behoben in Istio 1.12.0
 
 ```bash
 $ kubectl edit  clusterrole istiod-istio-system
@@ -429,9 +432,9 @@ NAME                    AGE
 cross-network-gateway   22h
 ```
 
-## Install Helloworld
+## Installation Helloworld
 
-hint: origin samples are in the [Istio Github Repo](https://github.com/istio/istio/tree/master/samples/helloworld)
+Hinweis: Die originalen Beispiele befinden sich im [Istio Github Repo](https://github.com/istio/istio/tree/master/samples/helloworld)
 
 cluster1:
 
@@ -453,9 +456,9 @@ kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/mas
 kubectl -n sample apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/helloworld-gateway.yaml
 ```
 
-## Adjust NetworkPolicy
+## Anpassen NetworkPolicy
 
-Istio and Rancher applied already some NetworkPolicy rules:
+Istio und Rancher haben schon ein paar NetworkPolicy Regeln installiert:
 
 ```bash
 $ kubectl -n sample get networkpolicies.networking.k8s.io
@@ -471,11 +474,11 @@ np-istio-eastwestgateway   app=istio-eastwestgateway,istio=eastwestgateway,topol
 np-istio-ingressgateway    app=istio-ingressgateway,istio=ingressgateway                                             29h
 ```
 
-Rancher default rules are fine for "normal" communication on Overlay Network or Ingress on the same cluster.
+Rancher Standardregeln sind gut für "normale" Kommunikation über Overlay Network oder Ingress im selben Cluster.
 
-For our Helloworld app we have to define allowed communication on both cluster:
+Für die Helloworld App haben wir die erlaubte Kommunikation in beiden Clustern zu definieren:
 
-This rule should allow all traffic from and to namespaces where `istio-injection` is set:
+Diese Regel sollte alle Traffic von und zu Namespaces erlauben, bei denen `istio-injection` gesetzt ist:
 
 ```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -500,7 +503,8 @@ spec:
   - Ingress
 EOF
 ```
-With this rule we allow explicit traffic from and to Istio service ports, Kube-API and kube-dns:
+
+Mit dieser Regel erlauben wir explizit Traffic von und zu Istio Service Ports, Kube-API und Kube-DNS:
 
 ```yaml
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -565,8 +569,7 @@ spec:
 EOF
 ```
 
-At the end we allow in our app also traffic to Istio service, kube-dns, and of course the service port,
-where Helloworld is served:
+Am Ende erlauben wir in unserer App auch Traffic zu Istio Service, Kube-DNS und natürlich dem Service Port, auf dem Helloworld ausgeliefert wird:
 
 ```bash
 cat <<EOF | kubectl -n sample apply -f -
@@ -601,9 +604,10 @@ spec:
   - Ingress
 EOF
 ```
-## Verifiy Installation (troubleshooting guide)
 
-verify eastwest traffic
+## Überprüfen der Installation (Fehlersuche)
+
+Überprüfen Eastwest Traffic
 
 ```bash
 $ istioctl -n sample proxy-config endpoint helloworld-v2-5866f57dd6-8hgml| grep helloworld
@@ -613,8 +617,8 @@ $ istioctl -n sample proxy-config endpoint helloworld-v2-5866f57dd6-8hgml| grep 
 80.158.16.72:15443               HEALTHY     OK                outbound|5000||helloworld.sample.svc.cluster.local
 ```
 
-In case of working eastwest gateway you should see as endpoint of the remote cluster the LoadBalancer ip-address
-and the mTLS port 15443 here. Without eastwest the POD-IP of each helloworld pod will appear (which is not available)
+Bei funktionierendem Eastwest Gateway sollten wir als Endpunkt die Loadbalancer Ip-Adresse des Remote Cluster
+auf dem mTLS port 15443 sehen. Ohne Eastwest erscheint die POD-IP jedes Helloworld POD (welche im Remote Cluster nicht erreichbar ist).
 
 ```bash
 $ for i in {1..12}; do curl http://80.158.47.22/hello;sleep 1;done
@@ -632,12 +636,12 @@ Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
 Hello version: v2, instance: helloworld-v2-5866f57dd6-8hgml
 ```
 
-The Istio project collected information in a [Troubleshooting Guide](https://istio.io/latest/docs/ops/common-problems/network-issues/)
+Das Istio Project sammelte Informationen in einem [Leitfaden zur Fehlersuche](https://istio.io/latest/docs/ops/common-problems/network-issues/).
 
-## Traffic shifting
+## Trafficverteilung
 
-To get some order in the Helloworld traffic management we decide
-which version is running on which endpoint:
+Um etwas Ordnung im Trafficmanagement der Helloworld zu bekommen, entscheiden wir
+welche Version auf welchem Endpunkt läuft:
 
 ```yaml
 cat <<EOF | kubectl -n sample apply -f -
@@ -656,7 +660,8 @@ spec:
       version: v2
 ```
 
-Now we can say, 90% of traffic served by one services, and 10% by the other:
+Jetzt können wir sagen, 90% der Traffic wird von einem Service ausgeliefert
+und 10% vom anderen:
 
 ```bash
 cat <<EOF | kubectl -n sample apply -f -
@@ -688,9 +693,9 @@ spec:
       weight: 90
 ```
 
-Don't forget to apply this in both cluster to manage both Ingress
-with the same configuration. Now we should see more v2 versions
-in reply loop:
+Nicht zu vergessen ist, dies auf beide Cluster anzuwenden, um beide
+Ingress mit derselben Konfiguration zu versorgen. Jetzt sollten wir
+mehr v2 Versionen in der Antwortschleife sehen:
 
 ```bash
 $ for i in {1..12}; do curl http://80.158.47.22/hello;sleep 1;done
@@ -708,13 +713,14 @@ Hello version: v2, instance: helloworld-v2-5866f57dd6-8hgml
 Hello version: v2, instance: helloworld-v2-5866f57dd6-8hgml
 ```
 
-## SSL Frontend with Let's Encrypt Certification
+## SSL Frontend mit Let's Encrypt Zertifikation
 
-Be more production-ready we want to use SSL termination on frontend,
-a self-managed Let's Encrypt certificate together with a common hostname.
+Um mehr produktionsreif zu sein, wir möchten SSL-Terminierung am Frontend
+verwenden, eine selbstverwaltetes Let's Encrypt Zertifikat zusammen mit einem
+üblichen Hostnamen.
 
-To start with the hostname issue we use already [External-DNS](https://github.com/kubernetes-sigs/external-dns)
-and need to extend source list where external-dns listen on annotations:
+Um mit dem Hostname Problem zu beginnen, verwenden wir schon External-DNS](https://github.com/kubernetes-sigs/external-dns)
+und müssen die Quellenliste erweitern, wo external-dns auf Annotations hört:
 
 ```yaml
   - args:
@@ -732,17 +738,18 @@ and need to extend source list where external-dns listen on annotations:
     - --source=istio-gateway
 ```
 
-Furthermore there is an issue that cert-manager with Istio can't operate
-in the user namespace where the application lives (`sample`). 
+Weiterhin gibt es beim cert-manager ein Problem mit Istio,
+weswegen er nicht im User Namespace arbeiten kann, in dem 
+sich die Applikation befindet (`sample`). 
 
 "The Certificate should be created in the same namespace as the istio-ingressgateway"
 
 Ref: [https://istio.io/latest/docs/ops/integrations/certmanager/](https://istio.io/latest/docs/ops/integrations/certmanager/)
 
-This might be the decision that the Cluster Admin is responsible for this
-task and not the user without permissions to the Istio project in Rancher.
+Das mag die Entscheidung sein, dass der Cluster Admin verantwortlich ist für
+diese Aufgabe und nicht der User ohne Berechtigung im Istio Projekt in Rancher.
 
-Create a Gateway for SSL termination
+Erstellen eines Gateway für SSL Terminierung
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -767,12 +774,12 @@ spec:
     - helloistio.mcsps.telekomcloud.com
 ```
 
-The DNS target ist the ip-address of the IngressGateway
-hint: to communicate with external-dns webhook we need a
-NetworkPolicy Egress tcp/80 rule.
+Das DNS Ziel ist die IP-Adresse des IngressGateway
+Hinweis: Um mit dem external-dns Webhool zu kommunizieren, benötigen wir eine
+NetworkPolicy Egress tcp/80 Regel.
 
-Create the VirtualService for traffic routing to the helloworld app
-in the sample namespace:
+Erstellen des VirtualService für Traffic Routing zur Helloworld App im
+sample Namespace:
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -806,7 +813,7 @@ spec:
 
 ```
 
-Create a certificate for helloworld:
+Erstellen eines Zertifikats für Helloworld:
 
 ```bash
 cat <<EOF | kubectl -n istio-system apply -f -
@@ -825,8 +832,8 @@ spec:
   - helloistio.mcsps.telekomcloud.com
 ```
 
-There are the assumption we have a ClusterIssuer `letsencrypt-wild` with
-dns01-challenge and a Designate-managed domain because we use external-dns.
+Da ist die Annahme, wir haben einen ClusterIssuer `letsencrypt-wild` mit
+dns01-challenge und eine Designate-verwaltete Domain, da wir external-dns benutzen.
 
 ```yaml
 apiVersion: cert-manager.io/v1
@@ -847,16 +854,16 @@ spec:
           solverName: designatedns
 ```
 
-Let`s Encrypt http-01 challenge will not work out of the box with
-Istio because this challenge expects temporary Ingress defintions.
+Let`s Encrypt http-01 Challenge wird nicht aus dem Hut mit Istio funktionieren,
+da die Challenge eine temporaere Ingress Defintion erwartet.
 
-You will see something like that on IngressGateway:
+Man wird sowas wie dies hier auf dem IngressGateway sehen:
 
 ```bash
 [2021-12-11T17:40:54.432Z] "GET /.well-known/acme-challenge/Q14PwTatb9y3RPS3o4jss2NQL5lioZTnevB4kI7lns44 HTTP/1.1" 404 NR route_not_found - "-" 0 0 0 - "10.42.7.0" "cert-manager/v1.5.3 (clean)" "4828cac7-ae2d-91e7-9699-a6c2e9a82321" "helloistio.mcsps.telekomcloud.com" "-" - - 10.42.6.79:8080 10.42.7.0:13840 - -
 ```
 
-check if certificate is issued:
+Überprüfen ob das Zertifikat ausgestellt wurde:
 
 ```bash
 $ kubectl -n istio-system get certificate
@@ -864,7 +871,7 @@ NAME         READY   SECRET                               AGE
 helloistio   True    helloistio-mcsps-telekomcloud-com   56m
 ```
 
-check connectivity:
+Verbindung überprüfen:
 
 ```bash
 $ for i in {1..12}; do curl https://helloistio.mcsps.telekomcloud.com/hello;sleep 1;done
@@ -882,10 +889,11 @@ Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
 Hello version: v1, instance: helloworld-v1-c6c4969d7-lfgw7
 ```
 
-The same tasks would be done on the second cluster to get real
-autonomy. Unfortunatelly we can't set [multiple A records from different instances in external-dns](https://github.com/kubernetes-sigs/external-dns/issues/1441) yet.
-So we have to skip this automatic tasks and could set 2 A records
-manually:
+Dieselbe Aufgabe ist auf dem zweiten Cluster erforderlich, 
+um wirklich autonom zu sein. Unerfreulicherweise wir können keine
+[mehrfache A Records von verschiedenen Instanzen in external-dns](https://github.com/kubernetes-sigs/external-dns/issues/1441) setzen.
+So müssen wir diese Automatisierungsschritt überspringen und können
+2 A-Records manuell setzen:
 
 ```bash
 $ host helloistio.mcsps.telekomcloud.com
@@ -893,10 +901,10 @@ helloistio.mcsps.telekomcloud.com has address 80.158.54.11
 helloistio.mcsps.telekomcloud.com has address 80.158.59.119
 ```
 
-The loop test above should work on both endpoints and should switch
-followed by name resolution.
+Der Schleifentest oben sollte an beiden Endpunkten funktionieren und
+sollte entsprechend der Namensauflösung folgen.
 
-More examples are on the Istio Github Repo or Istio docs.
+Mehr Beispiele gibt es im Istio Github Repo oder Istio Dokumentation.
 
-Happy Istio!
+Viel Spass mit Istio!
 
