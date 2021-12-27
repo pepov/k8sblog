@@ -12,7 +12,8 @@ einige Tage, das Problem zu lösen und die Benutzer erfuhren eine Diensteeinschr
 für eine ungewöhnlich lange Zeit. Das war der Startpunkt, um über Cluster-Redundanz und
 Service Mesh nachzudenken.
 
-<img src="/blog/images/k8s-post-istio.png" width="559" height="468" />
+<img src="/blog/images/k8s-post-istio.png" width="559" height="468" align="middle" />
+
 
 Ein Service Mesh beschreibt eine Funktionalität, um Dienste in verschiedenen Versionen oder
 Lokationen zu mischen. Istio ist ein solcher Service Mesh, welchen wir untersuchen möchten,
