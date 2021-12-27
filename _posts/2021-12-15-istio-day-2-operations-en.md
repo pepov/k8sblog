@@ -243,7 +243,7 @@ After that we have both application running with exposed internal services.
 With Rancher proxy it can be reached with
 
 [https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/) and
-[https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/) on bothe cluster.
+[https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/) on both cluster.
 
 Not very common. Rancher 2.6 provides NavLinks resources to extend the
 dashboard menu in the UI
