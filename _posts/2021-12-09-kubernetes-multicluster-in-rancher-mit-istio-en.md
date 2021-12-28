@@ -5,7 +5,7 @@ title: Kubernetes Multicluster in Rancher with Istio
 subtitle: "My last words in 2020 were: The Kubernetes cluster is not the end of the flagpole. If you think about high-availability or geo-reduncancy you need at least two Kubernetes cluster"
 date: 2021-12-09
 background: '/images/k8s-cosmos.png'
-twitter: '/images/k8s-blog1.png'
+twitter: '/images/k8s-blog-twitter.png'
 ---
 
 Once upon a time we had problems with one of our Kubernetes cluster. It took some
