@@ -2,26 +2,28 @@
 layout: post
 tag: de
 title: Istio Tag 2 Betrieb in Rancher
-subtitle: "Some days ago we installed Istio in Kubernetes Multi-Cluster. Now it's time for some Day 2 Operations with Kiali, Jaeger, Grafana, and Prometheus."
+subtitle: "Einige Tage zuvor installierten wir Istio in Kubernetes Multi-Cluster. Jetzt ist es Zeit für den Tag 2 Betrieb mit Kiali, Jaeger, Grafana und Prometheus."
 date: 2021-12-15
 background: '/images/k8s-cosmos.png'
-twitter: '/images/k8s-blog1.png'
+twitter: '/images/k8s-blog-twitter.png'
 ---
 
-Prerequisites: Istio Multi-Cluster running in Rancher
+Vorbedingungen: Laufender Istio Multi-Cluster in Rancher
 
 # Kiali
 
-[Kiali](https://kiali.io/) is a tool to manage, visualize, validate and troubleshoot 
-your Service Mesh. Kiali provides like Istio 3 install methods:
+[Kiali](https://kiali.io/) ist ein Werkzeug zur Visualisierung, Validierung und
+Fehlersuche in unserem Service Mesh. Kiala stellt wie Istio 3 Installationsmethoden
+bereit:
 
-* Install by Rancher as sub chart of rancher-istio
-* Install by origin Kiali Helm Chart
-* Install by Kiali Operator
+* Installation durch Rancher als Sub Chart von rancher-istio
+* Installation durch originales Kiali Helm Chart
+* Installation durch Kiali Operator
 
-Kiali is in heavy developement and with Rancher provided versions have
-[bugs](https://github.com/kiali/kiali/issues/4132). For this reason we use the Rancher
-Helm chart but latest version for installation on bothe clusters:
+Kiali ist in starker Entwicklung und mit Rancher wird eine
+[fehlerhafte](https://github.com/kiali/kiali/issues/4132) Version zur Verfügung gestellt.
+Aus diesem Grund benutzen wir das Rancher Helm Chart, aber die letzte Version zur
+Installation in beiden Clustern.
 
 ```yaml
 $ cat << EOF > values-kiali.yaml
@@ -73,11 +75,11 @@ external_services:
 EOF
 ```
 
-3 things are important here:
+3 Dinge sind hier wichtig:
 
-* as to see the cluster-id is set 
-* only `istio-system` and `sample` namespace will discover (Kiali will have access the whole cluster)
-* the internal monitoring endpoints will be used from rancher-monitoring
+* wie zu sehen wird die Cluster-ID gesetzt
+* nur `istio-system` und `sample` Namespace werden durchsucht (Kiali wird Vollzugriff auf den Cluster haben)
+* der interne Monitoring Endpunkt vom rancher-monitoring wird benutzt
 
 ```bash
 $ helm upgrade -i \
@@ -94,15 +96,15 @@ $ helm upgrade -i \
   rancher-kiali-server
 ```
 
-Within the provided credentials for remote Istio installations Kiali
-will discover this endpoints as well. But multi-cluster feature is in
-experimental state, don't expect too much. A very tiny bug is the API
-endpoint port for the remote cluster. Read [this discussion](https://github.com/kiali/kiali/discussions/4595)
-how to handle that.
+Mit den zur Verfügung gestellten Credentials für den Remote Cluster der Istio Installation
+wird Kiale deren Endpunkte ebenfalls durchsuchen. Aber Multi-Cluster Funktion ist
+in einem experimentellen Stadium, man sollte nicht zu viel erwarten.
+Es gibt einen sehr kleinen Fehler im API Endpunkt Port für den Remote Cluster.
+Nachzulesen [in dieser Diskussion](https://github.com/kiali/kiali/discussions/4595)
 
-Addionally we need NetworkPolicy to communicate with Istio, Jaeger, KubeAPI,
-and Prometheus. Beware that ServiceEndpoints sometimes are on different port
-as Service ports!
+Zusätzlich brauchen wir NetworkPolicy zur Komunikation mit Istio, Jaeger, KubeAPI
+und Prometheus. Zu beachten ist, dass ServiceEndpoints manchmal unterschiedliche Ports haben
+als Service Ports!
 
 ```yaml
 $ cat <<EOF | kubectl -n istio-system apply -f -
@@ -142,11 +144,11 @@ EOF
 
 # Jaeger
 
-[Jaeger](https://www.jaegertracing.io/) monitor and troubleshoot transaction in
-distributed systems. Jaeger is a very powerful tool which can configure with
-Cassandra, Elasticsearch or Kafka Cluster. It would be an extra project to
-install Jaeger with such kind of sizing. There is also a "all-in-one" installation
-which will we use here.
+[Jaeger](https://www.jaegertracing.io/) überwacht und sucht Fehler in Transaktionen in
+verteilten Systemen. Jaeger ist ein sehr mächtiges Werkzeug, welches mit
+Cassandra, Elasticsearch oder Kafka Cluster konfiguriert werden kann. Es wäre ein
+neues Projekt, Jaeger in so einem Umfang zu installieren. Es gibt auch eine "All-in-One"
+Installation, welche wir hier benutzen werden.
 
 ```yaml
 $ cat << EOF > values-jaeger.yaml
@@ -191,8 +193,8 @@ service:
 EOF
 ```
 
-We use a small PersistentVolumeClaim from StorageClass "sata". Adjust on your
-own if you have other storage solutions. PVC can also disabled.
+Wir benutzen einen kleinen PersistentVolumeClaim mit StorageClass "sata". Dies ist
+anzupassen für andere Speicherlösungen. PVC kann auch deaktiviert werden.
 
 ```bash
 $ helm upgrade -i \
@@ -240,14 +242,14 @@ zipkin                  ClusterIP      10.43.225.132   <none>          9411/TCP
 
 ```
 
-After that we have both application running with exposed internal services.
-With Rancher proxy it can be reached with
+Jetzt haben wir beide Applikationen mit exponiertem internen Service laufen.
+Über Rancher Proxy können wir diese erreichen mit
 
-[https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/) and
+[https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:tracing:16686/proxy/jaeger/) und
 [https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/](https://raseed-test.external.otc.telekomcloud.com/k8s/clusters/c-pzk8b/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/) on both cluster.
 
-Not very common. Rancher 2.6 provides NavLinks resources to extend the
-dashboard menu in the UI
+Nicht sehr komfortabel. Rancher 2.6 stellt NavLinks Resourcen zur Erweiterung
+der Dashboard Menues in der UI zur Verfügung
 
 ```bash
 $ kubectl apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/navlinks.yaml
@@ -256,10 +258,10 @@ $ kubectl apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/isti
 <img src="/blog/images/2021-12-15-7.png" width="1024" height="459" />
 
 
-UI views:
+UI Ansichten:
 
-Kiali verified your Istio installation, shows problems and errors. At the end traffic flows
-are shown in graphs, requests are listed in details.
+Kiali überprüft die Istio installation, zeigt Probleme und Fehler. Am Ende werden
+die Verkehrsflüsse als Grafiken dargestellt, Anfragen sind in Details aufgelistet.
 
 <img src="/blog/images/2021-12-15-1.png" width="1024" height="459" />
 
@@ -267,8 +269,8 @@ are shown in graphs, requests are listed in details.
 
 <img src="/blog/images/2021-12-15-3.png" width="1024" height="459" />
 
-Data are provided by Jaeger which logs requests and network traffic in detail,
-based on the source interface and the commands.
+Daten werden durch Jaeger zur Verfügung gestellt, welche Loganfragen und Netzwerkverkehr
+im Detail, basierend auf Quellen und Kommandos.
 
 <img src="/blog/images/2021-12-15-4.png" width="1024" height="459" />
 
@@ -278,10 +280,10 @@ based on the source interface and the commands.
 
 # Prometheus
 
-In Istio are already endpoints provided for scraping metrics.
-All what we need are network access (already provided in
-NetworkPolicy) and ServiceMonitor (when Prometheus Operator is
-installed from rancher-monitoring)
+In Istio gibt es schon Endpunkte, die Metriken zum Abfragen zur Verfuegung stellen.
+Alles was wir brauchen ist Netzwerkzugriff (bereits zur Verfügung gestellt in
+NetworkPolicy) und ServiceMonitor (wenn Prometheus Operator vom rancher-monitoring
+installiert ist).
 
 ## Service Monitor
 
@@ -344,18 +346,18 @@ envoy-stats-monitor       3d11h
 istio-component-monitor   3d11h
 ```
 
-## Service Endpoints
+## Service Endpunkte
 
 <img src="/blog/images/2021-12-15-8.png" width="1024" height="459" />
 
 # Grafana
 
-There are many Grafana dashboard available for Istion. Want to mention here
-the [Istio Control Plan Dashboard](https://grafana.com/grafana/dashboards/7645)
-which works out of the box. Easy to add as explained in [Rancher Docs](https://rancher.com/docs/rancher/v2.5/en/monitoring-alerting/guides/customize-grafana/):
+Es gibt sehr viele Grafana Dashboards für Istio. Erwähnt werden soll
+[Istio Control Plan Dashboard](https://grafana.com/grafana/dashboards/7645)
+welches einfach so funktioniert. Einfach hinzuzufügen und erklärt in der [Rancher Dokumentation](https://rancher.com/docs/rancher/v2.5/en/monitoring-alerting/guides/customize-grafana/):
 
 <img src="/blog/images/2021-12-15-9.png" width="1024" height="459" />
 
 
-Happy [Istio!](https://istio.io/)
+Viel Spass mit [Istio!](https://istio.io/)
 
