@@ -34,7 +34,7 @@ Nur mit "main" bekommt man zum Schluss ein ausfuehrbares Binary gebaut. Man koen
 
 Nun folgt die Liste anderer Packages, die wir fuer unsere Programmlogik benoetigen:
 
-```
+```go
 import (
 	"context"
 	"flag"
@@ -59,7 +59,7 @@ wie etwa das <a href="https://pkg.go.dev/k8s.io/api/core/v1">Kubernetes API Core
 
 Weiter gehts in unserem Programm:
 
-```
+```go
 func main() {
 	var kubeconfig *string
 	namespace := "overlay"
@@ -72,7 +72,7 @@ Am Anfang deklarieren wir also 3 Variablen. Die erste `kubeconfig` ist ein Point
 
 Es folgt die Einbindung der Credentials von kube-config, damit wir uns zum Kubernetes Cluster verbinden koennen. Der Code ist gnadenlos kopiert von <a href="https://github.com/kubernetes/client-go/tree/master/examples/out-of-cluster-client-configuration">Beispiel Ordner</a>, weswegen der hier nicht weiter Beachtung findet. Nach den paar Zeilen haben wir eine Verbindung zu Kubernetes, was schon mal ein kleiner Erfolg ist. Fuer alle anderen Schritte koennen wir die Variable "clientset" verwenden, um mit dem Cluster "zu sprechen":
 
-```
+```go
 	daemonsetsClient := clientset.AppsV1().DaemonSets(namespace)
 	daemonset := &amp;apps.DaemonSet{
 		ObjectMeta: meta.ObjectMeta{
@@ -111,7 +111,7 @@ Puh, wir erstellen ein Objekt "DaemonsetClient", welches so ein bischen wie eine
 
 Jetzt wird tatsaechlich das DaemonSet im Cluster erstellt:
 
-```
+```go
 	fmt.Println("Creating daemonset...")
 	result, err := daemonsetsClient.Create(context.TODO(), daemonset, meta.CreateOptions{})
 ```
@@ -119,7 +119,7 @@ Jetzt wird tatsaechlich das DaemonSet im Cluster erstellt:
 Das klappt dann genau einmal, denn wenn wir das Programm nochmal aufrufen, gibts das DaemonSet natuerlich schon. 
 Also muss man diesen Fehler abfangen und eine Aktion daraus ableiten. Entweder Programmabbruch oder, wie hier, das alte DaemonSet loeschen:
 
-```
+```go
 	if errors.IsAlreadyExists(err) {
 		fmt.Println("daemonset already exists, deleting ... &amp; exit")
 		deletePolicy := meta.DeletePropagationForeground
@@ -141,7 +141,7 @@ Bevor wir mit dem eigentlichen Programm weitermachen koennen, muessen wir warten
 
 Wir machen das direkt im Anschluss:
 
-```
+```go
 	for {
 		obj, err := clientset.AppsV1().DaemonSets(namespace).Get(context.TODO(), "overlaytest", meta.GetOptions{})
 		if err != nil {
@@ -160,7 +160,7 @@ Hier ist auch schon eine Schwachstelle. Das `for {}` wuerde ewig laufen, wenn da
 
 Jetzt kann es noch passieren, dass die PODs noch gar keine IP-Adresse haben. Das sind zwar nur Millisekunden, aber unser Programm wuerde gnadenlos weiterlaufen und ohne IP-Adresse kann ich auch keinen POD anpingen bzw. wuerde der Test fehlschlagen. Also ueberpruefen wir nochmal, ob alle PODs eine IP-Adresse haben:
 
-```
+```go
 	pods, err := clientset.CoreV1().Pods(namespace).List(context.TODO(), meta.ListOptions{LabelSelector: "app=overlaytest"})
 	if err != nil {
 		panic(err.Error())
@@ -182,7 +182,7 @@ Jetzt kann es noch passieren, dass die PODs noch gar keine IP-Adresse haben. Das
 
 Erst jetzt kanns weitergehen und wir kommen zum Hauptteil des Programms:
 
-```
+```go
 	fmt.Println("=> Start network overlay test\n")
 	for _, upod := range pods.Items {
 		for _, pod := range pods.Items {
@@ -225,20 +225,20 @@ Wir haben zwei `for{}` Schleifen, die um die Nodes bzw. PODs laufen und im Conta
 
 Einige hilfreiche Kommandos zum Bauen des Programms. Damit wir diese ausfuehren koennen, brauchen wir das <a href="https://go.dev/dl/go1.17.5.linux-amd64.tar.gz">Programm Go</a>, was aber selber nur ein Binary ist, was man leicht herunterladen und an beliebiger Stelle installieren kann.
 
-```
+```bash
 go fmt overlay.go
 ```
 
 Damit wird der Quellcode ordentlich formatiert und syntaktisch ueberprueft. Unordentlicher Code wird also ordentlich gemacht, importierte Packages werden auf ihre Notwendigkeit und Vorhandensein geprueft
 
-```
+```bash
 go mod init overlay.go
 go mod tidy
 ```
 
 Damit werden alle abhaengigen Packages heruntergeladen und die Dateien go.mod und go.sum erstellt.
 
-```
+```bash
 go build -o overlay -v overlay.go
 ```
 
@@ -246,7 +246,7 @@ Der eigentliche Bau des Programms. Dies sollte ohne Fehler ausgefuehrt werden un
 
 Programm starten und testen:
 
-```
+```bash
 ./overlay
 Welcome to the overlaytest.
 
