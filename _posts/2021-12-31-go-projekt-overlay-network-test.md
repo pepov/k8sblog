@@ -2,7 +2,7 @@
 layout: post
 tag: de
 title: Go Projekt: Der Overlay Network Test
-subtitle: "Vor einem knappen Jahr begann ich einen Onlinekurs zum Erlernen der Programmiersprache <a href="https://de.coursera.org/learn/golang-getting-started">Go</a>. Seitdem habe ich mir etliche Programme im Quellcode angeguckt, den einen oder anderen Patch geschrieben, was aber nie ueber einen Einzeiler hinausgeht. Zeit, das erste eigene Programm zu schreiben."
+subtitle: "Vor einem knappen Jahr begann ich einen Onlinekurs zum Erlernen der Programmiersprache Go. Seitdem habe ich mir etliche Programme im Quellcode angeguckt, den einen oder anderen Patch geschrieben, was aber nie ueber einen Einzeiler hinausgeht. Zeit, das erste eigene Programm zu schreiben."
 date: 2021-12-31
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2021-12-31-1.png'
