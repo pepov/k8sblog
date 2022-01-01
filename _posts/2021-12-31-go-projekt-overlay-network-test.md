@@ -26,7 +26,7 @@ Der Overlay Network Test ist ein Programm, welches die Netzwerkverbindung des Ov
 
 <strong>Programmierung</strong>
 
-Quelle: <a href="https://github.com/eumel8/overlaytest">https://github.com/eumel8/overlaytest</a>
+Quelle: <a href="https://github.com/eumel8/overlaytest/tree/0.0.3">https://github.com/eumel8/overlaytest</a>
 
 Die Welt beginn mit 
 <code>package main</code>
@@ -62,7 +62,7 @@ Weiter gehts in unserem Programm:
 ```go
 func main() {
 	var kubeconfig *string
-	namespace := "overlay"
+	namespace := "kube-system"
 	app := "overlaytest"
 ```
 
