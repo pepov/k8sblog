@@ -30,7 +30,9 @@ Der Overlay Network Test ist ein Programm, welches die Netzwerkverbindung des Ov
 Quelle: <a href="https://github.com/eumel8/overlaytest/tree/0.0.3">https://github.com/eumel8/overlaytest</a>
 
 Die Welt beginn mit 
+
 <code>package main</code>
+
 Nur mit "main" bekommt man zum Schluss ein ausfuehrbares Binary gebaut. Man koennte auch "package overlay" schreiben. Dann waere das ein Package, was Teil einer anderen Applikation ist. Aber wir wollten ja alles in einer Datei schreiben.
 
 Nun folgt die Liste anderer Packages, die wir fuer unsere Programmlogik benoetigen:
