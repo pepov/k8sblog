@@ -17,8 +17,10 @@ Eines gleich vorweg: Ich bin kein Programmierer, und werde es wahrscheinlich auc
 
 <img src="/blog/images/2021-12-31-1.png" />
 
-Go gibt es noch gar nicht so lange als Programmiersprache, also genaugenommen genau jetzt 10 Jahre. 2011 ist es entstanden und 2012 erblickte das erste Release das Licht der Welt. Entwickelt wurde es von Mitarbeitern von Google aus Unzufriedenheit ueber die bestehende Landschaft an Programmiersprachen. Egal ob C oder Java, man hat immer Unmengen von Abhaengigkeiten zu Bibliotheken, die man mit installieren muss, ehe das eigentliche Programm startet. Wenn alles von libc abhaengt, hat man auch noch Abhaengigkeit zu bestimmten Betriebssystem-. oder Kernelversionen. Zum Schluss hat man einen ganzen Wust von Dateien installiert, nur um dann ein Programm mit einer Funktion am Laufen zu haben.
-Go hat diese alten Zoepfe alle abgeschnitten. Es gibt EIN Programm mit EINER Datei. Dennoch ist dieses Binary rank und schlank ... naja, es frisst jetzt keine Gigabytes an Speicher. Dennoch muss man nicht auf Bibliotheken, Go Packages, verzichten. Diese werden aber zur Entwicklungszeit eingebunden und entsprechend der genutzen Funktionen fertig im Programm ausgeliefert. 
+Go gibt es noch gar nicht so lange als Programmiersprache, also genaugenommen genau jetzt 10 Jahre. 2011 ist es entstanden und 2012 erblickte das erste Release das Licht der Welt.
+Entwickelt wurde es von Mitarbeitern von Google aus Unzufriedenheit ueber die bestehende Landschaft an Programmiersprachen. Egal ob C oder Java, man hat immer Unmengen von Abhaengigkeiten zu Bibliotheken, die man mit installieren muss, ehe das eigentliche Programm startet. Wenn alles von libc abhaengt, hat man auch noch Abhaengigkeit zu bestimmten Betriebssystem-. oder Kernelversionen. Zum Schluss hat man einen ganzen Wust von Dateien installiert, nur um dann ein Programm mit einer Funktion am Laufen zu haben.
+Go hat diese alten Zoepfe alle abgeschnitten. Es gibt EIN Programm mit EINER Datei. Dennoch ist dieses Binary rank und schlank ... naja, es frisst jetzt keine Gigabytes an Speicher. Dennoch muss man nicht auf Bibliotheken, Go Packages, verzichten.
+Diese werden aber zur Entwicklungszeit eingebunden und entsprechend der genutzen Funktionen fertig im Programm ausgeliefert. 
 Zum Schluss hat man eine auf sehr unterschiedlichen Plattformen lauffaehige Version, wie wir am Ende sehen werden.
 
 # Das Projekt Overlay Network Test
@@ -57,8 +59,10 @@ import (
 )
 ```
 
-Eine ganze Menge. Einige kennen wir schon vom Go-Kurs, wie etwa das "fmt" fuer formatierte Textausgabe. Die anderen alle sind Packages vom Kubernetes Projekt, die wir verwenden. Angesprochen werden diese im Programm mit "kubernetes", "scheme", "clientcmd", "remotecommand" usw. Hat man mehrere mit demselben Namen oder moechte man den langen Namen abkuerzen, kann man ein Alias setzen wie bei "core/v1" oder "meta/v1". Man hat vielleicht eine Vorstellung.  Dokumentiert sind die Packages allesamt
-wie etwa das <a href="https://pkg.go.dev/k8s.io/api/core/v1">Kubernetes API Core v1</a> und so kann man bei Go erstmal eine ganze Menge lesen. Auch die <a href="https://go.dev/">Go Homepage</a> gibt eine ganze Menge her. Sehr hilfreich ist auch die Suche bei Github. Wenn man die Anwendung einer bestimmten Funktion sucht, dies auf "code" einschraenkt und dann die Programmiersprache "go", findet man viele nuetzliche Beispiele. Ohne diese Unterstuetzung waere ich nicht so weit gekommen, also alles sehr hilfreich.
+Eine ganze Menge. Einige kennen wir schon vom Go-Kurs, wie etwa das "fmt" fuer formatierte Textausgabe. Die anderen alle sind Packages vom Kubernetes Projekt, die wir verwenden. Angesprochen werden diese im Programm mit "kubernetes", "scheme", "clientcmd", "remotecommand" usw..
+Hat man mehrere mit demselben Namen oder moechte man den langen Namen abkuerzen, kann man ein Alias setzen wie bei "core/v1" oder "meta/v1". Man hat vielleicht eine Vorstellung.
+Dokumentiert sind die Packages allesamt wie etwa das <a href="https://pkg.go.dev/k8s.io/api/core/v1">Kubernetes API Core v1</a> und so kann man bei Go erstmal eine ganze Menge lesen. Auch die <a href="https://go.dev/">Go Homepage</a> gibt eine ganze Menge her.
+Sehr hilfreich ist auch die Suche bei Github. Wenn man die Anwendung einer bestimmten Funktion sucht, dies auf "code" einschraenkt und dann die Programmiersprache "go", findet man viele nuetzliche Beispiele. Ohne diese Unterstuetzung waere ich nicht so weit gekommen, also alles sehr hilfreich.
 
 Weiter gehts in unserem Programm:
 
@@ -224,7 +228,8 @@ Erst jetzt kanns weitergehen und wir kommen zum Hauptteil des Programms:
 	fmt.Println("Call me again to remove installed cluster resources\n")
 ```
 
-Wir haben zwei `for{}` Schleifen, die um die Nodes bzw. PODs laufen und im Container das "ping" Kommando absetzen.  Gibt es dabei einen Fehler, ist diese Verbindung als nicht erfolgreich deklariert und die entsprechende Meldung wird ausgegeben. Bei Erfolg erfolgt auch eine Meldung. Zu Beachten ist hier, dass wir den REST Client verwenden, um ueber die API den Exec-Befehl in dem POD zu realisieren. Auf der API selber gibt es dafuer keine Resource. Man wird in der API-Dokumentation auf ein "ExecAction" stossen, aber damit ist das Exec IM Container eines Deployments gemeint, also etwas fuer eine LIvenessprobe als Healthcheck Kommando.
+Wir haben zwei `for{}` Schleifen, die um die Nodes bzw. PODs laufen und im Container das "ping" Kommando absetzen.  Gibt es dabei einen Fehler, ist diese Verbindung als nicht erfolgreich deklariert und die entsprechende Meldung wird ausgegeben. Bei Erfolg erfolgt auch eine Meldung.
+Zu Beachten ist hier, dass wir den REST Client verwenden, um ueber die API den Exec-Befehl in dem POD zu realisieren. Auf der API selber gibt es dafuer keine Resource. Man wird in der API-Dokumentation auf ein "ExecAction" stossen, aber damit ist das Exec IM Container eines Deployments gemeint, also etwas fuer eine LIvenessprobe als Healthcheck Kommando.
 
 Einige hilfreiche Kommandos zum Bauen des Programms. Damit wir diese ausfuehren koennen, brauchen wir das <a href="https://go.dev/dl/go1.17.5.linux-amd64.tar.gz">Programm Go</a>, was aber selber nur ein Binary ist, was man leicht herunterladen und an beliebiger Stelle installieren kann.
 
@@ -277,9 +282,10 @@ Call me again to remove installed cluster resources
 
 # Release Day (31.12.2021)
 
-Wenn das Programm lokal kompiliert und lauffaehig ist, ist es an der Zeit, es auf die Menschheit loszulassen. Der Code ist eh schon im public Github Repo, jetzt will es vielleicht jemand herunterladen und anwenden. 
+Wenn das Programm lokal kompiliert und lauffaehig ist, ist es an der Zeit, es auf die Menschheit loszulassen. Der Code ist eh schon im public Github Repo, jetzt will es vielleicht jemand herunterladen und anwenden.
 <a href="https://docs.github.com/en/actions">Github Action</a> ueberzeugt mich ja schon lange und hat auch meine Pipelines bei Travis abgeloest oder Container Build bei Docker Hub. Dauert viel zu lange, ist viel zu limiert und geht bei Github Action viel schneller. Aber ich will auch nicht zu viel Werbung machen, damit nicht zu viele Leute wechseln. Das alles kostenlos zur Verfuegung steht, ist sicherlich nicht fuer lange.
 Nie war der Release Prozess so einfach wie bei Github. Wir suchen uns im Marktplatz ein Github Action <a href="https://github.com/marketplace/actions/go-release-binaries">zum Bauen von Go Programmen und Speichern von Artefacts</a>, erstellen ueber die Weboberflaeche ein Release Draft mit einem neuen Tag, der triggert das Action und wenn es erfolgreich laeuft, kann man unter <a href="https://github.com/eumel8/overlaytest/releases">Releases</a> die Software fertig herunterladen, fuer Linux, Windows und Arm (Raspberry).
+
 Ist das nicht toll?
 
 <img src="/blog/images/2021-12-31-3.png" />

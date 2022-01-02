@@ -17,7 +17,8 @@ First of all: I am not a programmer, and probably will not be anymore. I've been
 
 <img src="/blog/images/2021-12-31-1.png" />
 
-Go has not been around as a programming language for that long, in fact 10 years now. It was created in 2011 and the first release saw the light of day in 2012. It was developed by employees of Google out of dissatisfaction with the existing landscape of programming languages. Regardless of whether it is C or Java, you always have tons of dependencies on libraries that you have to install before the actual program starts. If everything depends on libc, you also have a dependency on certain operating systems. or kernel versions. In the end, you installed a whole heap of files, only to have a program with a function running.
+Go has not been around as a programming language for that long, in fact 10 years now. It was created in 2011 and the first release saw the light of day in 2012.
+It was developed by employees of Google out of dissatisfaction with the existing landscape of programming languages. Regardless of whether it is C or Java, you always have tons of dependencies on libraries that you have to install before the actual program starts. If everything depends on libc, you also have a dependency on certain operating systems. or kernel versions. In the end, you installed a whole heap of files, only to have a program with a function running.
 
 Go cut off all of those old tugs. There is ONE program with ONE file. Still, this binary is slim ... well, it doesn't eat up gigabytes of memory now. Still, you don't have to do without libraries, go packages. However, these are integrated at development time and delivered ready-made in the program according to the functions used.
 In the end you have a version that can run on very different platforms, as we will see at the end.
@@ -31,7 +32,7 @@ The Overlay Network Test is a program that checks the network connection of the 
 
 Source: <a href="https://github.com/eumel8/overlaytest/tree/0.0.3">https://github.com/eumel8/overlaytest</a>
 
-The world starts:
+The world starts with:
 
 <code>package main</code>
 
@@ -59,8 +60,9 @@ import (
 )
 ```
 
-A whole lot. We already know some of them from the Go course, such as the "fmt" for formatted text output. The others are all packages from the Kubernetes project that we are using. These are addressed in the program with "kubernetes", "scheme", "clientcmd", "remotecommand" etc. If you have several with the same name or if you want to abbreviate the long name, you can set an alias like "core/v1" or "meta/v1". Maybe you have an idea. The packages are all documented
-like the <a href="https://pkg.go.dev/k8s.io/api/core/v1"> Kubernetes API Core v1 </a> and so you can read a lot with Go. The <a href="https://go.dev/"> Go Homepage </a> also has a lot to offer. The search on Github is also very helpful. If you look for the application of a certain function, restrict it to "code" and then the programming language "go", you will find many useful examples. Without this support I would not have come this far, so everything was very helpful.
+A whole lot. We already know some of them from the Go course, such as the "fmt" for formatted text output. The others are all packages from the Kubernetes project that we are using. These are addressed in the program with "kubernetes", "scheme", "clientcmd", "remotecommand" etc..
+If you have several with the same name or if you want to abbreviate the long name, you can set an alias like "core/v1" or "meta/v1". Maybe you have an idea. The packages are all documented like the <a href="https://pkg.go.dev/k8s.io/api/core/v1"> Kubernetes API Core v1 </a> and so you can read a lot with Go. The <a href="https://go.dev/"> Go Homepage </a> also has a lot to offer.
+The search on Github is also very helpful. If you look for the application of a certain function, restrict it to "code" and then the programming language "go", you will find many useful examples. Without this support I would not have come this far, so everything was very helpful.
 
 Our program continues:
 
@@ -226,7 +228,8 @@ Now can we continue and we come to the main part of the program:
 	fmt.Println("Call me again to remove installed cluster resources\n")
 ```
 
-We have two `for {}` loops that run around the nodes or PODs and issue the "ping" command in the container. If there is an error, this connection is declared unsuccessful and the corresponding message is output. If this is successful, a message is also issued. It should be noted here that we are using the REST client to implement the Exec command in the POD via the API. There is no resource for this on the API itself. You will come across an "ExecAction" in the API documentation, but this means the Exec IN THE container of a deployment, i.e. something for a lifecycle test as a health check command.
+We have two `for {}` loops that run around the nodes or PODs and issue the "ping" command in the container. If there is an error, this connection is declared unsuccessful and the corresponding message is output. If this is successful, a message is also issued.
+It should be noted here that we are using the REST client to implement the Exec command in the POD via the API. There is no resource for this on the API itself. You will come across an "ExecAction" in the API documentation, but this means the Exec IN THE container of a deployment, i.e. something for a lifecycle test as a health check command.
 
 Some helpful commands for building the program. So that we can execute this, we need the <a href="https://go.dev/dl/go1.17.5.linux-amd64.tar.gz"> program Go </a>, which itself is just a binary is what is easy to download and install anywhere.
 
