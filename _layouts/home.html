@@ -34,7 +34,14 @@ layout: default
 
         <article class="post-preview">
           <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-            <h2 class="post-title">{{ post.title }}</h2>
+            <h2 class="post-title">{{ post.title }}
+            {% if post.tag == "de" %}
+	     <img src="{{ site.baseurl }}/images/germany.png">
+            {% endif %}
+            {% if post.tag == "en" %}
+	     <img src="{{ site.baseurl }}/images/english.png">
+            {% endif %}
+	    </h2>
             {% if post.subtitle %}
             <h3 class="post-subtitle">{{ post.subtitle }}</h3>
             {% else %}
