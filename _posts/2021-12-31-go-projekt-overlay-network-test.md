@@ -55,7 +55,7 @@ import (
 )
 ```
 
-Eine ganze Menge. Einige kennen wir schon vom Go-Kurs, wie etwa das "fmt" fuer formatierte Textausgabe. Die anderen alle sind Packages vom Kubernetes Projekt, die wir verwenden. Angesprochen werden diese im Programm mit "kubernetes", "scheme", "clientcm", "remotecommand" usw. Hat man mehrere mit demselben Namen oder moechte man den langen Namen abkuerzen, kann man ein Alias setzen wie bei "core/v1! oder "meta/v1". Man hat vielleicht eine Vorstellung.  Dokumentiert sind die Packages allesamt
+Eine ganze Menge. Einige kennen wir schon vom Go-Kurs, wie etwa das "fmt" fuer formatierte Textausgabe. Die anderen alle sind Packages vom Kubernetes Projekt, die wir verwenden. Angesprochen werden diese im Programm mit "kubernetes", "scheme", "clientcmd", "remotecommand" usw. Hat man mehrere mit demselben Namen oder moechte man den langen Namen abkuerzen, kann man ein Alias setzen wie bei "core/v1" oder "meta/v1". Man hat vielleicht eine Vorstellung.  Dokumentiert sind die Packages allesamt
 wie etwa das <a href="https://pkg.go.dev/k8s.io/api/core/v1">Kubernetes API Core v1</a> und so kann man bei Go erstmal eine ganze Menge lesen. Auch die <a href="https://go.dev/">Go Homepage</a> gibt eine ganze Menge her. Sehr hilfreich ist auch die Suche bei Github. Wenn man die Anwendung einer bestimmten Funktion sucht, dies auf "code" einschraenkt und dann die Programmiersprache "go", findet man viele nuetzliche Beispiele. Ohne diese Unterstuetzung waere ich nicht so weit gekommen, also alles sehr hilfreich.
 
 Weiter gehts in unserem Programm:
@@ -230,7 +230,7 @@ Einige hilfreiche Kommandos zum Bauen des Programms. Damit wir diese ausfuehren 
 go fmt overlay.go
 ```
 
-Damit wird der Quellcode ordentlich formatiert und syntaktisch ueberprueft. Unordentlicher Code wird also ordentlich gemacht, importierte Packages werden auf ihre Notwendigkeit und Vorhandensein geprueft
+Damit wird der Quellcode ordentlich formatiert und syntaktisch ueberprueft. Unordentlicher Code wird also ordentlich gemacht, importierte Packages werden auf ihre Notwendigkeit und Vorhandensein geprueft.
 
 ```bash
 go mod init overlay.go
