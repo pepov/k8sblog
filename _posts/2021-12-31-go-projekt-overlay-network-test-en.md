@@ -285,7 +285,7 @@ Call me again to remove installed cluster resources
 
 When the program is compiled and running locally, it is time to let it loose on humanity. The code is already in the public Github Repo, now someone might want to download it and use it.
 <a href="https://docs.github.com/en/actions"> Github Action </a> has convinced me for a long time and has also replaced my pipelines at Travis or Container Build at Docker Hub. Takes way too long, is way too limited and is much faster on Github Action. But I also don't want to advertise too much so that too many people don't switch. That everything is available for free is certainly not for long.
-The release process has never been so easy as with Github. We are looking for a Github Action <a href="https://github.com/marketplace/actions/go-release-binaries"> to build Go programs and save artefacts </a>, created via the web interface a release draft with a new tag that triggers the action and if it runs successfully, the software can be downloaded from <a href="https://github.com/eumel8/overlaytest/releases"> Releases </a> , for Linux, Windows and Arm (Raspberry).
+The release process has never been so easy as with Github. We are looking for a Github Action <a href="https://github.com/marketplace/actions/go-release-binaries"> to build Go programs and save artefacts </a>, created via the web interface a release draft with a new tag that triggers the action and if it runs successfully, the software can be downloaded from <a href="https://github.com/eumel8/overlaytest/releases">Releases</a> , for Linux, Windows and Arm (Raspberry).
 
 Isn't that great?
 
