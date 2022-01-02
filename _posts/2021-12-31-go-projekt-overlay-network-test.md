@@ -6,6 +6,7 @@ subtitle: "Vor einem knappen Jahr begann ich einen Onlinekurs zum Erlernen der P
 date: 2021-12-31
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2021-12-31-2.png'
+author: eumel8
 ---
 
 # Vorwort
