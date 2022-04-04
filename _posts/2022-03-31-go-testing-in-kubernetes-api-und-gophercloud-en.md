@@ -2,7 +2,7 @@
 layout: post
 tag: en
 title: "Go Testing in Kubernetes API and Gophercloud"
-subtitle: "Writing a Go program is easy like in other programming languages on the Hello-World-Level genauso einfach wie in anderen Programmiersprachen. How about Code Testing? Go delivers some on-board tools to format and test code. Let's use 2 examples to show how this can be done."
+subtitle: "Writing a Go program is easy like in other programming languages on the Hello-World-Level. How about Code Testing? Go delivers some on-board tools to format and test code. Let's use 2 examples to show how this can be done."
 date: 2022-03-31
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2021-12-31-2.png'
