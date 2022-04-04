@@ -226,7 +226,7 @@ func TestRestoreRequestPITR(t *testing.T) {
 }
 ```
 
-Diese Funktion testet die PointInTimeRecovery Funktion (PITR).Vom Testhelper (th) wird der Webserver gestartet. Auf die URI /instances/recovery wird  exampleRestorePITROpts geposted. Diese enthaelt die Instanz-ID und Restore-Zeitpunkt, was durch diese Funktion zurueckgegeben wird:
+This function will test the PointInTimeRecovery function (PITR). The Testhelper (th) starte the web server. To the URI `/instances/recovery` we post `exampleRestorePITROpts`. This contains the InstanceID and RestoreTime, what the function returns:
 
 ```go
 func exampleRestorePITROpts() backups.RestorePITROpts {

@@ -21,7 +21,7 @@ Go Linter sind extra Programme, die kein Bestandteil von Go sind. Sie werden etw
 curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.45.2
 ```
 
-<a href="https://github.com/golangci/golangci-lint">Dieses Programm</a> enthaelt mehrere Linter mit unterschiedlichen Aufgaben. Die Ausgabe bei unserem overlaytest sieht etwa so aus:
+<a href="https://github.com/golangci/golangci-lint">Dieses Programm</a> enthaelt mehrere Linter mit unterschiedlichen Aufgaben. Die Ausgabe bei unserem <a href="https://github.com/eumel8/overlaytest/">overlaytest</a> sieht etwa so aus:
 
 ```shell
 $ golangci-lint run
@@ -226,7 +226,7 @@ func TestRestoreRequestPITR(t *testing.T) {
 }
 ```
 
-Diese Funktion testet die PointInTimeRecovery Funktion (PITR).Vom Testhelper (th) wird der Webserver gestartet. Auf die URI /instances/recovery wird  exampleRestorePITROpts geposted. Diese enthaelt die Instanz-ID und Restore-Zeitpunkt, was durch diese Funktion zurueckgegeben wird:
+Diese Funktion testet die PointInTimeRecovery Funktion (PITR). Vom Testhelper (th) wird der Webserver gestartet. Auf die URI `/instances/recovery` wird `exampleRestorePITROpts` geposted. Diese enthaelt die Instanz-ID und Restore-Zeitpunkt, was durch diese Funktion zurueckgegeben wird:
 
 ```go
 func exampleRestorePITROpts() backups.RestorePITROpts {
