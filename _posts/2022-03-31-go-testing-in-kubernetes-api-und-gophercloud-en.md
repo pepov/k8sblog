@@ -1,8 +1,8 @@
 ---
 layout: post
-tag: de
-title: "Go Testing in Kubernetes API und Gophercloud"
-subtitle: "Ein Go Programm zu schreiben, ist auf dem Hello-World-Level genauso einfach wie in anderen Programmiersprachen. Wie sieht es mit Code Testing aus? Go hält auch hier ein Bordmittel bereit, um Code zu formatieren und zu testen. Lesen wir an zwei Beispielen wie dies zu bewerkstelligen ist."
+tag: en
+title: "Go Testing in Kubernetes API and Gophercloud"
+subtitle: "Writing a Go program is easy like in other programming languages on the Hello-World-Level genauso einfach wie in anderen Programmiersprachen. How about Code Testing? Go delivers some on-board tools to format and test code. Let's use 2 examples to show how this can be done."
 date: 2022-03-31
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2021-12-31-2.png'
@@ -11,17 +11,17 @@ author: eumel8
 
 # Go Format
 
-Mit `go fmt` bekommt man seinen Quellcode schonmal automatisch formatiert. Also die Zeilenabstaende sind richtig eingerueckt,ueberfluessige Leerzeichen werden entfernt usw. Also schon mal nicht schlecht.
+With `go fmt` we can format our source code automatically. Spaces and tabs are in the correct order, redundant spaces are removed etcd. Not too bad for the first shot.
 
 # Go Lint
 
-Go Linter sind extra Programme, die kein Bestandteil von Go sind. Sie werden etwa installiert mit
+Go Linter are extra programs, which are not part of Go. To install like this:
 
 ```shell
 curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.45.2
 ```
 
-<a href="https://github.com/golangci/golangci-lint">Dieses Programm</a> enthaelt mehrere Linter mit unterschiedlichen Aufgaben. Die Ausgabe bei unserem overlaytest sieht etwa so aus:
+<a href="https://github.com/golangci/golangci-lint">This program</a> includes multiple linter with different task. The output of our overlaytest looks like this:
 
 ```shell
 $ golangci-lint run
@@ -48,11 +48,11 @@ overlay.go:187:2: SA4006: this value of `err` is never used (staticcheck)
         ^
 ```
 
-Da wird also schon etwas genauer hingesehen, ob Variablen Sinn machen oder ueberhaupt nach der Defintion verwendet werden. Sehr hilfreich.
+There is a closer look for sense on variables or the usage after definition. Very helpful.
 
 # Go Testing
 
-Was wir aber jetzt genau wissen wollen: Funktioniert denn jetzt mein Programm? Oder meine Funktion? Oder der Funktionsaufruf? Dazu gibt es Unittests und das <a href="https://pkg.go.dev/testing">Go Paket Testing</a>. Im Paket gibt es auch Beispiele:
+What we want to know now: Is my program working? Or my function? Or the call of a function? For this there are unit tests and the <a href="https://pkg.go.dev/testing">Go Package Testing</a>. In the package are examples included:
 
 ```go
 func TestAbs(t *testing.T) {
@@ -63,11 +63,11 @@ func TestAbs(t *testing.T) {
 }
 ```
 
-Es wird also die Ausgabe einer Funktion mit einem zu erwartenden Wert verglichen und wenn der okay ist, wurde der Test bestanden. Die Anzahl der mit diesem Test abgedeckten Code-Zeilen heisst Coverage und praesentiert somit eine Art Qualitaetssiegel fuer das Programm.
+The output of a function will compare with an expected value and if this is okay, the test will pass. The count of lines of code, which is with this test covered, is Coverage and present a kine of quality for this program.
 
 # Kubernetes API Test
 
-Das Kernstueck unserers overlaytest Programms ist ein DaemonSet, was im zu testenden Kubernetes-Cluster deployt wird. Im Kubernetes Projekt gibt es den Fake Client. Dieser kann saemtliche API-Endpunkte und Resourcen nachbilden und antwortet mit entsprechenden Rueckgabewerten, ohne dass man einen Kubernetescluster oder andere Resourcen brauch. Wir koennen zum Beispel einen Pod erstellen und anschliessend abfragen, ob er existieren wuerde:
+The main part of the overlaytest program is a DaemonSet, which must be deployed on the Kubernetes target cluster. The community project has a fake client. This can replicate all API endpoints and resources and replies with corresponding values without any real cluster or other real resources. For example we create a POD and request the API after that if the POD exists:
 
 ```go
 package pod
@@ -104,7 +104,7 @@ PASS
 ok      command-line-arguments  0.034s
 ```
 
-Ziemlich einfach, oder? Unser DaemonSet  koennen wir auch testen:
+Pretty easy, isn't it? We can also test our DaemonSet:
 
 ```go
 package daemonset
@@ -200,10 +200,10 @@ ok      command-line-arguments  0.020s
 
 # Gophercloud Testing
 
-<a href="https://github.com/gophercloud/gophercloud"> Gophercloud</a> ist ein Go Framework zur Verbindungsaufnahme zu einer OpenStack API. Die Testsuite in diesem Framework bildet nun diese API durch initiieren eigener HTTP-Server nach und hinterlegt die zu erwartenden Antworten.
+<a href="https://github.com/gophercloud/gophercloud"> Gophercloud</a> is a Go framework for connection to an OpenStack API. This test suite in this framework initiate an own HTTP server to replicate the expected values after request the test server.
 
-Schauen wir uns dazu diesen <a href="https://github.com/opentelekomcloud/gophertelekomcloud/commit/45e5435f15218efa296e1a041d1a8536e0b09170#diff-fcfb7ce237e0c8ddf07ef5998d86096e40dfd8159df60fc86988a28bb8cd0b27">Commit</a> an. Es geht um den Restore eines Backups einer MySQL Datenbank in der OpenTelekomCloud. Die OpenTelekomCloud basiert auf OpenStack und unterhaelt dazu den eigenen Fork des Gophercloud SDK. 
-Zurueck zum Beispiel:
+For example look at this <a href="https://github.com/opentelekomcloud/gophertelekomcloud/commit/45e5435f15218efa296e1a041d1a8536e0b09170#diff-fcfb7ce237e0c8ddf07ef5998d86096e40dfd8159df60fc86988a28bb8cd0b27">Commit</a>. Context is a restore of a backup of a MySQL database in OpenTelekomCloud. The OpenTelekomCloud is based on OpenStack and maintains it's own fork of Gophercloud SDK. 
+Back to the example:
 
 ```go
 func TestRestoreRequestPITR(t *testing.T) {
@@ -244,7 +244,7 @@ func exampleRestorePITROpts() backups.RestorePITROpts {
 }
 ```
 
-Die Antwort steht in dieser const und beinhaltet einfach eine JobID:
+The answer of this request is this const and contains simply the JobID:
 
 ```go
 const expectedPITRResponse = `
@@ -254,11 +254,11 @@ const expectedPITRResponse = `
 `
 ```
 
-Sind Anfragen und dazugehoerige Antworten gleich, ist der Test bestanden und die darin enthaltene Funktion `backups.RestorePITR` ausreichend getestet.
+Are requests and corresponding answers similar, the test is okay and the function `backups.RestorePITR` tested.
 
 # Mocking
 
-Das Nachahmen solcher API-Funktionalitaeten nennt man auch Mocking, das Verteilen verschiedener Anfragen Muxing. Eine Funktion die beides kann, waere also ein MockMuxer von <a href="https://github.com/eumel8/otc-rds-client/blob/master/rds_test.go">rds_test.go</a>:
+To emulate API functionalities is called Mocking, to distribute different requests is called Muxing. A function that can do both, is a MockMuxer from <a href="https://github.com/eumel8/otc-rds-client/blob/master/rds_test.go">rds_test.go</a>:
 
 ```go
 func MockMuxer() {
@@ -306,7 +306,7 @@ func MockMuxer() {
 }
 ```
 
-Die Antworten zu den verschiedenen GET und POST Anfragen befinden sich wieder in const, hier etwa die Antwort auf eine ProviderGet Anfrage:
+The answers to different GET and POST requests contain in const, i.e. the answer of ProviderGet request:
 
 ```go
 const ProviderGetResponse = `
@@ -328,9 +328,9 @@ const ProviderGetResponse = `
 `
 ```
 
-Diese liefert also die Adresse unserer Pseudo OpenStack API zurueck.
+This delivers the address our Pseudo OpenStack API.
 
-Testen kann man die Authentifizierung unseres OpenStack clients so:
+To test the authentication of our OpenStack client:
 
 ```go
 func Test_getProvider(t *testing.T) {
@@ -359,9 +359,9 @@ func Test_getProvider(t *testing.T) {
 }
 ```
 
-Wie man sieht, koennen solche Tests sehr langwierig werden im Code. Deswegen ist es wichtig zu erkennen, welche Tests das Framework schon bereitstellt. Oder selber ein Testframework zu erstellen, um dieses auch wiederverwenden zu koennen. Und alles nur, um den Code pseudomatisch zu ueberpruefen. 
-Der naechste Schritt waeren <a href="https://github.com/opentelekomcloud/gophertelekomcloud/blob/devel/acceptance/README.md">Acceptance Tests</a>. Ab hier werden Code oder Funktionen am "lebenenden" Objekt getestet, es bedarf also einer echten OpenStack, bzw. OpenTelekomCloud API, um etwa ECS zu erstellen oder wie oben, ein Backup einer RDS Instanz wiederherzustellen. 
+How to see, such kind of tests can be very long on the code. For this reason, it's important to know, which tests are already provided by a framework. Or create an own test framework to re-use. And only to test code pseudomatically.
+The next step are <a href="https://github.com/opentelekomcloud/gophertelekomcloud/blob/devel/acceptance/README.md">Acceptance Tests</a>. Code and function are tested on "live" environments, a real OpenStack or OpenTelekomCloud API is required, to create an ECS for example, or, like above, to restore the backup of a RDS instance.
 
-Fazit: Go Testing stellt einen deutlichen Qualitaetssprung in der Softwareprogrammierung dar. Nicht nur, dass man Code besser versteht, man kann ihn auch im Trockendock oder auf hoher See ausprobieren und sehen was er verspricht. Ein tiefgreifendes Verstaendnis kommt hinzu, genau wie Transparenz.
+Summary: Go Testing represents a clear leap in quality in software programming. Not only will you understand code better, you can try it out in dry dock or at sea and see what it promises. A profound understanding is added, as is transparency.
 
-Viel Spass beim Testen
+Have fun with testing
