@@ -21,7 +21,7 @@ Go Linter are extra programs, which are not part of Go. To install like this:
 curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.45.2
 ```
 
-<a href="https://github.com/golangci/golangci-lint">This program</a> includes multiple linter with different task. The output of our overlaytest looks like this:
+<a href="https://github.com/golangci/golangci-lint">This program</a> includes multiple linter with different task. The output of our <a href="https://github.com/eumel8/overlaytest/">overlaytest</a> looks like this:
 
 ```shell
 $ golangci-lint run
@@ -63,7 +63,7 @@ func TestAbs(t *testing.T) {
 }
 ```
 
-The output of a function will compare with an expected value and if this is okay, the test will pass. The count of lines of code, which is with this test covered, is Coverage and present a kine of quality for this program.
+The output of a function will compare with an expected value and if this is okay, the test will pass. The count of lines of code, which is with this test covered, is named Coverage and present a seal of quality for this program.
 
 # Kubernetes API Test
 
