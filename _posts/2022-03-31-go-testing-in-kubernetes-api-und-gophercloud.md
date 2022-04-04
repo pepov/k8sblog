@@ -3,7 +3,7 @@ layout: post
 tag: de
 title: "Go Testing in Kubernetes API und Gophercloud"
 subtitle: "Ein Go Programm zu schreiben, ist auf dem Hello-World-Level genauso einfach wie in anderen Programmiersprachen. Wie sieht es mit Code Testing aus? Go hält auch hier ein Bordmittel bereit, um Code zu formatieren und zu testen. Lesen wir an zwei Beispielen wie dies zu bewerkstelligen ist."
-date: 2021-12-31
+date: 2022-03-31
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2021-12-31-2.png'
 author: eumel8
@@ -65,7 +65,8 @@ func TestAbs(t *testing.T) {
 
 Es wird also die Ausgabe einer Funktion mit einem zu erwartenden Wert verglichen und wenn der okay ist, wurde der Test bestanden. Die Anzahl der mit diesem Test abgedeckten Code-Zeilen heisst Coverage und praesentiert somit eine Art Qualitaetssiegel fuer das Programm
 
-<strong>Kubernetes API Test</strong>
+# Kubernetes API Test
+
 Das Kernstueck unserers overlaytest Programms ist ein DaemonSet, was im zu testenden Kubernetes-Cluster deployt wird. Im Kubernetes Projekt gibt es den Fake Client. Dieser kann saemtliche API-Endpunkte und Resourcen nachbilden und antwortet mit entsprechenden Rueckgabewerten, ohne dass man einen Kubernetescluster oder andere Resourcen brauch. Wir koennen zum Beispel einen Pod erstellen und anschliessend abfragen, ob er existieren wuerde:
 
 ```go
