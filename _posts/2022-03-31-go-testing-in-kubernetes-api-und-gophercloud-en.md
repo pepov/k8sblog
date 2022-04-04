@@ -71,31 +71,6 @@ The main part of the overlaytest program is a DaemonSet, which must be deployed 
 
 <script src="https://gist.github.com/eumel8/6a2a0d50b073f30cee24822aced9a5aa.js"></script>
 
-```go
-package pod
-
-import (
-        "context"
-        "testing"
-
-        core "k8s.io/api/core/v1"
-        meta "k8s.io/apimachinery/pkg/apis/meta/v1"
-        "k8s.io/client-go/kubernetes/fake"
-)
-
-func TestPod(t *testing.T) {
-        client := fake.NewSimpleClientset()
-        p := &amp;core.Pod{ObjectMeta: meta.ObjectMeta{Name: "my-pod"}}
-        result, err := client.CoreV1().Pods("test-ns").Create(context.TODO(), p, meta.CreateOptions{})
-        if err != nil {
-                t.Fatalf("error injecting pod add: %v", err)
-        }
-
-        t.Logf("Got pod from manifest: %v", p.ObjectMeta.Name)
-        t.Logf("Got pod from result: %v", result.ObjectMeta.Name)
-}
-```
-
 ```shell
 $ go test pod_test.go -v
 === RUN   TestPod
@@ -108,89 +83,7 @@ ok      command-line-arguments  0.034s
 
 Pretty easy, isn't it? We can also test our DaemonSet:
 
-```go
-package daemonset
-
-import (
-        "context"
-        "testing"
-
-        apps "k8s.io/api/apps/v1"
-        core "k8s.io/api/core/v1"
-        meta "k8s.io/apimachinery/pkg/apis/meta/v1"
-        "k8s.io/client-go/kubernetes/fake"
-)
-
-func TestDaemonset(t *testing.T) {
-
-        var (
-                app         = string("overlaytest")
-                image       = string("mtr.external.otc.telekomcloud.com/mcsps/swiss-army-knife:latest")
-                graceperiod = int64(1)
-                user        = int64(1000)
-                privledged  = bool(true)
-                readonly    = bool(true)
-        )
-
-        client := fake.NewSimpleClientset()
-
-        daemonset := &amp;apps.DaemonSet{
-                ObjectMeta: meta.ObjectMeta{
-                        Name: app,
-                },
-                Spec: apps.DaemonSetSpec{
-                        Selector: &amp;meta.LabelSelector{
-                                MatchLabels: map[string]string{
-                                        "app": app,
-                                },
-                        },
-                        Template: core.PodTemplateSpec{
-                                ObjectMeta: meta.ObjectMeta{
-                                        Labels: map[string]string{
-                                                "app": app,
-                                        },
-                                },
-                                Spec: core.PodSpec{
-                                        Containers: []core.Container{
-                                                {
-                                                        Args:            []string{"tail -f /dev/null"},
-                                                        Command:         []string{"sh", "-c"},
-                                                        Name:            app,
-                                                        Image:           image,
-                                                        ImagePullPolicy: "IfNotPresent",
-                                                        SecurityContext: &amp;core.SecurityContext{
-                                                                AllowPrivilegeEscalation: &amp;privledged,
-                                                                Privileged:               &amp;privledged,
-                                                                ReadOnlyRootFilesystem:   &amp;readonly,
-                                                                RunAsGroup:               &amp;user,
-                                                                RunAsUser:                &amp;user,
-                                                        },
-                                                },
-                                        },
-                                        TerminationGracePeriodSeconds: &amp;graceperiod,
-                                        Tolerations: []core.Toleration{{
-                                                Operator: "Exists",
-                                        }},
-                                        SecurityContext: &amp;core.PodSecurityContext{
-                                                FSGroup: &amp;user,
-                                        },
-                                },
-                        },
-                },
-        }
-
-        result, err := client.AppsV1().DaemonSets("kube-system").Create(context.TODO(), daemonset, meta.CreateOptions{})
-        if err != nil {
-                t.Fatalf("error injecting pod add: %v", err)
-        }
-
-        if daemonset.ObjectMeta.Name != result.ObjectMeta.Name {
-                t.Logf("Got from manifest: %v", daemonset.ObjectMeta.Name)
-                t.Logf("Got from result: %v", result.ObjectMeta.Name)
-                t.Fatalf("result and manifest are not the same")
-        }
-}
-```
+<script src="https://gist.github.com/eumel8/d35368b3fedf2450673fa67edd26de13.js"></script>
 
 ```shell
 $ go test daemon_test.go -v
