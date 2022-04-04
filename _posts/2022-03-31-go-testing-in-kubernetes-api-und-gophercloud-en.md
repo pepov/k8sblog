@@ -69,6 +69,8 @@ The output of a function will compare with an expected value and if this is okay
 
 The main part of the overlaytest program is a DaemonSet, which must be deployed on the Kubernetes target cluster. The community project has a fake client. This can replicate all API endpoints and resources and replies with corresponding values without any real cluster or other real resources. For example we create a POD and request the API after that if the POD exists:
 
+<script src="https://gist.github.com/eumel8/6a2a0d50b073f30cee24822aced9a5aa.js"></script>
+
 ```go
 package pod
 
