@@ -15,9 +15,9 @@ With Kubernetes Operator you can extend the Kubernetes API with a function that 
 
 For example: A refrigerator
 
-<img src="/blog/images/2022-05-27-2.png" />>
+<img src="/blog/images/2022-05-27-2.png" />
 
-<img src="/blog/images/2022-05-27-3.png" />>
+<img src="/blog/images/2022-05-27-3.png" />
 
 ```yaml
 Kind: Refrigerator​
@@ -101,7 +101,7 @@ I started small with 150 lines of code to <a href="https://github.com/eumel8/otc
 
 It's a highlight to put all this things together and create your first RDS instance in Kubernetes:
 
-<img src="/blog/images/2022-05-27-3b.png"  width="1024" height="459" />>
+<img src="/blog/images/2022-05-27-3b.png"  width="1024" height="459" />
 
 Additional features are coming fast, especially sync the RDS status in the cloud with the status of the RDS resource in Kubernetes. Ground-making, because we will need this feature later very often.
 Resize resources is also a feature request by the Operator approach, so it's easy to implement a manual flavour change by the user by changing the RDS spec.
