@@ -9,17 +9,9 @@ twitter: '/images/2022-05-27-1.png'
 author: eumel8
 ---
 
-#
+At first a recap: What is a Operator? 
 
-# Go Lint
-
-Go Linter sind extra Programme, die kein Bestandteil von Go sind. Sie werden etwa installiert mit
-
-```shell
-curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.45.2
-```
-<teaserbreak>
-At first a recap: What is a Operator? With Kubernetes Operator you can extend the Kubernetes API with a function that it doesn’t have before.
+With Kubernetes Operator you can extend the Kubernetes API with a function that it doesn’t have before.
 
 For example: A refrigerator
 
