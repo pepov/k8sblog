@@ -32,7 +32,7 @@ Specs:​
 As you can see, we can specify the color of the refrigerator, the size, and how many shelfs are into.
 At the end, your Kubernetes Cluster can manage refrigerators. Of course, there is no item in your data center, but maybe a manufacture can handle this requests, if the machines are connected to the cluster.
 
-<img src="/blog/images/2022-05-27-4.jpg" />>
+<img src="/blog/images/2022-05-27-4.jpg"  width="1024" height="459" />>
 
 Another Example: RDS
 
@@ -101,7 +101,7 @@ I started small with 150 lines of code to <a href="https://github.com/eumel8/otc
 
 It's a highlight to put all this things together and create your first RDS instance in Kubernetes:
 
-<img src="/blog/images/2022-05-27-3b.png" />>
+<img src="/blog/images/2022-05-27-3b.png"  width="1024" height="459" />>
 
 Additional features are coming fast, especially sync the RDS status in the cloud with the status of the RDS resource in Kubernetes. Ground-making, because we will need this feature later very often.
 Resize resources is also a feature request by the Operator approach, so it's easy to implement a manual flavour change by the user by changing the RDS spec.
