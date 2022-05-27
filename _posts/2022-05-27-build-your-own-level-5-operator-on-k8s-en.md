@@ -364,7 +364,7 @@ The usual features like description of the repo, set search tags and provide rel
 
 Also usage of Microsoft Visual Studio Code can be helpful while programming with the Golang extensions.
 
-<b>My Key Takeaways:</>
+<b>My Key Takeaways:</b>
 
 * Have a Vision​
     * What do you want to achieve​
