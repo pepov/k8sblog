@@ -61,7 +61,7 @@ What works in the laboratory does not necessarily have to work in production. Th
 ```bash
 $ ddosify -t https://oro-demoapp.mcsps.telekomcloud.com/insert -m POST -h "Content-Type: application/x-www-form-urlencoded" -b "name=value1&amp;city=value2" -l incremental -n 200000 -d 1200 -T 1
 
-# meanse
+# single curl
 curl -X POST https://oro-demoapp.mcsps.telekomcloud.com/insert
    -H "Content-Type: application/x-www-form-urlencoded" 
    -d "name=value1&amp;city=value2"
@@ -80,7 +80,7 @@ mysql> set global max_connections = 2000;
 
 But it doesn't work in the OTC and has to be set in the parameter group. The default is 800 in the MySQL default parameter group. It's a bit cumbersome to set in the OTC web console. Neither the operator nor the openstack client currently offer a suitable option. Then immediately reboot the database.
 
-Next error: Oomkilled POD. Die spartanischen Limits der Labor-App sind erreicht. Diese kann man im Statefulset erhöhen:
+Next error: Oomkilled POD. The low limits of the test app is reached. This can be increased in the Statefulset:
 
 ```bash
 $ kubectl -n rds1 edit statefulsets.apps demoapp
@@ -144,6 +144,6 @@ Error Distribution (Count:Reason):
   534     :connection timeout
 ```
 
-With this one can then examine the installation and improve the quality of its service
+With this one can then examine the installation and improve the quality of the service
 
 Happy Testing
