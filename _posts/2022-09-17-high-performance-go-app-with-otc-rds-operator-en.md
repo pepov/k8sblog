@@ -54,7 +54,7 @@ import (
 	}
 ```
 
-The demp app is running in the cluster, has automatically access to the Kubernetes API. In the function for database connect, is this access called and is looking for RDS resources with the corresponding instance in the same namespace, waits until the status is 'ACTIVE', unless the app is new deployed, get credentials which are defined in the RDS object and knows hostname/IP-address, which the OTC places for the RDS instance and henceforth in the status of the RDS object in the Kubernetes cluster is. Behold, connection is sucessful, the app used the database.
+The demo app is running in the cluster, has automatically access to the Kubernetes API. In the function for database connect, is this access called and is looking for RDS resources with the corresponding instance in the same namespace, waits until the status is 'ACTIVE', unless the app is new deployed, get credentials which are defined in the RDS object and knows hostname/IP-address, which the OTC places for the RDS instance and henceforth in the status of the RDS object in the Kubernetes cluster is. Behold, connection is sucessful, the app used the database.
 
 What works in the laboratory does not necessarily have to work in production. There is a <a href="https://github.com/ddosify/ddosify/releases">Go App Ddosify</a>, with which load scenarios for web applications can be simulated. The program is also available as an online service, but is chargeable after a short test phase. The program runs in many locations around the world from which you can test its service. We can also download the binary and test our demo app from our work station:
 
