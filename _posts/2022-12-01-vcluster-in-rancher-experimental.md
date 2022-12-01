@@ -2,7 +2,7 @@
 layout: post
 tag: de
 title: "vcluster in Rancher Experimente"
-subtitle: "Kubernetes gibt es in verschiedenen Ausprägungen. Als einzelner Node, bis zu tausenden. Als einziger Nutzer, bis zu tausenden. Das Problem ist die Trennung verschiedener Nutzer, ohne Beschränkung der Clusterrechte. Wie das geht zeigt das Experiment".
+subtitle: "Kubernetes gibt es in verschiedenen Ausprägungen. Als einzelner Node, bis zu tausenden. Als einziger Nutzer, bis zu tausenden. Das Problem ist die Trennung verschiedener Nutzer, ohne Beschränkung der Clusterrechte. Wie das geht zeigt das Experiment"
 date: 2022-12-01
 background: '/images/k8s-cosmos.png'
 twitter: '/images/2022-05-27-1.png'
