@@ -18,9 +18,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Rubygems, Bundler, jekyll
         run: | 
-          apt update
-          apt -y install make build-essential ruby ruby-dev
-          gem install jekyll bundler
+          sudo apt update
+          sudo apt -y install make build-essential ruby ruby-dev
+          sudo gem install jekyll bundler
           bundle install
       - name: Build jekyll website with drafts
         run: bundle exec jekyll build --drafts
