@@ -393,6 +393,14 @@ $ vcluster list
  cl4    vcl1        Running               2022-12-01 23:25:21 +0100 CET   3m24s     frank-test-k8s-12
 ```
 
+Possibly there are complains regarding `seccomp` which needs an annotation in PSP:
+
+```yaml
+annotations:
+  seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+```
+
+
 # Loft
 
 Loft is the company behind vcluster. And at the same time a platform where I can manage my vclusters.
