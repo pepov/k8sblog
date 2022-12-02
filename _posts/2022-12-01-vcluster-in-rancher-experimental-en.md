@@ -1,7 +1,7 @@
 ---
 layout: post
-tag: de
-title: "vcluster in Rancher Experimente"
+tag: en
+title: "vcluster in Rancher Experimental"
 subtitle: "Kubernetes gibt es in verschiedenen Ausprägungen. Als einzelner Node, bis zu tausenden. Als einziger Nutzer, bis zu tausenden. Das Problem ist die Trennung verschiedener Nutzer, ohne Beschränkung der Clusterrechte. Wie das geht zeigt das Experiment"
 date: 2022-12-01
 background: '/images/k8s-cosmos.png'
@@ -9,32 +9,32 @@ twitter: '/images/2022-05-27-1.png'
 author: eumel8
 ---
 
-<a href="https://www.vcluster.com">Vcluster</a> ist ein voll funktionsfähiger Kubernetes-Cluster, installiert in einem Kubernetes-Cluster.
-Während der Nutzer in einem Namespace oder über ein Rancher Projekt in mehrere Namespaces Zugriff hat und ihm cluster-weite Resourcen
- verwehrt bleiben und so etwa keine CRDs oder Mutation-Webhooks installiert werden können, soll er im vcluster vollen Zugriff erhalten.
-Wie weit das wirklich funktioniert und welche Einschränkungen es gibt, schauen wir uns hier mal an.
+<a href="https://www.vcluster.com">Vcluster</a> is a full-working Kubernetes cluster, installed in a Kubernetes cluster.
+While the user has access in one namespace or in several namespaces via a Rancher project and has cluster-wide resources
+  remain denied and so no CRDs or mutation webhooks can be installed, should he get full access in the vcluster.
+Let's take a look at how far this really works and what limitations there are
 
-# Vorbedingungen
+# Preconditions
 
-Was sofort funktioniert:
+Which works immediately:
 
-* <a href="https://k3s.io/">K3S</a> auf einer Ubuntu 20.04 VM installieren.
-* vcluster cli von der vcluster Webseite herunterladen
-* vcluster installieren mit `vcluster create my-vcluster`
+* <a href="https://k3s.io/">K3S</a> installed on Ubuntu 20.04 VM
+* vcluster cli download from vcluster web site
+* vcluster installed with `vcluster create my-vcluster`
 
-Wir wollen allerdings eine etwas sichere Methode wählen, die auch mandatenfähig ist. Zur Verwaltung mandatenfähiger Cluster mit
-zentraler Userverwaltung hat sich <a href="https://rancher.io">Rancher</a> etabliert.
-Wir brauchen also:
+However, we want to choose a somewhat secure method that is also multi-tenant. To manage multi-tenant clusters with
+<a href="https://rancher.io">Rancher</a> has established itself with central user administration.
+So we need:
 
-* Existierenden Rancher Upstream-Cluster mit Rancher 2.6+
-* Existierenden Rancher Downstream-Cluster mit mindestens einem Worker-Node
-* Ein neues Projekt im Downstream-Cluster mit PodSecurityPolicy "restricted"
-* Einen Namespace in diesem Projekt (vcl1)
+* Existing Rancher upstream cluster running Rancher 2.6+
+* Existing Rancher downstream cluster with at least one worker node
+* A new project in the downstream cluster with PodSecurityPolicy "restricted"
+* A namespace in this project (vcl1)
 
 # Installation
 
-In diesem Namespace können wir vcluster installieren. Neben der Installation mit dem vcluster cli gibt es eine Installationsvariante
-mit Helm. Hier ist unser values.yaml
+In this namespace we can install vcluster. In addition to the installation with the vcluster cli, there is an installation variant
+with Helm. Here is our values.yaml:
 
 ```yaml
 vcluster:
@@ -50,16 +50,16 @@ securityContext:
 fsGroup: 1000
 ```
 
-Den vollen Konfigurationsumfang des Charts kann man <a href="https://github.com/loft-sh/vcluster/blob/main/charts/k3s/values.yaml">hier</a> sehen.
-Zu beachten ist noch, dass vcluster verschiedene Cluster-Typen kennt: eks, k8s, k0s, k3s. Wir benutzen k3s.
+The chart's full scope of configuration can be seen <a href="https://github.com/loft-sh/vcluster/blob/main/charts/k3s/values.yaml">here</a>.
+It should also be noted that vcluster knows different cluster types: eks, k8s, k0s, k3s. We use k3s.
 
-Jetzt die Installation:
+Now the installation:
 
 ```bash
 helm -n vcl1 upgrade -i cl1 vcluster --values values.yaml --repo https://charts.loft.sh
 ```
 
-Überprüfung:
+Verify:
 
 ```bash
 $ vcluster list
@@ -68,28 +68,28 @@ $ vcluster list
  cl1    vcl1        Running               2022-12-01 15:21:35 +0100 CET   28s   frank-test-k8s-12
 ```
 
-Das wars schon. 
+That's all.
 
 # Import
 
-Wir können den vcluster in Rancher importieren, indem wir die Importfunktion im Rancher benutzen. Es wird eine Deploy-URL generiert,
-die wir im vcluster ausführen:
+We can import the vcluster into Rancher using the import function in Rancher. A deploy URL is generated,
+which we run in the vcluster:
 
 ```bash
 vcluster -n vcl1 connect cl2  -- kubectl apply -f https://k3s.otc.mcsps.de/v3/import/hjjnrlmj9xfsmw7wctsdpr7b6ftc5gkfr9fqv7rlvshzzj86f46q_c-m-84h8jjd7.yaml
 ```
 
-Hier taucht schon das erste Problem auf. In einem Downstream-Cluster mit verschiedenen Projekten und Namespaces kann ich verschiedene
-Sicherheitsrichtlinien festlegen. Systemnahe Dienste wie die Rancher-Agenten laufen im System-Projekt und dem cattle-system Namespace.
-Dort können sie sich in aller Ruhe ausbreiten, ohne die Restriktionen eines Projekts mit einer Nutzer-Webapp.
+Here the first problem appears. In a downstream cluster with different projects and namespaces, I can have different
+sets of security policies. System services like the rancher agents run in the System project and the cattle-system namespace.
+There they can spread freely without the restrictions of a project with a user web app.
 
-Der vcluster läuft in einem Namespace des Downstream-Clusters und dort mit der festgelegten Restriktionen wie PodSecurityPolicy
-oder Resource Quota. Man muss also entscheiden, ob dieser Cluster dann vollständig in diesem Modus laufen kann oder
-etwa eine unrestricted PodSecurityPolicy benötigt. Ab Kubernetes 1.23 kann man über den PodSecurityAdmissionController dieses
-Feature als Namespace Annotation setzen. Man könnte also auf dem Host-System weniger restriktiv sein, dann aber im vcluster bestimmte
-Namespaces per Annotation einschränken.
+The vcluster runs in a namespace of the downstream cluster and there with the specified restrictions like PodSecurityPolicy
+or resource quota. So you have to decide whether this cluster can then run completely in this mode or
+for example, an unrestricted PodSecurityPolicy is required. From Kubernetes 1.23 you can use the PodSecurityAdmissionController to do this
+feature set as namespace annotation. So you could be less restrictive on the host system, but then be specific in the vcluster
+by restrict namespaces via annotation.
 
-Für den Rancher Agenten können wir uns behelfen, indem wir im Deployment die Affinity löschen und den securityContext anpassen.
+We can work around for the rancher agent by deleting the affinity in the deployment and adjusting the securityContext.
 
 ```yaml
 spec:
@@ -108,39 +108,36 @@ spec:
         fsGroup: 1000
 ```
 
-Dann haben wir den vcluster im Rancher:
+Now we have vcluster in Rancher:
 
 <img src="/blog/images/2022-12-01-1.png" width="1328" height="473" />
 
-Upps, haben wir jetzt noch einen vcluster im vcluster erstellt? Das ist möglich. Ich lade die kubeconfig für den ersten
-vcluster herunter und in diesem Context rufe ich das `helm upgrade -i` nochmal auf, oder nutze `vcluster create`
+Oops, did we create another vcluster in vcluster now? That is possible. I load the kubeconfig for first
+vcluster and in this context I call the `helm upgrade -i` again, or use `vcluster create`
 
-Aber Obacht:
+Be aware:
 
 <img src="/blog/images/2022-12-01-2.png" width="1328" height="473" />
 
-Die Resourcen werden im Upstream-Cluster mit vcluster Namen und Namespace angezeigt. Da diese Felder eine begrenzte
-Länge von 63 Zeichen haben, kann es schnell zu Fehlermeldungen im Kubernetes kommen. Deswegen sollte man immer kurze
-Namen wählen.
-
+The resources are shown in the upstream cluster with vcluster name and namespace. Since these fields have a limited length of 63 characters, error messages can quickly appear in Kubernetes. That's why you should always choose short names.
 
 <img src="/blog/images/2022-12-01-3.png" width="1328" height="473" />
 
-Die Workload im vcluster ist noch sehr übersichtlich, es läuft nur der Rancher- und der Fleet-Agent.
+The workload in the vcluster is still very clear, only the rancher and fleet agents are running.
 
-# Netzwerk/Ingress
+# Network/Ingress
 
-Spätestens bei den Netzwerkdiensten merkt der Nutzer, dass er nicht in einem echten Cluster ist. 
-Natürlich können Netzwerkdienste in der Virtualisierung nicht installiert werden. Aber mit der Option
-`--expose` kann man einen Loadbalancer Dienst vom Downstream-Cluster beziehen und wenn dort etwa ein
-Cloud Controller Manager dranhängt, bekommt man auch die public-IP in den vcluster.
-Hier mal die Installation mit vlcuster cli:
+At the latest with the network services, the user notices that he is not in a real cluster.
+Of course, network services cannot be installed in virtualization. But with the option
+`--expose` you can get a load balancer service from the downstream cluster and if there about a
+Cloud Controller Manager is installed, you also get the public IP in the vcluster.
+Here is the installation with vlcuster cli:
 
 ```bash
 $ vcluster -n vcl1 create cl2 -f values.yaml --expose 
 ```
 
-Kontrolle:
+Verify:
 
 ```bash
 $ kubectl -n vcl1 get services cl2
@@ -148,10 +145,10 @@ NAME                                             TYPE           CLUSTER-IP      
 cl2                                              LoadBalancer   10.43.112.229   80.158.88.16   443:30583/TCP            2m19s
 ```
 
-Eine andere Möglichkeit sind mapServices. Diese Option kann man im values.yaml bei der Installation
-mit angeben. Es werden dann entweder Services vom Host zum vcluster gemapped oder umgekehrt:
+Another possibility are mapServices. This option can be specified in values.yaml during installation.
+Either services are then mapped from the host to the vcluster or vice versa:
 
-Beispiel cert-manager:
+Example cert-manager:
 
 ```yaml
 mapServices:
@@ -162,15 +159,16 @@ mapServices:
 
 # Isolation
 
-Über den Helm Value
+Via Helm Value
 
 ```yaml
 isolation:
   enabled: true
 ```
 
-kann man eine NetworkPolicy für den vcluster definieren, als auch ResurceQuota und LimitRanges. Neben den Standardwerten
-des Charts kann man diese natürlich auch überschreiben.
+you can define a NetworkPolicy for the vcluster, as well as ResurceQuota and LimitRanges. In addition to the default values
+of the chart, you can of course also overwrite them.
+
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -290,11 +288,11 @@ spec:
 
 # Plain K8S
 
-Wenn man K3s aus welchen Gründen auch immer nicht verwenden will, kann man vcluster auch mit plain K8S installieren.
-Dazu werden alle Bestandteile wie Api, Controller, Scheduler und etcd separat installiert. Leider klappt das nur mit unrestricted 
-PodSecurityPolicy, oder man weicht die restricted auf mit `CAP_NET_BIND_SERVICE`.
+If you don't want to use K3s for whatever reason, you can also install vcluster with plain K8S.
+All components such as API, controller, scheduler and etcd are installed separately. Unfortunately, this only works with unrestricted
+PodSecurityPolicy, or you soften the restricted one with `CAP_NET_BIND_SERVICE`.
 
-Hier eine values.yaml
+Here is a values.yaml
 
 ```yaml
 securityContext:
@@ -379,13 +377,14 @@ syncer:
   fsGroup: 1000
 ```
 
-Und die Installation:
+And the installation:
 
 ```bash
 $ vcluster -n vcl1 create cl4 -f values.yaml  --distro k8s
 ```
 
-Kontrolle:
+Verify:
+
 
 ```bash
 $ vcluster list
@@ -396,22 +395,22 @@ $ vcluster list
 
 # Loft
 
-Loft ist die Firma hinter vcluster. Und auch gleichzeitig eine Plattform, in der ich meine vcluster verwalten kann.
-Dazu muss man den loft-agent installieren und den loft cli. Mehr Informationen auf der Webseite <a href="https://loft.sh">loft.sh</a>.
+Loft is the company behind vcluster. And at the same time a platform where I can manage my vclusters.
+For this you have to install the loft-agent and the loft cli. More information on the website <a href="https://loft.sh">loft.sh</a>.
 
-Mit `loft start` start man den Registrierungsprozess beim Loft Dienst. Der Agent leitet alle Anfragen weiter und zeigt
-uns diese Verwaltungswebseite:
-
+With `loft start` you start the registration process with the Loft service. The agent forwards all requests and shows
+us this administration website:
 
 <img src="/blog/images/2022-12-01-4.png" width="1328" height="473" />
 
 <img src="/blog/images/2022-12-01-5.png" width="1328" height="473" />
 
 
-# Fazit
+# Conclusion
 
-Vcluster ist eine weitere Virtualisierungsform in der Cloud-Landschaft, die Einschränkungen von Kubernetes bezüglich
-cluster-weite Resourcen in projektspezifische Namespaces überwindet. Die Zielgruppe sind also Nutzer, die vollen Cluster-Zugriff
-benötigen, um Admission-Controller, Operator und andere Anwendungen mit API-Erweiterungen (CRDs) installieren und auch
-betreiben möchten. Der normale Webentwickler wird mit einem Kubernetes-Namespace, in dem er seine Webanwendung deployen kann,
-zufrieden sein und alle anderen Dienste von einem Managed Service anfragen. 
+Vcluster is another form of virtualization in the cloud landscape regarding the limitations of Kubernetes
+cluster-wide resources into project-specific namespaces. So the target group are users who have full cluster access
+need to install Admission Controller, Operator and other applications with API extensions (CRDs) and also
+want to operate this tools.
+The normal web developer is provided with a Kubernetes namespace in which to deploy their web application.
+be satisfied and request all other services from a managed service.
