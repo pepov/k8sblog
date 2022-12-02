@@ -21,12 +21,12 @@ jobs:
           sudo apt update
           sudo apt -y install make build-essential ruby ruby-dev
           sudo gem install jekyll bundler
-          bundle install
+          sudo bundle install
       - name: Build jekyll website with drafts
-        run: bundle exec jekyll build --drafts
+        run: sudo bundle exec jekyll build --drafts
       - name: Check for broken links
         run: |
-          bundle exec htmlproofer --log-level :debug ./_site &> links.log
+          sudo bundle exec htmlproofer --log-level :debug ./_site &> links.log
         continue-on-error: true
       - name: Archive log links
         uses: actions/upload-artifact@v1
