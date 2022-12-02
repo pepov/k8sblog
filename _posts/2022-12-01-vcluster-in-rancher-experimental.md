@@ -408,4 +408,10 @@ uns diese Verwaltungswebseite:
 <img src="/blog/images/2022-12-01-5.png" width="1328" height="473" />
 
 
-Happy vclustering
+# Fazit
+
+Vcluster ist eine weitere Virtualisierungsform in der Cloud-Landschaft, die Einschränkungen von Kubernetes bezüglich
+cluster-weite Resourcen in projektspezifische Namespaces überwindet. Die Zielgruppe sind also Nutzer, die vollen Cluster-Zugriff
+benötigen, um Admission-Controller, Operator und andere Anwendungen mit API-Erweiterungen (CRDs) installieren und auch
+betreiben möchten. Der normale Webentwickler wird mit einem Kubernetes-Namespace, in dem er seine Webanwendung deployen kann,
+zufrieden sein und alle anderen Dienste von einem Managed Service anfragen. 
