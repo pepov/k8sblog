@@ -27,36 +27,29 @@ How to archive this?
 * <a href="https://k3s.io/">K3S</a> installed on Ubuntu 20.04 VM
 * Existing Rancher upstream cluster running Rancher 2.6+
 * Generated API token with cluster-wide access
-* Installed Crossplane Helm provider and crossplane cli:
-
-<script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-00_vcluster_crossplane-md"></script>
+* Installed [Crossplane Helm provider and crossplane cli](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-00_vcluster_crossplane-md)
 
 # Composition
-With a Crossplane Composition we describe, what should happen if one of our new own resources are created.
+With a [Crossplane Composition](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-01_composition-yaml) we describe, what should happen if one of our new own resources are created.
 It's the Crossplane Helm provider, so we define two Helm charts and apply required values. Under circumstances this
 values should defined in the resource defintion. On the other hand we have a central way to configure chart versions
 and repo.
 The first Helm chart will deploy the vcluster. It's the normal official thing.
 The [second chart](https://github.com/mcsps/helm-charts/tree/master/charts/rancher-cluster) is basically a batch job
-to import the vcluster into Rancher. For this we need the Rancher URL and the API admin token:
+to import the vcluster into Rancher. For this we need the Rancher URL and the API admin token
 
-<script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-01_composition-yaml"></script>
 
 # CompositeResourceDefinition
 
-With a Crossplane CompositeResourceDefinition we extend the Kubernetes API with our own stuff. We give them
+With a [Crossplane CompositeResourceDefinition](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-02_compositeresourcedefinition-yaml) we extend the Kubernetes API with our own stuff. We give them
 a name, an api version and can define specs. There is no other things required. Crossplane will manage all
 this CRD deployment in the background.
-
-<script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-02_compositeresourcedefinition-yaml"></script>
 
 Please refer [Crossplane Documentaion](https://github.com/crossplane/crossplane/blob/master/docs/concepts/composition.md)
 
 # Vcluster
 
-At the end it's very simple to deploy the vcluster:
-
-<script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-03_vcluster-yaml"></script>
+At the end it's very simple to [deploy the vcluster](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-03_vcluster-yaml)
 
 And we have vcluster in Rancher:
 
@@ -70,7 +63,7 @@ $ vcluster list
  kunde1-vcluster   kunde1      Running               2022-12-14 17:25:07 +0100 CET   45m52s     local
 ```
 
-That's all.
+That's all. Here is the Gist with required resources:
 
 <script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263.js"></script>
 
@@ -81,4 +74,3 @@ in two different Rancher projects. In this project you can define roles like `vc
 to manage this vcluster stuff. As a project owner this could work out.
 For the customer of vcluster 1 you can assign accounts as cluster-owner via Rancher, manually or in a automatic way.
 Maybe part 3 of this journey.
-
