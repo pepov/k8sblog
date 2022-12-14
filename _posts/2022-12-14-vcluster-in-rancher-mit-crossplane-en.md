@@ -72,6 +72,8 @@ $ vcluster list
 
 That's all.
 
+<script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263.js"></script>
+
 # Conclusion
 
 From security perspective vcluster 1 and vcluster 2 are separated in two namespaces, and if you want
