@@ -63,7 +63,7 @@ $ vcluster list
  kunde1-vcluster   kunde1      Running               2022-12-14 17:25:07 +0100 CET   45m52s     local
 ```
 
-That's all. Here is the Gist with required resources:
+That's all. Here is the [Gist](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263) with required resources:
 
 <script src="https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263.js"></script>
 
