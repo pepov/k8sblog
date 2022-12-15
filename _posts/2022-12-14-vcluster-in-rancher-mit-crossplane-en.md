@@ -9,7 +9,7 @@ twitter: '/images/vcluster.png'
 author: eumel8
 ---
 
-A very interesting use case is described in [this tutorial to deploy a monolith](https://github.com/salaboy/from-monolith-to-k8s/tree/main/platform/crossplane-vcluster). I started to think about a [vcluster operator](https://github.com/eumel8/vcluster-operator) to deploy vcluster for the masses. In fact the main deploy method of vcluster is a Helm chart (which basicly deployed a statefulset with k3s running), and Crossplane has a [Helm Provider](https://github.com/crossplane-contrib/provider-helm).
+A very interesting use case is described in [this tutorial to deploy a monolith](https://github.com/salaboy/from-monolith-to-k8s/tree/main/platform/crossplane-vcluster). I started to think about a [vcluster operator](https://github.com/eumel8/vcluster-operator) to deploy vcluster for the masses. In fact the main deploy method of vcluster is a Helm chart (which basically deployed a statefulset with k3s running), and Crossplane has a [Helm Provider](https://github.com/crossplane-contrib/provider-helm).
 Crossplane is a tool to extend your Kubernetes API with your own resources, like `kind: vcluster`. You can manage this
 resources in the same way like main Kubernetes resources:
 
@@ -30,14 +30,14 @@ How to archive this?
 * Installed [Crossplane Helm provider and crossplane cli](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-00_vcluster_crossplane-md)
 
 # Composition
+
 With a [Crossplane Composition](https://gist.github.com/eumel8/c08a17fd259c98f6de832bdcdf87a263#file-01_composition-yaml) we describe, what should happen if one of our new own resources are created.
 It's the Crossplane Helm provider, so we define two Helm charts and apply required values. Under circumstances this
 values should defined in the resource defintion. On the other hand we have a central way to configure chart versions
 and repo.
 The first Helm chart will deploy the vcluster. It's the normal official thing.
 The [second chart](https://github.com/mcsps/helm-charts/tree/master/charts/rancher-cluster) is basically a batch job
-to import the vcluster into Rancher. For this we need the Rancher URL and the API admin token
-
+to import the vcluster into Rancher. For this we need the Rancher URL and the API admin token.
 
 # CompositeResourceDefinition
 
@@ -45,7 +45,7 @@ With a [Crossplane CompositeResourceDefinition](https://gist.github.com/eumel8/c
 a name, an api version and can define specs. There is no other things required. Crossplane will manage all
 this CRD deployment in the background.
 
-Please refer [Crossplane Documentaion](https://github.com/crossplane/crossplane/blob/master/docs/concepts/composition.md)
+Please refer [Crossplane Documentation](https://github.com/crossplane/crossplane/blob/master/docs/concepts/composition.md)
 
 # Vcluster
 
