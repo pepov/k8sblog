@@ -32,7 +32,7 @@ Specs:​
 As you can see, we can specify the color of the refrigerator, the size, and how many shelfs are into.
 At the end, your Kubernetes Cluster can manage refrigerators. Of course, there is no item in your data center, but maybe a manufacture can handle this requests, if the machines are connected to the cluster.
 
-<img src="/blog/images/2022-05-27-4.jpg" width="1056" height="792">
+<img src="/blog/images/2022-05-27-4.jpg" width="1024" height="449">
 
 Another Example: RDS
 
