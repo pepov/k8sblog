@@ -13,7 +13,7 @@ Neues Jahr, neues Projekt, könnte man sagen. Aber dieses begann am Ende des let
 
 
 # Docker-Container als solches
-Die Verwendung von Docker-Containern in Kubernetes, ist eine bekannte Notwendigkeit, 
+Die Verwendung von Docker-Containern in Kubernetes ist eine bekannte Notwendigkeit, 
 auch wenn [dockerd](https://docker.io) mittlerweile durch [containerd](https://containerd.io/) ersetzt wurde. 
 Das Vorgehen ist auch weit etabliert: Es gibt ein [Dockerfile](https://docs.docker.com/engine/reference/builder/) mit einer
 Definition zu einem Basis-Image oder man startet `From: scratch` und dann bringt man die Programmlogik rein und installiert
@@ -83,7 +83,7 @@ natürlich nicht, wenn zentrale Resourcen wie ClusterRoles oder besagte WebHooks
 
 ## [Connaisseur](https://github.com/sse-secure-systems/connaisseur/)
 Bei diesem Werkzeug werden die Policies im Helm-Chart mit installiert. In der Single-Instanz sehr praktisch, 
-aber die zweite Installation im selben Cluster scheitert schon an gemeinsam genutzen Resourcen (siehe oben)
+aber die zweite Installation im selben Cluster scheitert schon an gemeinsam genutzen Resourcen (siehe oben).
 
 ## [Open Policy Agent](https://github.com/sigstore/cosign-gatekeeper-provider)
 Open Policy Agent(OPA) ist auch eher eine Werkzeugsammlung, in der ich mit einer Script-Sprache Policies
@@ -155,7 +155,7 @@ func (cs *CosignServerHandler) serve(w http.ResponseWriter, r *http.Request) {
 
 Ziel-URL ist also `/validate`. Dort soll dann etwas passieren.
 
-Das Objekt ist `AdmissionReview` (siehe [API-Beschreibung](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#validatingwebhook-v1-admissionregistration-k8s-io)  und dort haben wir ein Pod-Objekt zur Überprüfung eingebettet:
+Das Objekt ist `AdmissionReview` (siehe [API-Beschreibung](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#validatingwebhook-v1-admissionregistration-k8s-io) und dort haben wir ein Pod-Objekt zur Überprüfung eingebettet:
 
 ```golang
 arRequest := v1.AdmissionReview{}
@@ -175,7 +175,6 @@ arRequest := v1.AdmissionReview{}
 
 Zur Signatur-Überprüfung brauchen wir den Cosign-Public-Key. Der ist im POD in einer Environment-Variable abgelegt:
 
-
 ```golang
 	pubKey := ""
 	for i := 0; i < len(pod.Spec.Containers[0].Env); i++ {
@@ -188,14 +187,12 @@ Zur Signatur-Überprüfung brauchen wir den Cosign-Public-Key. Der ist im POD in
 
 Dann brauchen wir den Image-Namen:
 
-
 ```golang
 	image := pod.Spec.Containers[0].Image
 	refImage, err := name.ParseReference(image)
 ```
 
 Das Image könnte nicht-öffentlich sein. Dann brauchen wir die ImagePullSecrets:
-
 
 ```golang
 	imagePullSecrets := make([]string, 0, len(pod.Spec.ImagePullSecrets))
