@@ -53,7 +53,7 @@ ServiceAccounts, PodSecurity, PodSecurityPolicy, Priority, ResourceQuota - all A
 
 One differentiates `ValidationWebhookConfiguration`, to validate things. And `MutatingWebhookConfiguration`, to change things.
 
-For example, im [Cert Manager](https://github.com/cert-manager/cert-manager) are both:  ValidationWebhook, to verify and validate certificats and MutationWebhook, to create new ones.
+For example, im [Cert Manager](https://github.com/cert-manager/cert-manager) are both:  ValidationWebhook, to verify and validate certificates and MutationWebhook, to create new ones.
 
 Schema POD lifecycle with Admission Controller:
 
@@ -65,7 +65,7 @@ That is why it is also used in numerous tools:
 
 ## [Kubewarden](https://www.kubewarden.io/)
 An Admission Controller, which has a completly [Hub](https://hub.kubewarden.io/) of plugins for a Policy Server.
-One of them is vor verifying of images. The user can create Policies erstellen, which will be deployed by a new
+One of them is vor verifying of images. The user can create Policies, which will be deployed by a new
 instance of the Policy Server. And that's the bad point: is one Policy faulty, the cluster-wide update process is broken.
 Beside that we have a big overhead for only this one plugin.
 And another bad point: These Policies have again a specific Mime-format, which are not full supported by any registries.
@@ -78,7 +78,7 @@ can then only be managed by a cluster admin. A namespaced solution is still bein
 Also a tool with many Policy plugins. One of them is for verifying of images. Provided by a ClusterPolicy,
 again a non-namespaced resource.
 Now one could come up with the fact that each user installs his own tool in the shared cluster. But that works
-of course not if central resources such as ClusterRoles or said WebHooks are created. You could crack it all up, add namespace selectors to the webhooks (technically everything would be possible), but who wants to manage something like that.
+of course not if central resources such as ClusterRoles or as mentioned WebHooks. You could crack it all up, add namespace selectors to the webhooks (technically everything would be possible), but who wants to manage something like that.
 
 ## [Connaisseur](https://github.com/sse-secure-systems/connaisseur/)
 In this tool Policies are installed by the installing Helm Chart. In a single instance very practical, but a second
@@ -153,7 +153,7 @@ func (cs *CosignServerHandler) serve(w http.ResponseWriter, r *http.Request) {
 
 Target url is `/validate`. Something should happen there.
 
-The object is `AdmissionReview` (see [API description](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#validatingwebhook-v1-admissionregistration-k8s-io) and there we have a POD object included for review:
+The object is `AdmissionReview` (see [API description](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#validatingwebhook-v1-admissionregistration-k8s-io)) and there we have a POD object included for review:
 
 ```golang
 arRequest := v1.AdmissionReview{}
