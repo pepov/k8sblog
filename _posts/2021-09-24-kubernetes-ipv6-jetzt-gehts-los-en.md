@@ -231,6 +231,9 @@ spec:
           - IPv4
           - IPv6
         ipFamilyPolicy: RequireDualStack
+      externalIPs:
+        - 192.168.0.15
+        - 2003:e9:f712:a22f:a61f:72ff:fe56:1e9e
     ports:
       traefik:
         expose: true
