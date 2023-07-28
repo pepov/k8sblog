@@ -1,7 +1,7 @@
 title: K8S Eumel Blog
 email: eumel@eumel.de
 
-baseurl: "/blog"
+baseurl: "/k8sblog"
 url: "https://eumel8.github.io"
 twitter_username: eumel_8
 github_username: eumel8
