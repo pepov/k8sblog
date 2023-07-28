@@ -50,7 +50,7 @@ Am Ende ist es sehr einfach, [einen Vcluster zu deployen](https://gist.github.co
 
 Und wir haben den Vcluster in Rancher:
 
-<img src="/blog/images/2022-12-14.png" width="950" height="330" />
+<img src="/k8sblog/images/2022-12-14.png" width="950" height="330" />
 
 ```bash
 $ vcluster list

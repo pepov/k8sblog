@@ -15,7 +15,7 @@ First of all: I am not a programmer, and probably will not be anymore. I've been
 
 # Why GO
 
-<img src="/blog/images/2021-12-31-1.png" />
+<img src="/k8sblog/images/2021-12-31-1.png" />
 
 Go has not been around as a programming language for that long, in fact 10 years now. It was created in 2011 and the first release saw the light of day in 2012.
 It was developed by employees of Google out of dissatisfaction with the existing landscape of programming languages. Regardless of whether it is C or Java, you always have tons of dependencies on libraries that you have to install before the actual program starts. If everything depends on libc, you also have a dependency on certain operating systems. or kernel versions. In the end, you installed a whole heap of files, only to have a program with a function running.
@@ -289,4 +289,4 @@ The release process has never been so easy as with Github. We are looking for a 
 
 Isn't that great?
 
-<img src="/blog/images/2021-12-31-3.png" />
+<img src="/k8sblog/images/2021-12-31-3.png" />

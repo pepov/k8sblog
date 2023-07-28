@@ -57,7 +57,7 @@ For example, im [Cert Manager](https://github.com/cert-manager/cert-manager) are
 
 Schema POD lifecycle with Admission Controller:
 
-<img src="/blog/images/2023-01-07-1.png" width="585" height="386" />
+<img src="/k8sblog/images/2023-01-07-1.png" width="585" height="386" />
 
 # Admission Controller for Image Verification
 Verifying container signatures is a predestined task for an Admission Controller.

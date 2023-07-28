@@ -59,7 +59,7 @@ Im [Cert Manager](https://github.com/cert-manager/cert-manager) gibt es zum Beis
 
 Schematische Darstellung eines POD-Lebenszyklus mit Admission Controller:
 
-<img src="/blog/images/2023-01-07-1.png" width="585" height="386" />
+<img src="/k8sblog/images/2023-01-07-1.png" width="585" height="386" />
 
 # Admission Controller für Image Verifizierung
 Die Überprüfung von Signaturen von Containern ist eine prädistinierte Aufgabe für einen Admission Controller.

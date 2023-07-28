@@ -17,11 +17,11 @@ Auch die Prometheus-Instanz kann <a href="https://github.com/prometheus-operator
 
 Bei erfolgreicher Verbindung sollte man im Prometheus-UI unter "Service-Discovery" oder auch "Targets" die Instanz der App finden. Ansonsten sollte man schauen, ob der Prometheus wirklich läuft und auch alle Labels richtig gesetzt sind.
 
-<img src="/blog/images/2021-03-14-1.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-03-14-1.png" width="900" height="450" />
 
 Was beim Prometheus-Operator mitgeliefert wird, ist der Alert-Manager. Dieser hat zwei Hauptfuntionen. Das eine ist der Receiver, das kann ein Slack-Channel sein oder auch E-Mail-Versand ist möglich. Das andere ist der Router. Dort wird entschieden, welche Alarme an welchen Receiver geschickt werden. Haupt-Router/Receiver ist der Alert-Manager selber. Auf dessen Webseite kann man alle Alarme sehen.
 
-<img src="/blog/images/2021-03-14-2.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-03-14-2.png" width="900" height="450" />
 
 Und was nicht im Prometheus-Operator mitgeliefert wird, ist Grafana. Wenn es dafuer Bedarf gibt, muss eine Instanz eigenständig deployt werden, gerne auch wieder mit der genutzen Proxy-Funktionalität von Rancher.
 
@@ -37,7 +37,7 @@ Hier ändern wir einfach die Namen von Namespace und Prometheus-Instanz in der U
 
 Andere Dienste wie Prometheus oder Alertmanager sind ebenfalls so erreichbar.
 
-<img src="/blog/images/2021-03-14-3.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-03-14-3.png" width="900" height="450" />
 
 Happy Monitoring
 

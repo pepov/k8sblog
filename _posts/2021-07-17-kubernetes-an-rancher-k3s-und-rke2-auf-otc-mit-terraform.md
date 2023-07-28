@@ -71,4 +71,4 @@ Nachteile:
 Der Vorteil bei beiden Methoden ist das "One-Binary"-Konzept.  Es bedarf also nicht allzugrosser Vorbereitungen auf dem Betriebssystemlevel. Genausoleicht wie die Installation verlaeuft auch das Loeschen, es wird auch ein Binary zum Loeschen der Umgebung mitgeliefert. Der Gesamteindruck bei beiden ist auch die unkomplizierte Handhabung.
 Als Nachteil kann man das Vendor-Lock-In sehen. Beide Projekte sind zwar OpenSource, aber die Entwicklung wird von Rancher gefuehrt, die nun zu SUSE gehoeren. Der neue Produktname ist <strong>SUSE Rancher</strong>
 
-<img src="/blog/images/2021-07-21-1.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-07-21-1.png" width="900" height="450" />

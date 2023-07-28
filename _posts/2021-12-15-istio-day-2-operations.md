@@ -255,7 +255,7 @@ der Dashboard Menues in der UI zur Verfügung
 $ kubectl apply -f https://raw.githubusercontent.com/mcsps/use-cases/master/istio/navlinks.yaml
 ```
 
-<img src="/blog/images/2021-12-15-7.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-7.png" width="920" height="330" />
 
 
 UI Ansichten:
@@ -263,20 +263,20 @@ UI Ansichten:
 Kiali überprüft die Istio installation, zeigt Probleme und Fehler. Am Ende werden
 die Verkehrsflüsse als Grafiken dargestellt, Anfragen sind in Details aufgelistet.
 
-<img src="/blog/images/2021-12-15-1.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-1.png" width="920" height="330" />
 
-<img src="/blog/images/2021-12-15-2.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-2.png" width="920" height="330" />
 
-<img src="/blog/images/2021-12-15-3.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-3.png" width="920" height="330" />
 
 Daten werden durch Jaeger zur Verfügung gestellt, welche Loganfragen und Netzwerkverkehr
 im Detail, basierend auf Quellen und Kommandos.
 
-<img src="/blog/images/2021-12-15-4.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-4.png" width="920" height="330" />
 
-<img src="/blog/images/2021-12-15-5.png" width="9204" height="330" />
+<img src="/k8sblog/images/2021-12-15-5.png" width="9204" height="330" />
 
-<img src="/blog/images/2021-12-15-6.png" width="9204" height="330" />
+<img src="/k8sblog/images/2021-12-15-6.png" width="9204" height="330" />
 
 # Prometheus
 
@@ -348,7 +348,7 @@ istio-component-monitor   3d11h
 
 ## Service Endpunkte
 
-<img src="/blog/images/2021-12-15-8.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-8.png" width="920" height="330" />
 
 # Grafana
 
@@ -356,7 +356,7 @@ Es gibt sehr viele Grafana Dashboards für Istio. Erwähnt werden soll
 [Istio Control Plan Dashboard](https://grafana.com/grafana/dashboards/7645)
 welches einfach so funktioniert. Einfach hinzuzufügen und erklärt in der [Rancher Dokumentation](https://rancher.com/docs/rancher/v2.5/en/monitoring-alerting/guides/customize-grafana/):
 
-<img src="/blog/images/2021-12-15-9.png" width="920" height="330" />
+<img src="/k8sblog/images/2021-12-15-9.png" width="920" height="330" />
 
 
 Viel Spass mit [Istio!](https://istio.io/)

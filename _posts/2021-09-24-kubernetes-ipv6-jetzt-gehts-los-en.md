@@ -19,7 +19,7 @@ Another prefix is /56, there are 256 IP addresses. And if you are not a mathemat
 
 A view on the network configuration of our DSL router:
 
-<img src="/blog/images/2021-09-24-1.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-09-24-1.png" width="900" height="450" />
 
 On the bottom we have the usable IPv6 address space for the home network. The gray field means, this space is not fixed, these address space will change every 24 hours. This is not a problem for all devices which have a dynamic IPv6 address in the home network via DHCP. In the Kubernetes cluster we have another mechanism for the internal address asignment. In this case we must use Unique Local Adresses (ULA) or <a href="https://en.wikipedia.org/wiki/IPv6#Unique_Local_Unicast">Unique Local Unicast</a>. In IPv6 address space there is a prefix fc::/7. This is comparable with 10:0.0.0/8 or 192.168.0.0/16 in IPv4 space. 2 private or local networks can be overlap. But as to see in the picture, our provider assigned also a local address space. This is in the prefix fd::/7, here fd45:0a71:55a6:0001::1
 This area is fixed and usable for the Kubernetes cluster.
@@ -388,4 +388,4 @@ The programm runs with a <a href="https://github.com/eumel8/klipper-lb/tree/dual
 
 Voila! Our services should be available via IPv6. And our workload has connection to the IPv6 world. Easy, isn't it?
 
-<img src="/blog/images/2021-09-24-2.png" />
+<img src="/k8sblog/images/2021-09-24-2.png" />

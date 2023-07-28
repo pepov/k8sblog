@@ -68,7 +68,7 @@ Wir werden den Istio Operator benutzen, um jeden Schritt der Installation von Is
 Projektziel ist die Installation des [Istio Helloworld Beispiels](https://github.com/istio/istio/tree/master/samples/helloworld)
 in beiden Clustern und verteilen der Traffic. Das Zielbild sieht so aus:
 
-<img src="/blog/images/2021-12-09-1.svg" width="900" height="450" />
+<img src="/k8sblog/images/2021-12-09-1.svg" width="900" height="450" />
 
 * Der HelloWorld Service in beiden Clustern
 * Exposed Ingress Service

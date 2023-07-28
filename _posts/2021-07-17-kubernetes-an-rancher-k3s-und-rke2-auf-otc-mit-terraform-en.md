@@ -71,4 +71,4 @@ disadvantages:
 The advantage of both methods is the "one-binary"-concept. There is not so much preparation on the operating system level. In the same way like the installation is the deleting  included with a binary as part of the package. The overall impression of both is also the uncomplicated handling.
 A disadvantage is maybe the vendor-lock-in. Both projects are Open Source, but the developement is leaded by Rancher, which is now part of SUSE company. The new product name is <strong>SUSE Rancher</strong>
 
-<img src="/blog/images/2021-07-21-1.png" width="900" height="450" />
+<img src="/k8sblog/images/2021-07-21-1.png" width="900" height="450" />
