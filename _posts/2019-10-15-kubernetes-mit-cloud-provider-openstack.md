@@ -13,7 +13,7 @@ Kubernetes verwaltet Cloud Resourcen im sogenannten <a href="https://kubernetes.
 Wie benutzen einen Rechner/VM mit Ubuntu 16.04 (fuer neuere OS gab es noch keine Installationspakete) und installieren die erforderlichen Programmpakete:
 
 ```
-apt-get update &amp;&amp; apt-get install -y apt-transport-https curl docker.io
+apt-get update && apt-get install -y apt-transport-https curl docker.io
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
  apt-get update

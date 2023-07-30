@@ -7,7 +7,7 @@ date: 2020-07-09
 background: '/images/k8s-cosmos.png'
 ---
 
-S3 Speicher von den verschiedenen Cloud-Anbietern ist gar nicht mal so teuer. Ein Blick lohnt sich nach AWS, Azure &amp; Co. Bei <a href="https://aws.amazon.com/de/s3/pricing/">AWS</a> kostet One Zone oder Standard S3 Daten 0,01 USD/GB pro Monat. Bei AWS Glacier, mit groesseren Rueckspeicherzeiten sogar nur 0.0045 USD/GB. Fuer Backups sehr gut geeignet. 
+S3 Speicher von den verschiedenen Cloud-Anbietern ist gar nicht mal so teuer. Ein Blick lohnt sich nach AWS, Azure & Co. Bei <a href="https://aws.amazon.com/de/s3/pricing/">AWS</a> kostet One Zone oder Standard S3 Daten 0,01 USD/GB pro Monat. Bei AWS Glacier, mit groesseren Rueckspeicherzeiten sogar nur 0.0045 USD/GB. Fuer Backups sehr gut geeignet. 
 Wer S3 Daten dennoch lokal vorhalten will, kann sich mit <a href="https://min.io/">Minio</a> selber einen AWS-kompatiblen S3-Dienst basteln. Die Installation im Kubernetes-Cluster ist denkbar einfach:
 
 ```shell

@@ -68,7 +68,7 @@ We will use Istio Operator to verify each step to install Istio version
 Project goal is to install [Istio Helloworld Example](https://github.com/istio/istio/tree/master/samples/helloworld)
 on both cluster and make a traffic shifting. Target picture looks like that:
 
-<img src="/k8sblog/images/2021-12-09-1.svg" width="900" height="450" />
+<img src="/images/2021-12-09-1.svg" width="900" height="450" />
 
 * The HelloWorld service in both cluster
 * Exposed Ingress service

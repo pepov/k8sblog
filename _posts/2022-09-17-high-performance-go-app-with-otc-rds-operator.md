@@ -59,12 +59,12 @@ Die Demo App läuft im Cluster, hat also automatisch Zugriff auf die Kubernetes-
 Was im Labor klappt, muss nicht unbedingt im Produktionseinsatz funktionieren. Es gibt die <a href="https://github.com/ddosify/ddosify/releases">Go App Ddosify</a>, mit der Lastszenarios für Webapplikatonen nachgestellt werden können. Das Programm gibt es auch als Onlinedienst, ist aber nach einer kurzen Testphase kostenpflichtig.  Dafür läuft das Programm in vielen Standorten der Welt, von der man seinen Dienst testen kann. Wir können uns aber auch das Binary herunterladen und von unserer Wörkstation unsere Demo App testen:
 
 ```bash
-$ ddosify -t https://oro-demoapp.mcsps.telekomcloud.com/insert -m POST -h "Content-Type: application/x-www-form-urlencoded" -b "name=value1&amp;city=value2" -l incremental -n 200000 -d 1200 -T 1
+$ ddosify -t https://oro-demoapp.mcsps.telekomcloud.com/insert -m POST -h "Content-Type: application/x-www-form-urlencoded" -b "name=value1&city=value2" -l incremental -n 200000 -d 1200 -T 1
 
 # enspricht
 curl -X POST https://oro-demoapp.mcsps.telekomcloud.com/insert
    -H "Content-Type: application/x-www-form-urlencoded" 
-   -d "name=value1&amp;city=value2"
+   -d "name=value1&city=value2"
 ```
 
 200.000 neue Datenbankeinträge in 20 Minuten (damit nach 15 Minuten unser Autopilot des RDS Operator anspringt). Das hält unsere Labor-App nicht aus.

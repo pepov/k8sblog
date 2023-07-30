@@ -15,7 +15,7 @@ First of all: I am not a programmer, and probably will not be anymore. I've been
 
 # Why GO
 
-<img src="/k8sblog/images/2021-12-31-1.png" />
+<img src="/images/2021-12-31-1.png" />
 
 Go has not been around as a programming language for that long, in fact 10 years now. It was created in 2011 and the first release saw the light of day in 2012.
 It was developed by employees of Google out of dissatisfaction with the existing landscape of programming languages. Regardless of whether it is C or Java, you always have tons of dependencies on libraries that you have to install before the actual program starts. If everything depends on libc, you also have a dependency on certain operating systems. or kernel versions. In the end, you installed a whole heap of files, only to have a program with a function running.
@@ -81,12 +81,12 @@ This is followed by the integration of the kube-config credentials so that we ca
 
 ```go
 	daemonsetsClient := clientset.AppsV1().DaemonSets(namespace)
-	daemonset := &amp;apps.DaemonSet{
+	daemonset := &apps.DaemonSet{
 		ObjectMeta: meta.ObjectMeta{
 			Name: app,
 		},
 		Spec: apps.DaemonSetSpec{
-			Selector: &amp;meta.LabelSelector{
+			Selector: &meta.LabelSelector{
 				MatchLabels: map[string]string{
 					"app": app,
 				},
@@ -128,10 +128,10 @@ So you have to catch this error and take action from it. Either terminate the pr
 
 ```go
 	if errors.IsAlreadyExists(err) {
-		fmt.Println("daemonset already exists, deleting ... &amp; exit")
+		fmt.Println("daemonset already exists, deleting ... & exit")
 		deletePolicy := meta.DeletePropagationForeground
 		if err := daemonsetsClient.Delete(context.TODO(), app, meta.DeleteOptions{
-			PropagationPolicy: &amp;deletePolicy,
+			PropagationPolicy: &deletePolicy,
 		}); err != nil {
 			panic(err)
 		}
@@ -196,9 +196,9 @@ Now can we continue and we come to the main part of the program:
 			cmd := []string{
 				"sh",
 				"-c",
-				"ping -c 2 " + upod.Status.PodIP + " > /dev/null 2>&amp;1",
+				"ping -c 2 " + upod.Status.PodIP + " > /dev/null 2>&1",
 			}
-			req := clientset.CoreV1().RESTClient().Post().Resource("pods").Name(pod.ObjectMeta.Name).Namespace(namespace).SubResource("exec").VersionedParams(&amp;core.PodExecOptions{
+			req := clientset.CoreV1().RESTClient().Post().Resource("pods").Name(pod.ObjectMeta.Name).Namespace(namespace).SubResource("exec").VersionedParams(&core.PodExecOptions{
 				Command: cmd,
 				Stdin:   true,
 				Stdout:  true,
@@ -289,4 +289,4 @@ The release process has never been so easy as with Github. We are looking for a 
 
 Isn't that great?
 
-<img src="/k8sblog/images/2021-12-31-3.png" />
+<img src="/images/2021-12-31-3.png" />

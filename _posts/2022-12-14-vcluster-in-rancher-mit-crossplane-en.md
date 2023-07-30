@@ -53,7 +53,7 @@ At the end it's very simple to [deploy the vcluster](https://gist.github.com/eum
 
 And we have vcluster in Rancher:
 
-<img src="/k8sblog/images/2022-12-14.png" width="950" height="330" />
+<img src="/images/2022-12-14.png" width="950" height="330" />
 
 ```bash
 $ vcluster list

@@ -38,7 +38,7 @@ Kubeadm
 
 <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">Kubeadm</a> ist ein Deployment-Tool fuer Kubernetes-Cluster. Auf der Webseite ist die Installation auf Ubuntu beschrieben:
 
-[/codeblock]
+```bash
 sudo apt-get update
 sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -56,13 +56,13 @@ $kubeadm init
 
 Anschliessend passendes Netzwerk-Plugin installieren, zum Beispiel flannel:
 
-```
+```bash
 $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 
 Node Status vom master pruefen:
 
-```
+```bash
 $ kubectl get nodes
 NAME         STATUS   ROLES    AGE     VERSION
 quickstart   Ready    master   8m26s   v1.16.3
@@ -70,28 +70,28 @@ quickstart   Ready    master   8m26s   v1.16.3
 
 Hinzufügen von Nodes:
 
-```
+```bash
 $ kubeadm join 192.168.1.240:6443 --token gtlhtc.csy63766tya0plk8 \
     --discovery-token-ca-cert-hash sha256:2b2c547e4ed85b2cea1ac23c55ecc3eb203a1d915924657dcc2fd5a3d5af8fb9
 ```
 
-Das Kommando wird am Ende der Installation von kubeadm init ausgegeben</a></div>
+Das Kommando wird am Ende der Installation von kubeadm init ausgegeben
 
 MicroK8S
 --------
 
 <a href="https://ubuntu.com/kubernetes/install#single-node">MicroK8S </a> ist ein Produkt von Canonical. Die Installation laut Webseite erfolgt mit Snap:
 
-```
+```bash
 $ sudo snap install microk8s --classic
 ```
 
 Auch der kubernetes-client ist in diesem Snap mit enthalten:
 
-```
+```bash
 $ microk8s.kubectl get nodes
 NAME         STATUS   ROLES    AGE     VERSION
 quickstart   Ready    none   2m39s   v1.16.3
 ```
 
-Eine vollstaendige Liste der Loesungen findet man auf https://kubernetes.io/de/docs/setup/e der Loesungen findet man auf https://kubernetes.io/de/docs/setup/
+Eine vollstaendige Liste der Loesungen findet man auf  [https://kubernetes.io/de/docs/setup/](https://kubernetes.io/de/docs/setup)

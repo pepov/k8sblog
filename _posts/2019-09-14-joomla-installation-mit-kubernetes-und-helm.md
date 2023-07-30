@@ -16,14 +16,14 @@ Minikube ist eine Minimalversion von Kubernetes, die alle wichtigen APIs zur Ver
 System aktualisieren, Docker installieren, um dies als Infrastruktur fuer Kubernetes zu verwenden:
 
 ```shell
-apt update &amp;&amp; apt upgrade &amp;&amp; apt install docker.io socat
+apt update && apt upgrade && apt install docker.io socat
 ```
 
 Minikube herunterladen
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
-  &amp;&amp; chmod +x minikube
+  && chmod +x minikube
 ```
 
 Minikube starten. Mit dem Node-Port-Parameter erlauben wir spaeter das Herausfuehren von Diensten:
@@ -37,7 +37,7 @@ Minikube starten. Mit dem Node-Port-Parameter erlauben wir spaeter das Herausfue
 Kubectl ist das Kommandozeilenwerkzeug fuer Kubernetes. wir installieren es mit curl:
 
 ```shell
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &amp;&amp; chmod +x kubectl &amp;&amp; cp kubectl /usr/local/bin/
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && cp kubectl /usr/local/bin/
 ```
 
 Minikube hat schon eine passende Konfigurationsdatei in `.kube/config` bereitgestellt. War die Installation bis hierhin erfolgreich, sollte die Programmausgabe so aussehen:

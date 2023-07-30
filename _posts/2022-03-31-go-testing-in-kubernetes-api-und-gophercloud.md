@@ -83,7 +83,7 @@ import (
 
 func TestPod(t *testing.T) {
         client := fake.NewSimpleClientset()
-        p := &amp;core.Pod{ObjectMeta: meta.ObjectMeta{Name: "my-pod"}}
+        p := &core.Pod{ObjectMeta: meta.ObjectMeta{Name: "my-pod"}}
         result, err := client.CoreV1().Pods("test-ns").Create(context.TODO(), p, meta.CreateOptions{})
         if err != nil {
                 t.Fatalf("error injecting pod add: %v", err)
@@ -132,12 +132,12 @@ func TestDaemonset(t *testing.T) {
 
         client := fake.NewSimpleClientset()
 
-        daemonset := &amp;apps.DaemonSet{
+        daemonset := &apps.DaemonSet{
                 ObjectMeta: meta.ObjectMeta{
                         Name: app,
                 },
                 Spec: apps.DaemonSetSpec{
-                        Selector: &amp;meta.LabelSelector{
+                        Selector: &meta.LabelSelector{
                                 MatchLabels: map[string]string{
                                         "app": app,
                                 },
@@ -156,21 +156,21 @@ func TestDaemonset(t *testing.T) {
                                                         Name:            app,
                                                         Image:           image,
                                                         ImagePullPolicy: "IfNotPresent",
-                                                        SecurityContext: &amp;core.SecurityContext{
-                                                                AllowPrivilegeEscalation: &amp;privledged,
-                                                                Privileged:               &amp;privledged,
-                                                                ReadOnlyRootFilesystem:   &amp;readonly,
-                                                                RunAsGroup:               &amp;user,
-                                                                RunAsUser:                &amp;user,
+                                                        SecurityContext: &core.SecurityContext{
+                                                                AllowPrivilegeEscalation: &privledged,
+                                                                Privileged:               &privledged,
+                                                                ReadOnlyRootFilesystem:   &readonly,
+                                                                RunAsGroup:               &user,
+                                                                RunAsUser:                &user,
                                                         },
                                                 },
                                         },
-                                        TerminationGracePeriodSeconds: &amp;graceperiod,
+                                        TerminationGracePeriodSeconds: &graceperiod,
                                         Tolerations: []core.Toleration{{
                                                 Operator: "Exists",
                                         }},
-                                        SecurityContext: &amp;core.PodSecurityContext{
-                                                FSGroup: &amp;user,
+                                        SecurityContext: &core.PodSecurityContext{
+                                                FSGroup: &user,
                                         },
                                 },
                         },
@@ -350,7 +350,7 @@ func Test_getProvider(t *testing.T) {
 	provider := getProvider()
 	defer getProvider()
 
-	p := &amp;golangsdk.ProviderClient{
+	p := &golangsdk.ProviderClient{
 		UserID: "91dca41cc55e4614aaca83b78af8ddc5",
 	}
 	th.CheckDeepEquals(t, p.UserID, provider.UserID)

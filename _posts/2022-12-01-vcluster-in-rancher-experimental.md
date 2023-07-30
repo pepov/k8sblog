@@ -110,21 +110,21 @@ spec:
 
 Dann haben wir den vcluster im Rancher:
 
-<img src="/k8sblog/images/2022-12-01-1.png" width="950" height="330" />
+<img src="/images/2022-12-01-1.png" width="950" height="330" />
 
 Upps, haben wir jetzt noch einen vcluster im vcluster erstellt? Das ist möglich. Ich lade die kubeconfig für den ersten
 vcluster herunter und in diesem Context rufe ich das `helm upgrade -i` nochmal auf, oder nutze `vcluster create`
 
 Aber Obacht:
 
-<img src="/k8sblog/images/2022-12-01-2.png" width="950" height="330" />
+<img src="/images/2022-12-01-2.png" width="950" height="330" />
 
 Die Resourcen werden im Upstream-Cluster mit vcluster Namen und Namespace angezeigt. Da diese Felder eine begrenzte
 Länge von 63 Zeichen haben, kann es schnell zu Fehlermeldungen im Kubernetes kommen. Deswegen sollte man immer kurze
 Namen wählen.
 
 
-<img src="/k8sblog/images/2022-12-01-3.png" width="950" height="330" />
+<img src="/images/2022-12-01-3.png" width="950" height="330" />
 
 Die Workload im vcluster ist noch sehr übersichtlich, es läuft nur der Rancher- und der Fleet-Agent.
 
@@ -410,9 +410,9 @@ Mit `loft start` start man den Registrierungsprozess beim Loft Dienst. Der Agent
 uns diese Verwaltungswebseite:
 
 
-<img src="/k8sblog/images/2022-12-01-4.png" width="950" height="330" />
+<img src="/images/2022-12-01-4.png" width="950" height="330" />
 
-<img src="/k8sblog/images/2022-12-01-5.png" width="950" height="330" />
+<img src="/images/2022-12-01-5.png" width="950" height="330" />
 
 
 # Fazit

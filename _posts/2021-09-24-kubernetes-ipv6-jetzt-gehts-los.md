@@ -18,7 +18,7 @@ zur Verfuegung. Das sind 18 446.744.073.709.551.616 IP-Adressen im Bereich von 	
 
 Schauen wir uns die Netzwerkkonfiguration unseres DSL-Routers an:
 
-<img src="/k8sblog/images/2021-09-24-1.png" width="900" height="450" />
+<img src="/images/2021-09-24-1.png" width="900" height="450" />
 
 Ganz unten haben wir einen nutzbaren IPv6 Adressbereich fuer das Heimnetzwerk. Das grau hinterlegte Feld ist nicht fest. Das heisst: leider Gottes wechselt dieser Adressbereich alle 24 Stunden. Sofern die IPv6 Adressen im Heimnetzwerk per DHCP vergeben werden, ist das fuer die Endgeraete kein Problem. Im Kubernetes-Cluster passiert die interne Adressvergabe anders. An dieser Stelle muessen wir auf Unique Local Adresses (ULA) bzw. <a href="https://de.wikipedia.org/wiki/IPv6#Unique_Local_Unicast">Unique Local Unicast</a> ausweichen. Im IPv6 Adressbereich gibt es dazu den Prefix fc::/7. Das ist vergleichbar mit 10:0.0.0/8 oder 192.168.0.0/16 im IPv4 Bereich. Es kann also zu Ueberschneidungen bei 2 privaten bzw. lokalen Netzen kommen. Wie aber im Bild zu sehen ist, hat uns unser Provider auch einen lokalen Adressbereich zugewiesen. Dieser befindet sich im Prefix fd::/7, hier fd45:0a71:55a6:0001::1
 Dieser Bereich ist fest und somit fuer unseren Kubernetes-Cluster geeignet
@@ -387,4 +387,4 @@ Das Programm laeuft mit einem <a href="https://github.com/eumel8/klipper-lb/tree
 Voila! Fortan sollten unsere Dienste ueber IPv6 erreichbar sein. Und unsere Workload hat Verbindung zur IPv6 Welt.
 War das nicht einfach?
 
-<img src="/k8sblog/images/2021-09-24-2.png" />
+<img src="/images/2021-09-24-2.png" />

@@ -245,7 +245,7 @@ func Test_getProvider(t *testing.T) {
 	provider := getProvider()
 	defer getProvider()
 
-	p := &amp;golangsdk.ProviderClient{
+	p := &golangsdk.ProviderClient{
 		UserID: "91dca41cc55e4614aaca83b78af8ddc5",
 	}
 	th.CheckDeepEquals(t, p.UserID, provider.UserID)

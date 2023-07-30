@@ -59,12 +59,12 @@ The demo app is running in the cluster, has automatically access to the Kubernet
 What works in the laboratory does not necessarily have to work in production. There is a <a href="https://github.com/ddosify/ddosify/releases">Go App Ddosify</a>, with which load scenarios for web applications can be simulated. The program is also available as an online service, but is chargeable after a short test phase. The program runs in many locations around the world from which you can test its service. We can also download the binary and test our demo app from our work station:
 
 ```bash
-$ ddosify -t https://oro-demoapp.mcsps.telekomcloud.com/insert -m POST -h "Content-Type: application/x-www-form-urlencoded" -b "name=value1&amp;city=value2" -l incremental -n 200000 -d 1200 -T 1
+$ ddosify -t https://oro-demoapp.mcsps.telekomcloud.com/insert -m POST -h "Content-Type: application/x-www-form-urlencoded" -b "name=value1&city=value2" -l incremental -n 200000 -d 1200 -T 1
 
 # single curl
 curl -X POST https://oro-demoapp.mcsps.telekomcloud.com/insert
    -H "Content-Type: application/x-www-form-urlencoded" 
-   -d "name=value1&amp;city=value2"
+   -d "name=value1&city=value2"
 ```
 
 200.000 new database entries in 20 minutes (therefor the Autopilot of the RDS Operate starts after 15 min).

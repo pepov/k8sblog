@@ -205,7 +205,7 @@ spec:
         imagePullPolicy: Always
         name: blogjob
         command: ["sh","-c"]
-        args: ["git clone https://github.com/eumel8/blog.git /tmp/repo &amp;&amp; cd /tmp/repo &amp;&amp; tox -edocs &amp;&amp; cp -r  html/* /tmp/blog"]
+        args: ["git clone https://github.com/eumel8/blog.git /tmp/repo && cd /tmp/repo && tox -edocs && cp -r  html/* /tmp/blog"]
         volumeMounts:
         - mountPath: /tmp/blog
           name: repo-volume
@@ -239,7 +239,7 @@ spec:
             imagePullPolicy: Always
             name: testjob
             command: ["sh","-c"]
-            args: ["git clone https://github.com/eumel8/blog.git /tmp/repo &amp;&amp; cd /tmp/repo &amp;&amp; tox -edocs &amp;&amp; cp -r  html/* /tmp/blog"]
+            args: ["git clone https://github.com/eumel8/blog.git /tmp/repo && cd /tmp/repo && tox -edocs && cp -r  html/* /tmp/blog"]
             volumeMounts:
             - mountPath: /tmp/blog
               name: repo-volume
@@ -304,7 +304,7 @@ spec:
 Zu beachten ist die <pre>livenessProbe</pre> in den Container Specs aus der Reihe der <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes">Probes</a>. Nur wenn vom Webserver mit dem gemountetem Volume ein HTTP Status 200 zurueckkommt, ist der POD am Leben und wird so zum Beispiel in einen Service aufgenommen. Achja, den brauchen wir natuerlich zum Ausliefern unseres BLOGs, zusammen mit einem Ingress Dienst. Die vollstaendige Liste von Dateien findet man auf https://github.com/eumel8/blog/tree/master/kubernetes
 
 
-<img src="/k8sblog/images/2019-12-28_2_.png" width="900" height="450" />
+<img src="/images/2019-12-28_2_.png" width="900" height="450" />
 
 Skalieren kann ich den Blog mit Erhoehen des Replicaset
 
