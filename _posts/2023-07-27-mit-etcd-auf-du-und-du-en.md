@@ -1,51 +1,51 @@
 ---
 layout: post
-tag: de
-title: "Mit etcd auf Du und Du"
-subtitle: "Kubernetes Daten aus einem etcd Backup wiederherstellen. Klingt nicht so erstrebenswert, war aber kürzlich notwendig, weil jemand alte CRDs gelöscht hat *hüstel*"
+tag: en
+title: "hobnob etcd"
+subtitle: "Recover Kubernetes data from an etcd backup. That sounds not so cosy, but was required recently, because someone deleted old CRDs"
 date: 2023-07-27
 background: '/images/k8s-cosmos.png'
 twitter: 'images/cosignwebhook.png'
 author: eumel8
 ---
 
-Nach erfolgreichem Update und Migration könnte man der Meinung sein, man brauch alte CRDs nicht mehr, wie etwa `projectalertrules.management.cattle.io`.
-Im Rancher Cluster sind sie schnell gelöscht, aber Rancher beschwert sich im weiteren Betrieb, dass die Resource fehlen ... die man eigentlich nicht mehr brauch. Also gut, soll er seine CRDs wieder haben. Am besten von einem anderen Cluster mit gleicher Konfiguration, oder aus dem Backup.
+After a successful update and migration, you might think that you no longer need old CRDs, such as `projectalertrules.management.cattle.io`.
+They are quickly deleted in the Rancher cluster, but as the operation continues, Rancher complains that the resources are missing ... which are actually no longer needed. All right, let him have his CRDs back. Preferably from another cluster with the same configuration, or from a backup.
 
 
 # RKE etcd snapshots
-Die [etcd](https://etcd.io/) ist quasi *der* key-value store für die Kubernetes-Welt. Er ist klein, schlank und läuft auch im Container.
-Im Prinzip gehts auch nur drum, einfache Daten zu verwalten und das möglichst hochredundant - also im etcd Cluster mit mindestens 3 Nodes, also Container.
-[Rancher Kubernetes Engine RKE](https://www.rancher.com/products/rke) ist wiederum ein Werkzeug, um einfach Kubernetes Cluster zu erstellen. Mit RKE kann man auch etcd snapshots erstellen, die als Backup für einen Cluster dienen. Als Ergebnis hat man alles in einer Datei, etwa `SNAPSHOT-20230707_1409.db.zip`. Wenn man diese auspackt, erhält man zum einen das RKE-Statefile, eine Datei,die den Status des RKE Clusters zum Zeitpunkt des Backups beschreibt. Und eine `SNAPSHOT-20230707_1409.db` Datei. Die ist riesengross und ist quasi DIE etcd. Die Daten sind binär, also wie da rankommen?
+The [etcd](https://etcd.io/) in fact is *the* key-value store for the Kubernetes world. Hi is small, slim, and runs also in a container.
+In principle, it's all about managing simple data and doing it as highly redundant as possible - i.e. in the etcd cluster with at least 3 nodes, i.e. containers.
+[Rancher Kubernetes Engine RKE](https://www.rancher.com/products/rke) is a tool to simply create a Kubernetes Cluster. With RKE we can create snapshots for cluster backups. As result there will be all in one file, e.g. `SNAPSHOT-20230707_1409.db.zip`. If we unpack the file, we will have a RKE state file, a file with the status of the RKE cluster in the moment of creating the backup. And a `SNAPSHOT-20230707_1409.db` file. This is really big and THE etcd. The file is binary, how to read this?
 
-# etcd dev Umgebung
-Normalerweise macht man den Restore der etcd auf dem System, wo es eigentlich läuft und dort dann direkt in die laufende Instanz. Wir wollen aber
-nur ein paar Daten rausholen, nämlich unser gelöschtes CRD. Im Internet gabs [diese Anleitung](https://neilcameronwhite.medium.com/partial-etcd-recovery-on-openshift-kubernetes-7909da28867c). Fangen wir also mal an.
+# etcd dev environment
+Normaly the restore of the etcd will performed on the system, where the etcd is running and the restore will directly pushed in the running instance. But we will restore only few data, the deleted CRD. 
+On the Internet exists [this instruction](https://neilcameronwhite.medium.com/partial-etcd-recovery-on-openshift-kubernetes-7909da28867c). Let's beginning with the procedure.
 
-Wir haben die Backupdatei auf einen frischen Ubuntu 20.04 LXD Host kopiert und nach `apt install unzip` ausgepackt.
+We habve a backup file on a fresh Ubuntu 20.04 LCD Host copied and unpack them after  `apt install unzip`.
 
-Jetzt brauchen wir noch die etcd selber.
+Now we need the etcd program itself.
 
 ```bash
 apt install etcd-server
 snap install yq etcd
 ```
 
-Es gibt da Unterschiede zwischen den (veralteten) Ubuntu Packages und den Packages von Snap. Deswegen die 2 Varianten, um Client und Server zu installieren.
+There are different versions between the (outdated) Ubuntu Packages and the Snap packages. Because of the 2 versions, we install for the client and the server.
 
-Aber jetzt können wir schon das Restore anstossen:
+But now we start the restore:
 
 ```bash
 /snap/etcd/current/bin/etcdctl snapshot restore /restore/backup/SNAPSHOT-20230707_1409.db --data-dir=/var/lib/default.etcd
 ```
 
-Und die etcd starten:
+And start the etcd:
 
 ```bash
 /snap/etcd/current/bin/etcd --name default --listen-client-urls http://localhost:2379 --advertise-client-urls http://localhost:2379 --listen-peer-urls http://localhost:2380
 ```
 
-da sollte dann was laufen und lauschen:
+that should be run and listen:
 
 ```
 2023-07-27 18:08:00.288427 I | etcdserver/api: enabled capabilities for version 3.4
@@ -55,7 +55,7 @@ da sollte dann was laufen und lauschen:
 2023-07-27 18:08:00.293225 N | embed: serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!
 ```
 
-In einem anderen Fenster kann man dann mit dem Client die etcd abfragen:
+In another terminal we can ask the etcd with the client:
 
 
 ```bash
@@ -81,7 +81,7 @@ In einem anderen Fenster kann man dann mit dem Client die etcd abfragen:
 /registry/apiextensions.k8s.io/customresourcedefinitions/assign.mutations.gatekeeper.sh
 ```
 
-So bekommt man schon mal einen Eindruck vom Aufbau der Datenbank. Es geht einfach nach API-Gruppen und Erweiterungen. Die CRDs stehen bei a wie apiextenstions und so können wir schnell unsere fehlende raussuchen:
+You should get an idea from the data structure. It goes simply at is with API groups and extenstions. The CRDs are located by  a how apiextenstions and we can fast get the missing things:
 
 
 ```bash
@@ -134,8 +134,7 @@ status:
     - v3
 ```
 
-Könnte man jetzt gleich in den Cluster wieder eindeployen. Leider gibts die API-Version gar nicht mehr. Also müssen wir das File etwas anpassen:
-
+Can be easily apply to the cluster. Unfortunatelly the API version doesn't exists anymore. We must change the file:
 
 ```bash
 % diff crd-old.yaml crd-new.yaml
@@ -157,11 +156,11 @@ Könnte man jetzt gleich in den Cluster wieder eindeployen. Leider gibts die API
 >         x-kubernetes-preserve-unknown-fields: true
 ```
 
-Die Felder `validation` und `version` gibts nicht mehr bzw. wird daraus das `schema` unter der Version. Und die API Version ist natürlich anders.
+The fields `validation` and `version` don't exists anymore or move to `schema` in the version. And the API version of course is different.
 
-Vielleicht doch noch mal der Vergleich:
+Another compare:
 
-alt:
+old:
 
 ```yaml
 ---
@@ -191,7 +190,7 @@ spec:
   preserveUnknownFields: false
 ```
 
-neu:
+new:
 
 ```yaml
 ---
@@ -220,7 +219,7 @@ spec:
   preserveUnknownFields: false
 ```
 
-Die lässt sich dann auf den Cluster deployen und das Leben geht weiter:
+This can be apply to the cluster and the life is go on:
 
 ```bash
 % kubectl apply -f crd.yaml
