@@ -2,3 +2,4 @@ _plugins
 _site
 Gemfile.lock
 .sass-cache
+assets/vendor/bootstrap.sik/
